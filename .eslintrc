@@ -1,0 +1,39 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["airbnb", "airbnb/hooks", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["@typescript-eslint", "react", "react-hooks"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "max-lines": ["error", { "max": 40 }],
+    "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 2, 100], "ignoreArrayIndexes": true, "enforceConst": true }],
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never" }],
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-unused-vars": "warn",
+    "no-await-in-loop": "off",
+    "no-duplicate-imports": "warn",
+    "quotes": ["warn", "single"],
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+      }
+    }
+  ]
+}
