@@ -1,0 +1,35 @@
+@import './libs/_normalize.scss';
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+$font-family-press: 'Press Start 2P', serif;
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: $font-family-press;
+  font-size: 14px;
+  min-height: 100%;
+  color: #fff;
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+  overflow-x: hidden;
+}
+
+header,
+footer {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+main {
+  flex-grow: 1;
+}
