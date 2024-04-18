@@ -27,7 +27,8 @@
     "no-await-in-loop": "off",
     "no-duplicate-imports": "warn",
     "quotes": ["warn", "single"],
-    "jsx-quotes": ["warn", "prefer-single"]
+    "jsx-quotes": ["warn", "prefer-single"],
+    "arrow-body-style": ["error", "as-needed"]
   },
   "settings": {
     "import/resolver": {
