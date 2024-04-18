@@ -1,7 +1,10 @@
-@import './libs/_normalize.scss';
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import './libs/_normalize';
+@import './base/fonts';
+@import './base/variables';
 
-$font-family-press: 'Press Start 2P', serif;
+* {
+  box-sizing: border-box;
+}
 
 html {
   height: 100%;
@@ -13,7 +16,8 @@ body {
   font-family: $font-family-press;
   font-size: 14px;
   min-height: 100%;
-  color: #fff;
+  padding: 1rem 0;
+  color: $color-white;
   background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
   overflow-x: hidden;
 }

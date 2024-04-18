@@ -1,0 +1,23 @@
+@import '../../styles/base/variables';
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+
+.logo {
+    text-align: right;
+    font-style: italic;
+    font-size: 35px;
+    color: $color-white;
+    text-shadow: 15px 3px 5px $color-black;
+    line-height: 0.9em;
+
+    span {
+        font-size: 25px;
+    }
+}
