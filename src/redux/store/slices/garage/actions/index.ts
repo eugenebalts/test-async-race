@@ -11,4 +11,4 @@ export const getGarage = createAsyncThunk('garage/getGarage', async () => {
   }
 });
 
-export type Undef = undefined; //temp
+export type Undef = undefined; // temp

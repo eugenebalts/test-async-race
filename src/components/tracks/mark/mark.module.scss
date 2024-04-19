@@ -13,14 +13,18 @@
   border-bottom: none;
   text-transform: uppercase;
   writing-mode: vertical-lr;
+  background-color: $color-white;
+  color: $color-black;
+  filter: brightness(0.7);
+  opacity: 0.9;
   z-index: 1;
 
   &_finish {
-    background-color: $color-secondary;
+    background-color: $color-white;
   }
 
   &_start {
-    background-color: $color-primary;
+    // background-color: $color-primary;
   }
 
   & > svg {
