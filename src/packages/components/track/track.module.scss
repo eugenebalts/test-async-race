@@ -1,0 +1,26 @@
+@import '../../styles/base/variables';
+
+.container {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px 1fr 150px;
+  align-items: flex-end;
+  border-bottom: 2px dashed $color-grey;
+}
+
+.road {
+  position: absolute;
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+
+  &__title {
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto;
+    letter-spacing: 0.2em;
+    font-family: $font-family-franklin;
+    -webkit-text-stroke: 0.5px $color-black;
+  }
+}

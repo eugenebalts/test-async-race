@@ -1,0 +1,15 @@
+@import '../../styles/base/variables';
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  border: 2px dotted $color-white;
+  border-right: none;
+  border-left: none;
+}

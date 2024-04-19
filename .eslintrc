@@ -28,7 +28,7 @@
     "no-duplicate-imports": "warn",
     "quotes": ["warn", "single"],
     "jsx-quotes": ["warn", "prefer-single"],
-    "arrow-body-style": ["error", "as-needed"]
+    "arrow-body-style": ["warn", "as-needed"]
   },
   "settings": {
     "import/resolver": {
