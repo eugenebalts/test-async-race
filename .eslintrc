@@ -9,7 +9,7 @@
     }
   },
   "rules": {
-    "max-lines": ["error", { "max": 40 }],
+    "max-lines": ["warn", { "max": 40 }],
     "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 2, 100], "ignoreArrayIndexes": true, "enforceConst": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never" }],
@@ -23,12 +23,15 @@
         "unnamedComponents": "arrow-function",
       },
     ],
+    "react-hooks/exhaustive-deps": "off",
     "no-unused-vars": "warn",
+    "no-param-reassign": "off",
     "no-await-in-loop": "off",
     "no-duplicate-imports": "warn",
     "quotes": ["warn", "single"],
     "jsx-quotes": ["warn", "prefer-single"],
-    "arrow-body-style": ["warn", "as-needed"]
+    "arrow-body-style": ["warn", "as-needed"],
+    "class-methods-use-this": ["off"]
   },
   "settings": {
     "import/resolver": {
