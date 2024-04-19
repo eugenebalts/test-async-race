@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import styles from './layout.module.scss';
-import Container from '../../packages/components/container/container';
-import Header from '../../packages/components/header/header';
-import Footer from '../../packages/components/footer/footer';
+import Container from '../../components/container/container';
+import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 
 export default function Layout() {
   return (
