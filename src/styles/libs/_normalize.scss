@@ -163,12 +163,18 @@ p,
 ul[class],
 ol[class],
 li,
+ul
 figure,
 figcaption,
 blockquote,
 dl,
 dd {
   margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
 }
 
 // Addresses styling not present in IE 8/9, S5, Chrome
