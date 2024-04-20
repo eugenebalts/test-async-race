@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getGarage } from './actions';
+import { createCar, getGarage } from './actions';
 import { Car, GarageState } from './types';
 
 const initialState: GarageState = {
@@ -16,6 +16,9 @@ const garageSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getGarage.fulfilled, (state, { payload }) => {
       state.cars = payload as Car[];
+    });
+    builder.addCase(createCar.fulfilled, (state, { payload }) => {
+      state.cars = [...state.cars, payload as Car];
     });
   },
 });

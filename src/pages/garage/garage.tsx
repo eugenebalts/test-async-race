@@ -1,11 +1,16 @@
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store/store';
+import { createCar } from '../../redux/store/slices/garage/actions';
 import UpdateCar from '../../components/update-car/update-car';
 import NavigationBar from '../../components/navigation-bar/navigation-bar';
 import Tracks from '../../components/tracks/tracks';
 import styles from './garage.module.scss';
 
 const GaragePage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleApply = (name: string, color: string) => {
-    console.log(`TODO: CREATE CAR WITH PARAMS ${name}, ${color}`);
+    dispatch(createCar({ name, color }));
   };
 
   return (
