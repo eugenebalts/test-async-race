@@ -5,8 +5,8 @@ import { Car, GarageState } from './types';
 const initialState: GarageState = {
   cars: [],
   CAR_WIDTH: 60,
-  START_POS: 200,
-  END_POS: 80,
+  START_POS: 160,
+  END_POS: 60,
 };
 
 const garageSlice = createSlice({

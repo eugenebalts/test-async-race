@@ -2,11 +2,11 @@ import { FC } from 'react';
 import { CarProps } from './types';
 import styles from './car.module.scss';
 
-const Car: FC<CarProps> = ({ color, position }) => {
+const Car: FC<CarProps> = ({ color }) => {
   const CAR_WIDTH = 60;
 
   return (
-    <div className={styles.wrapper} style={{ left: position - CAR_WIDTH }}>
+    <div className={styles.wrapper}>
       <svg
         width={CAR_WIDTH}
         xmlns='http://www.w3.org/2000/svg'
