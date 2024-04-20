@@ -40,7 +40,7 @@ const UpdateCar: FC<UpdateCarProps> = ({
     event.preventDefault();
 
     if (formRef?.current?.reportValidity()) {
-      onApply(name, color);
+      onApply(name.trim(), color.trim());
       handleClose();
     }
   };
