@@ -7,6 +7,7 @@ const CustomButton: FC<ButtonProps> = ({
   content,
   variant = 'contained',
   color = 'primary',
+  type = 'button',
   onClick,
 }) => (
   <Button
@@ -14,6 +15,7 @@ const CustomButton: FC<ButtonProps> = ({
     variant={variant}
     color={color}
     onClick={onClick}
+    type={type}
   >
     {content}
   </Button>

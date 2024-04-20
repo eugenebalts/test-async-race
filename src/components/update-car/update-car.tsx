@@ -1,5 +1,5 @@
 import { Dialog } from '@mui/material';
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import BuildIcon from '@mui/icons-material/Build';
 import UpdateName from './name/name';
 import CloseButton from '../close-button/close-button';
@@ -17,6 +17,7 @@ const UpdateCar: FC<UpdateCarProps> = ({
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(initialData.name);
   const [color, setColor] = useState(initialData.color);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleClickOpen = () => {
     setColor('#ffffff'); // temp
@@ -35,9 +36,13 @@ const UpdateCar: FC<UpdateCarProps> = ({
     setColor(inputColor);
   };
 
-  const handleApply = () => {
-    onApply(name, color);
-    handleClose();
+  const handleApply = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (formRef?.current?.reportValidity()) {
+      onApply(name, color);
+      handleClose();
+    }
   };
 
   return (
@@ -51,7 +56,7 @@ const UpdateCar: FC<UpdateCarProps> = ({
       />
       <Dialog className={styles.dialog} open={open} onClose={handleClose}>
         <CloseButton onClose={handleClose} />
-        <div className={styles.content}>
+        <form className={styles.content} ref={formRef} onSubmit={handleApply}>
           <h3>Car params</h3>
           <div className={styles.list}>
             <div className={styles.item}>
@@ -67,8 +72,8 @@ const UpdateCar: FC<UpdateCarProps> = ({
               />
             </div>
           </div>
-          <ApplyButton onClick={handleApply} />
-        </div>
+          <ApplyButton />
+        </form>
       </Dialog>
     </div>
   );

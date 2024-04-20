@@ -4,5 +4,6 @@ export interface ButtonProps {
   content: ReactNode;
   variant?: 'text' | 'outlined' | 'contained';
   color?: 'primary' | 'secondary';
-  onClick: () => void;
+  type?: 'button' | 'submit'
+  onClick?: () => void;
 }

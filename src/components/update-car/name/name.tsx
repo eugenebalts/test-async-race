@@ -25,6 +25,7 @@ const UpdateName: FC<UpdateNameProps> = ({ onChange, initialName = '' }) => {
         onChange={handleChange}
         color='primary'
         value={name}
+        required
       />
     </div>
   );
