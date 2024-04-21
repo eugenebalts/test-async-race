@@ -3,7 +3,7 @@ import { createCar, deleteCar, generateCars, getGarage, updateCar } from './acti
 import { Car, GarageState } from './types';
 
 const initialState: GarageState = {
-  cars: [],
+  cars: {},
   pages: 1,
   currentPage: 1,
   carsOnPage: 7,
@@ -18,7 +18,7 @@ const garageSlice = createSlice({
   initialState,
   reducers: {
     updatePages(state) {
-      state.pages = Math.ceil(state.cars.length / state.carsOnPage);
+      state.pages = Math.ceil(Object.keys(state.cars).length / state.carsOnPage);
     },
     updateCurrentPage(state, { payload }) {
       state.currentPage = payload;
@@ -26,25 +26,27 @@ const garageSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getGarage.fulfilled, (state, { payload }) => {
-      state.cars = payload as Car[];
+      (payload as Car[]).forEach((car) => {state.cars[car.id] = car});
     });
     builder.addCase(createCar.fulfilled, (state, { payload }) => {
-      state.cars = [...state.cars, payload as Car];
+      const newCar = payload as Car;
+
+      state.cars[newCar.id] = newCar;
     });
     builder.addCase(generateCars.fulfilled, (state, { payload }) => {
       const sortedPayload = (payload as Car[]).sort((a, b) => a.id - b.id);
-      
-      state.cars = [...state.cars, ...sortedPayload];
+
+      sortedPayload.forEach((car) => {state.cars[car.id] = car});
     });
     builder.addCase(updateCar.fulfilled, (state, { payload }) => {
-      const carIndex = state.cars.findIndex((car) => car.id === (payload as Car).id);
+      const updatedCar = payload as Car;
 
-      if (carIndex !== -1) {
-        state.cars[carIndex] = payload as Car;
-      }
+      state.cars[updatedCar.id] = updatedCar;
     });
     builder.addCase(deleteCar.fulfilled, (state, { payload }) => {
-      state.cars = state.cars.filter((car) => car.id !== payload);
+      const carId = payload;
+
+      delete state.cars[carId];
     });
   },
 });

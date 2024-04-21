@@ -26,7 +26,7 @@ const Tracks = () => {
   return (
     <div className={styles.wrapper}>
       <StartMark />
-      {cars
+      {Object.values(cars)
         .slice(Number(`${(currentPage - 1) * carsOnPage}`), currentPage * carsOnPage)
         .map((car) => (
           <MemorizedTrack id={car.id} color={car.color} name={car.name} key={car.id} />

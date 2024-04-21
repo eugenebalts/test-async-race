@@ -5,7 +5,7 @@ export interface Car {
 }
 
 export interface GarageState {
-  cars: Car[];
+  cars: Record<string, Car>;
   pages: number;
   currentPage: number;
   carsOnPage: number;
