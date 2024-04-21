@@ -13,9 +13,7 @@ const MemorizedTrack = React.memo(Track);
 const Tracks = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { updatePages } = garageActions;
-  const { cars, currentPage, carsOnPage, START_POS, END_POS } = useSelector(
-    (state: RootState) => state.garage,
-  );
+  const { cars, currentPage, carsOnPage } = useSelector((state: RootState) => state.garage);
 
   useEffect(() => {
     dispatch(getGarage());
@@ -27,13 +25,13 @@ const Tracks = () => {
 
   return (
     <div className={styles.wrapper}>
-      <StartMark position={START_POS} />
+      <StartMark />
       {cars
         .slice(Number(`${(currentPage - 1) * carsOnPage}`), currentPage * carsOnPage)
         .map((car) => (
           <MemorizedTrack id={car.id} color={car.color} name={car.name} key={car.id} />
         ))}
-      <FinishMark position={END_POS} />
+      <FinishMark />
     </div>
   );
 };

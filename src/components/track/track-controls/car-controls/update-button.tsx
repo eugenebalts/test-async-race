@@ -6,7 +6,7 @@ import UpdateCar from '../../../update-car/update-car';
 import { updateCar } from '../../../../redux/store/slices/garage/actions';
 import { CreateCarDto } from '../../../../services/endpoints/garage/types';
 
-const UpdateButton: FC<Car> = ({ id, name, color }) => {
+const UpdateCarButton: FC<Car> = ({ id, name, color }) => {
   const initialData: CreateCarDto = { name, color };
   const dispatch = useDispatch<AppDispatch>();
 
@@ -25,4 +25,4 @@ const UpdateButton: FC<Car> = ({ id, name, color }) => {
   return <UpdateCar type='update' onApply={handleApply} initialData={initialData} />;
 };
 
-export default UpdateButton;
+export default UpdateCarButton;

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createCar, generateCars, getGarage, updateCar } from './actions';
+import { createCar, deleteCar, generateCars, getGarage, updateCar } from './actions';
 import { Car, GarageState } from './types';
 
 const initialState: GarageState = {
@@ -8,9 +8,9 @@ const initialState: GarageState = {
   currentPage: 1,
   carsOnPage: 7,
   status: null,
-  CAR_WIDTH: 60,
-  START_POS: 160,
-  END_POS: 60,
+  CAR_WIDTH: '60px',
+  START_POS: '135px',
+  END_POS: '60px',
 };
 
 const garageSlice = createSlice({
@@ -42,6 +42,9 @@ const garageSlice = createSlice({
       if (carIndex !== -1) {
         state.cars[carIndex] = payload as Car;
       }
+    });
+    builder.addCase(deleteCar.fulfilled, (state, { payload }) => {
+      state.cars = state.cars.filter((car) => car.id !== payload);
     });
   },
 });

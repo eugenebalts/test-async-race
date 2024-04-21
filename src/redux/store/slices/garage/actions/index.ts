@@ -60,3 +60,13 @@ export const updateCar = createAsyncThunk('garage/updateCar', async ({id, data}:
     return Promise.reject(err);
   }
 });
+
+export const deleteCar = createAsyncThunk('garage/deleteCar', async (id: number) => {
+  try {
+    const response = await GarageApi.deleteCar(id);
+
+    return response;
+  } catch (err) {
+    return Promise.reject(err);
+  }
+});

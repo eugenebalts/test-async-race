@@ -44,12 +44,11 @@ class Api {
     }, queryParams);
   }
 
-  public async delete<T>(path: string, data: unknown, queryParams?: QueryParams): Promise<T> {
+  public async delete<T>(path: string): Promise<T> {
     return this.request<T>(`${this.baseUrl}/${path}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }, queryParams);
+    });
   }
 }
 

@@ -35,6 +35,18 @@ class GarageApi {
       throw new Error((err as Error).message);
     }
   }
+
+  async deleteCar(id: number) {
+    const path = `${this.path}/${id}`;
+
+    try {
+      await api.delete(path);
+
+      return id;
+    } catch (err) {
+      throw new Error((err as Error).message);
+    }
+  }
 }
 
 export default new GarageApi();

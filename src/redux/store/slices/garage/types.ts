@@ -10,7 +10,7 @@ export interface GarageState {
   currentPage: number;
   carsOnPage: number;
   status: null | 'pending' | 'fullfield' | 'rejected';
-  CAR_WIDTH: number;
-  START_POS: number;
-  END_POS: number;
+  CAR_WIDTH: string;
+  START_POS: string;
+  END_POS: string;
 }

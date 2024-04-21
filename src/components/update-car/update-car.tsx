@@ -45,9 +45,10 @@ const UpdateCar: FC<UpdateCarProps> = ({
   };
 
   return (
-    <div className={styles.wrapper}>
+    <>
       <CustomButton
-        variant='contained'
+        variant={type === 'create' ? 'contained' : 'outlined'}
+        color={type === 'create' ? 'primary' : 'success'}
         onClick={handleClickOpen}
         content={type === 'create' ? 'Create car' : <BuildIcon fontSize='small' />}
       />
@@ -66,7 +67,7 @@ const UpdateCar: FC<UpdateCarProps> = ({
           <ApplyButton />
         </form>
       </Dialog>
-    </div>
+    </>
   );
 };
 

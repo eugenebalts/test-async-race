@@ -3,8 +3,9 @@
 .wrapper {
   width: 100%;
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 120px 1fr;
   align-items: flex-end;
+  gap: 10px;
   border-bottom: 2px dashed $color-grey;
 }
 
