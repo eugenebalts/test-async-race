@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { garageReducer } from './slices/garage';
+import { raceReducer } from './slices/race';
 
 const store = configureStore({
   reducer: {
     garage: garageReducer,
+    race: raceReducer,
   },
 });
 
