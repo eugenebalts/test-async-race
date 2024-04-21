@@ -12,7 +12,7 @@ export const getGarage = createAsyncThunk('garage/getGarage', async () => {
 
     return response;
   } catch (err) {
-    return [];
+    return Promise.reject(err);
   }
 });
 
@@ -22,7 +22,7 @@ export const createCar = createAsyncThunk('garage/createCar', async (data: Creat
 
     return response;
   } catch (err) {
-    return Promise.resolve(err);
+    return Promise.reject(err);
   }
 });
 

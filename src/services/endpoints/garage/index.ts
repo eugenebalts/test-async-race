@@ -10,7 +10,7 @@ class GarageApi {
 
       return res;
     } catch (err) {
-      return Promise.resolve(err);
+      throw new Error((err as Error).message);
     }
   }
 
@@ -20,7 +20,7 @@ class GarageApi {
 
       return res;
     } catch (err) {
-      return Promise.resolve(err);
+      throw new Error((err as Error).message);
     }
   }
 }
