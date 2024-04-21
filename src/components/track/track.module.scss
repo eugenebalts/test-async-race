@@ -3,7 +3,7 @@
 .wrapper {
   width: 100%;
   display: grid;
-  grid-template-columns: 100px   1fr;
+  grid-template-columns: 100px 1fr;
   align-items: flex-end;
   border-bottom: 2px dashed $color-grey;
 }

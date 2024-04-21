@@ -1,5 +1,5 @@
 export interface NavigationTabProps {
-    href: string,
-    icon: React.ReactElement,
-    label: string,
+  href: string;
+  icon: React.ReactElement;
+  label: string;
 }

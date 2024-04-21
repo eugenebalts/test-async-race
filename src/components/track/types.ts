@@ -1,5 +1,5 @@
 export interface TrackProps {
-  name: string,
-  color: string,
-  position: number,
+  name: string;
+  color: string;
+  position: number;
 }

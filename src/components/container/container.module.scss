@@ -1,11 +1,10 @@
 .container {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1200px;
-  
-    @media (width < 1220px) {
-      max-width: unset;
-      width: 95%;
-    }
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+
+  @media (width < 1220px) {
+    max-width: unset;
+    width: 95%;
   }
-  
+}

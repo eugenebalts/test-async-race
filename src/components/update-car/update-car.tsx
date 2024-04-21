@@ -50,9 +50,7 @@ const UpdateCar: FC<UpdateCarProps> = ({
       <CustomButton
         variant='contained'
         onClick={handleClickOpen}
-        content={
-          type === 'create' ? 'Create car' : <BuildIcon fontSize='small' />
-        }
+        content={type === 'create' ? 'Create car' : <BuildIcon fontSize='small' />}
       />
       <Dialog className={styles.dialog} open={open} onClose={handleClose}>
         <CloseButton onClose={handleClose} />
@@ -60,16 +58,10 @@ const UpdateCar: FC<UpdateCarProps> = ({
           <h3>Car params</h3>
           <div className={styles.list}>
             <div className={styles.item}>
-              <UpdateName
-                onChange={handleChangeName}
-                initialName={initialData?.name}
-              />
+              <UpdateName onChange={handleChangeName} initialName={initialData?.name} />
             </div>
             <div className={styles.item}>
-              <UpdateColor
-                onChange={handleChangeColor}
-                initialColor={initialData?.color}
-              />
+              <UpdateColor onChange={handleChangeColor} initialColor={initialData?.color} />
             </div>
           </div>
           <ApplyButton />

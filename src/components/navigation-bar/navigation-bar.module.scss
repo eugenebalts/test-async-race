@@ -1,19 +1,18 @@
 @import '../../styles/base/variables';
 
 .wrapper {
-    & > div {
-        background-color: transparent !important;
+  & > div {
+    background-color: transparent !important;
 
-        & > button {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            color: $color-white;
-        }
+    & > button {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: $color-white;
     }
+  }
 
-    & * {
-        font-family: $font-family-press !important;
-    }
+  & * {
+    font-family: $font-family-press !important;
+  }
 }
-

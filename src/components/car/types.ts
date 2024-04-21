@@ -1,3 +1,3 @@
 export interface CarProps {
-  color: string,
+  color: string;
 }

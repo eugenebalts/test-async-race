@@ -4,12 +4,7 @@ import styles from './close-button.module.scss';
 import { CloseButtonProps } from './types';
 
 const CloseButton: React.FC<CloseButtonProps> = ({ onClose }) => (
-  <div
-    className={styles.wrapper}
-    onClick={onClose}
-    role='button'
-    aria-hidden='true'
-  >
+  <div className={styles.wrapper} onClick={onClose} role='button' aria-hidden='true'>
     <CloseIcon />
   </div>
 );

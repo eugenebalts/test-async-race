@@ -10,13 +10,7 @@ const CustomButton: FC<ButtonProps> = ({
   type = 'button',
   onClick,
 }) => (
-  <Button
-    className={styles.button}
-    variant={variant}
-    color={color}
-    onClick={onClick}
-    type={type}
-  >
+  <Button className={styles.button} variant={variant} color={color} onClick={onClick} type={type}>
     {content}
   </Button>
 );

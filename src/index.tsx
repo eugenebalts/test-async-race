@@ -5,9 +5,7 @@ import App from './App';
 import './styles/global.scss';
 import store from './redux/store/store';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement,
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <Provider store={store}>
