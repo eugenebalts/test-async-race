@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/store/store';
-import { getGarage } from '../../redux/store/slices/garage/actions';
-
-import Track from '../track/track';
+import { AppDispatch, RootState } from '../../../redux/store/store';
+import { getGarage } from '../../../redux/store/slices/garage/actions';
+import Track from '../../../components/track/track';
+import FinishMark from '../../../components/mark/finish-mark';
+import StartMark from '../../../components/mark/start-mark';
 import styles from './tracks.module.scss';
-import FinishMark from './mark/finish-mark';
-import StartMark from './mark/start-mark';
+
+const MemorizedTrack = React.memo(Track);
 
 const Tracks = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,9 +23,9 @@ const Tracks = () => {
     <div className={styles.wrapper}>
       <StartMark position={START_POS} />
       {cars.map((car) => (
-        <Track
+        <MemorizedTrack
           color={car.color}
-          name={car.name}
+          name={`#${car.id} ${car.name}`}
           key={car.id}
           position={START_POS}
         />
