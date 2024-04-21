@@ -20,7 +20,6 @@ const UpdateCar: FC<UpdateCarProps> = ({
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleClickOpen = () => {
-    setColor('#ffffff'); // temp
     setOpen(true);
   };
 

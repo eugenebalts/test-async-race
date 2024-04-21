@@ -28,9 +28,7 @@ class GarageApi {
     const path = `${this.path}/${id}`;
 
     try {
-      const res = await api.patch(path, data, {
-        id: String(id), // According to async-race-api url param 'id' is required despite the fact that it's in the path
-      });
+      const res = await api.put(path, data);
 
       return res;
     } catch (err) {

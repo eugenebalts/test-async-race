@@ -36,9 +36,17 @@ class Api {
     }, queryParams);
   }
 
-  public async patch<T>(path: string, data: unknown, queryParams?: QueryParams): Promise<T> {
+  public async put<T>(path: string, data: unknown, queryParams?: QueryParams): Promise<T> {
     return this.request<T>(`${this.baseUrl}/${path}`, {
-      method: 'PATCH',
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }, queryParams);
+  }
+
+  public async delete<T>(path: string, data: unknown, queryParams?: QueryParams): Promise<T> {
+    return this.request<T>(`${this.baseUrl}/${path}`, {
+      method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     }, queryParams);
