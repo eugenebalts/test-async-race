@@ -1,3 +1,5 @@
+import { QueryParams } from './types';
+
 class Api {
   private readonly baseUrl: string;
 
@@ -8,7 +10,7 @@ class Api {
   private async request<T>(
     url: string,
     options: RequestInit,
-    queryParams?: Record<string, string>,
+    queryParams?: QueryParams,
   ): Promise<T> {
     const queryString: string = queryParams ? new URLSearchParams(queryParams).toString() : '';
     const fullUrl: string = `${url}${queryString ? `?${queryString}` : ''}`;
@@ -22,16 +24,24 @@ class Api {
     return response.json();
   }
 
-  public async get<T>(path: string): Promise<T> {
-    return this.request<T>(`${this.baseUrl}/${path}`, { method: 'GET' });
+  public async get<T>(path: string, queryParams?: QueryParams): Promise<T> {
+    return this.request<T>(`${this.baseUrl}/${path}`, { method: 'GET' }, queryParams);
   }
 
-  public async post<T>(path: string, data: unknown): Promise<T> {
+  public async post<T>(path: string, data: unknown, queryParams?: QueryParams): Promise<T> {
     return this.request<T>(`${this.baseUrl}/${path}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    });
+    }, queryParams);
+  }
+
+  public async patch<T>(path: string, data: unknown, queryParams?: QueryParams): Promise<T> {
+    return this.request<T>(`${this.baseUrl}/${path}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }, queryParams);
   }
 }
 

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createCar, generateCars, getGarage } from './actions';
+import { createCar, generateCars, getGarage, updateCar } from './actions';
 import { Car, GarageState } from './types';
 
 const initialState: GarageState = {
@@ -32,7 +32,16 @@ const garageSlice = createSlice({
       state.cars = [...state.cars, payload as Car];
     });
     builder.addCase(generateCars.fulfilled, (state, { payload }) => {
-      state.cars = [...state.cars, ...(payload as Car[])];
+      const sortedPayload = (payload as Car[]).sort((a, b) => a.id - b.id);
+      
+      state.cars = [...state.cars, ...sortedPayload];
+    });
+    builder.addCase(updateCar.fulfilled, (state, { payload }) => {
+      const carIndex = state.cars.findIndex((car) => car.id === (payload as Car).id);
+
+      if (carIndex !== -1) {
+        state.cars[carIndex] = payload as Car;
+      }
     });
   },
 });

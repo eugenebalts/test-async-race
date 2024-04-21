@@ -31,12 +31,7 @@ const Tracks = () => {
       {cars
         .slice(Number(`${(currentPage - 1) * carsOnPage}`), currentPage * carsOnPage)
         .map((car) => (
-          <MemorizedTrack
-            color={car.color}
-            name={`#${car.id} ${car.name}`}
-            key={car.id}
-            position={START_POS}
-          />
+          <MemorizedTrack id={car.id} color={car.color} name={car.name} key={car.id} />
         ))}
       <FinishMark position={END_POS} />
     </div>

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import GarageApi from '../../../../../services/endpoints/garage/index';
-import { CreateCar } from '../../../../../services/endpoints/garage/types';
+import { CreateCarDto, UpdateCarDto } from '../../../../../services/endpoints/garage/types';
 import getRandomIndex from '../../../../../utils/getRandomIndex';
 import { CARS_BRANDS, CARS_MODELS } from '../../../../../constants/cars';
 import { Car } from '../types';
@@ -16,7 +16,7 @@ export const getGarage = createAsyncThunk('garage/getGarage', async () => {
   }
 });
 
-export const createCar = createAsyncThunk('garage/createCar', async (data: CreateCar) => {
+export const createCar = createAsyncThunk('garage/createCar', async (data: CreateCarDto) => {
   try {
     const response = await GarageApi.createCar(data);
 
@@ -49,4 +49,14 @@ export const generateCars = createAsyncThunk('garage/generateCars', async () => 
   );
 
   return generatedCars;
+});
+
+export const updateCar = createAsyncThunk('garage/updateCar', async ({id, data}: {id: number, data: UpdateCarDto}) => {
+  try {
+    const response = await GarageApi.updateCar(id, data);
+
+    return response;
+  } catch (err) {
+    return Promise.reject(err);
+  }
 });
