@@ -4,6 +4,10 @@ import { Car, GarageState } from './types';
 
 const initialState: GarageState = {
   cars: [],
+  pages: 1,
+  currentPage: 1,
+  carsOnPage: 7,
+  status: null,
   CAR_WIDTH: 60,
   START_POS: 160,
   END_POS: 60,
@@ -12,7 +16,14 @@ const initialState: GarageState = {
 const garageSlice = createSlice({
   name: 'garage',
   initialState,
-  reducers: {},
+  reducers: {
+    updatePages(state) {
+      state.pages = Math.ceil(state.cars.length / state.carsOnPage);
+    },
+    updateCurrentPage(state, { payload }) {
+      state.currentPage = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getGarage.fulfilled, (state, { payload }) => {
       state.cars = payload as Car[];
@@ -21,8 +32,7 @@ const garageSlice = createSlice({
       state.cars = [...state.cars, payload as Car];
     });
     builder.addCase(generateCars.fulfilled, (state, { payload }) => {
-      console.log(payload);
-      state.cars = [...state.cars, ...payload as Car[]];
+      state.cars = [...state.cars, ...(payload as Car[])];
     });
   },
 });

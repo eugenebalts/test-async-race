@@ -1,0 +1,9 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  & * {
+    font-family: unset !important;
+    color: white !important;
+  }
+}
