@@ -1,12 +1,34 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store/store';
 import { CarProps } from './types';
 import styles from './car.module.scss';
 
-const Car: FC<CarProps> = ({ color }) => {
+const Car: FC<CarProps> = ({ color, animationTime = null, onMount }) => {
   const CAR_WIDTH = 60;
+  const { difference } = useSelector((state: RootState) => state.race);
+
+  const carRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (carRef.current && onMount) {
+      onMount(carRef.current);
+    }
+  });
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={`${styles.wrapper} ${animationTime ? styles.wrapper_animated : ''}`}
+      style={
+        animationTime && difference
+          ? ({
+              '--animation-duration': `${animationTime / 1000}s`,
+              transform: `translateX(${difference + CAR_WIDTH}px)`,
+            } as React.CSSProperties)
+          : {}
+      }
+      ref={carRef}
+    >
       <svg
         width={CAR_WIDTH}
         xmlns='http://www.w3.org/2000/svg'

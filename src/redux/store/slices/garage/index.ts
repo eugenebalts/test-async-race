@@ -9,7 +9,7 @@ const initialState: GarageState = {
   carsOnPage: 7,
   status: null,
   CAR_WIDTH: '60px',
-  START_POS: '135px',
+  START_POS: '130px',
   END_POS: '60px',
 };
 
