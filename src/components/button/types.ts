@@ -5,5 +5,6 @@ export interface ButtonProps {
   variant?: 'text' | 'outlined' | 'contained';
   color?: 'primary' | 'secondary' | 'success' | 'error';
   type?: 'button' | 'submit';
+  disabled?: boolean;
   onClick?: () => void;
 }

@@ -8,9 +8,17 @@ const CustomButton: FC<ButtonProps> = ({
   variant = 'contained',
   color = 'primary',
   type = 'button',
+  disabled = false,
   onClick,
 }) => (
-  <Button className={styles.button} variant={variant} color={color} onClick={onClick} type={type}>
+  <Button
+    className={styles.button}
+    variant={variant}
+    color={color}
+    onClick={onClick}
+    type={type}
+    disabled={disabled}
+  >
     {content}
   </Button>
 );

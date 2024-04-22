@@ -7,6 +7,14 @@
   align-items: flex-end;
   gap: 10px;
   border-bottom: 2px dashed $color-grey;
+
+  &:nth-last-child(2) {
+    border: none;
+  }
+
+  &_broken {
+    animation: broken-car 2s infinite;
+  }
 }
 
 .road {
@@ -26,5 +34,19 @@
     letter-spacing: 0.2em;
     font-family: $font-family-franklin;
     -webkit-text-stroke: 0.5px $color-black;
+  }
+}
+
+@keyframes broken-car {
+  0% {
+    background-color: transparent;
+  }
+
+  50% {
+    background-color: rgba(255, 0, 0, 0.3);
+  }
+
+  100% {
+    background-color: transparent;
   }
 }

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RaceState } from './types';
-import { startEngine } from './actions';
-import { ThunkStartEngineResponse } from './actions/types';
+import { driveMode, startEngine } from './actions';
+import {ThunkDriveModeResponse, ThunkStartEngineResponse } from './actions/types';
 
 const initialState: RaceState = {
   carsData: {},
@@ -32,9 +32,21 @@ const raceSlice = createSlice({
     builder.addCase(startEngine.fulfilled, (state, {payload}) => {
       const { id, response } = payload as ThunkStartEngineResponse;
       state.carsData[id] = {
-        status: null,
+        status: 'started',
         trajectory: response
       }
+    })
+    builder.addCase(driveMode.fulfilled, (state, {payload}) => {
+      const { id, response } = payload as ThunkDriveModeResponse;
+
+      if (response?.success) {
+        state.carsData[id].status = 'finished';
+      }
+    })
+    builder.addCase(driveMode.rejected, (state, {error}) => {
+      const id = Number(error.message);
+
+      state.carsData[id].status = 'broken';
     })
   }
 });
