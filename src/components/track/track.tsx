@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import Car from '../car/car';
@@ -8,6 +8,9 @@ import { driveMode } from '../../redux/store/slices/race/actions';
 import styles from './track.module.scss';
 import carStyles from '../car/car.module.scss';
 import { raceActions } from '../../redux/store/slices/race';
+
+const MemorizedTrackControls = React.memo(TrackControls);
+const MemorizedCar = React.memo(Car);
 
 const Track: FC<ICar> = ({ id, name, color }) => {
   const raceData = useSelector((state: RootState) => state.race.carsData[id]);
@@ -89,10 +92,10 @@ const Track: FC<ICar> = ({ id, name, color }) => {
 
   return (
     <div className={styles.wrapper} ref={trackRef}>
-      <TrackControls id={id} name={name} color={color} />
+      <MemorizedTrackControls id={id} name={name} color={color} />
       <div className={styles.road} ref={roadRef}>
         <p className={styles.road__title}>{`#${id} ${name}`}</p>
-        <Car color={color} onMount={getCarRef} />
+        <MemorizedCar color={color} onMount={getCarRef} />
       </div>
     </div>
   );

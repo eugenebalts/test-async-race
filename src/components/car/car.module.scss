@@ -5,7 +5,6 @@
   left: 0;
   bottom: 0;
   z-index: 10;
-  transition: transform 0s linear;
 
   &_animated {
     transition: transform var(--animation-duration, 1s) linear;
