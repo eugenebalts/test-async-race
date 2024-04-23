@@ -26,6 +26,11 @@ const raceSlice = createSlice({
       if (finishPosition !== null && startPostition !== null) {
         state.difference = finishPosition - startPostition;
       }
+    },
+    informAboutStarting(state, {payload}) {
+      const id: number = payload;
+
+      state.carsData[id].status = 'drive';
     }
   },
   extraReducers: (builder) => {

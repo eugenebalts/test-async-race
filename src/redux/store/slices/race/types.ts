@@ -9,5 +9,5 @@ export interface RaceState {
 
 interface CarRaceData {
   trajectory: StartEngineResponse;
-  status: null | 'started' | 'broken' | 'finished';
+  status: null | 'started' | 'drive' | 'broken' | 'finished';
 }

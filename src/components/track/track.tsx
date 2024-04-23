@@ -12,90 +12,119 @@ import { raceActions } from '../../redux/store/slices/race';
 const MemorizedTrackControls = React.memo(TrackControls);
 const MemorizedCar = React.memo(Car);
 
+let initialDistance: number;
+
 const Track: FC<ICar> = ({ id, name, color }) => {
+  const CAR_WIDTH = 60;
+
+  const { width } = useSelector((state: RootState) => state.windowWidth);
   const raceData = useSelector((state: RootState) => state.race.carsData[id]);
   const { difference, startPostition, finishPosition } = useSelector(
     (state: RootState) => state.race,
   );
-  const { width } = useSelector((state: RootState) => state.windowWidth);
+
   const [carElement, setCarElement] = useState<HTMLElement | null>(null);
 
   const roadRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch<AppDispatch>();
-  const { updateStartPosition, updateFinishPosition, updateDifference } = raceActions;
+  const { updateStartPosition, updateFinishPosition, updateDifference, informAboutStarting } =
+    raceActions;
+
+  const getCarRef = (ref: HTMLElement) => {
+    setCarElement(ref);
+  };
+
+  const setCarAnimation = (time: number) => {
+    if (carElement) {
+      carElement.style.transition = `transform ${time / 1000}s linear`;
+    }
+  };
+
+  const resetAnimation = () => {
+    if (carElement) {
+      carElement.style.transition = 'unset';
+    }
+  };
+
+  const getTransform = () => {
+    const status = raceData?.status;
+    if (status !== undefined) {
+      if (status === 'drive' || status === 'finished') {
+        return `translateX(${(difference ?? 0) + (carElement?.clientWidth ?? 0)}px)`;
+      }
+
+      if (status === 'broken') {
+        const offsetLeftPercent =
+          (carElement!.getBoundingClientRect().left - startPostition!) / initialDistance;
+        const currentRoadWidth = finishPosition! - startPostition!;
+        const drivenFromStart = offsetLeftPercent * currentRoadWidth + carElement!.clientWidth;
+
+        return `translateX(
+        ${drivenFromStart}px)`;
+      }
+    }
+
+    return 'unset';
+  };
+
+  useEffect(() => {
+    initialDistance = finishPosition! - startPostition!;
+  });
 
   useEffect(() => {
     if (roadRef?.current) {
-      const CAR_WIDTH = 60;
       const start = roadRef.current.getBoundingClientRect().left + CAR_WIDTH;
       const end = roadRef.current.getBoundingClientRect().right - CAR_WIDTH;
 
       dispatch(updateStartPosition(start));
       dispatch(updateFinishPosition(end));
     }
-  }, [width]);
+  }, [width, roadRef.current]);
 
   useEffect(() => {
     dispatch(updateDifference());
-  }, [width, startPostition, finishPosition]);
-
-  const getCarRef = (ref: HTMLElement) => {
-    setCarElement(ref);
-  };
-
-  const setRaceAnimation = (time: number) => {
-    if (carElement) {
-      carElement.classList.add(carStyles.wrapper_animated);
-      carElement.style.setProperty('--animation-duration', `${time / 1000}s`);
-      carElement.style.setProperty(
-        'transform',
-        `translateX(${(difference ?? 0) + carElement.clientWidth}px)`,
-      );
-    }
-  };
-
-  const stopRaceAnimation = () => {
-    if (carElement) {
-      const curCarPosition = carElement?.getBoundingClientRect().left;
-
-      carElement.style.setProperty(
-        'transform',
-        `translateX(${curCarPosition - (startPostition ?? 0) + carElement.clientWidth}px)`,
-      );
-      carElement.classList.remove(carStyles.wrapper_animated);
-      carElement.style.removeProperty('--animation-duration');
-
-      carElement.classList.add(carStyles.wrapper_broken);
-    }
-  };
+  }, [startPostition, finishPosition]);
 
   useEffect(() => {
-    if (raceData?.trajectory) {
-      const { velocity, distance } = raceData.trajectory;
+    if (raceData !== undefined) {
+      const { status, trajectory } = raceData;
 
-      const raceTime = Math.round(distance / velocity);
+      switch (status) {
+        case 'started': {
+          const { velocity, distance } = trajectory;
+          const raceTime = Math.round(distance / velocity);
 
-      setRaceAnimation(raceTime);
-      dispatch(driveMode(id));
+          setCarAnimation(raceTime);
+
+          dispatch(informAboutStarting(id));
+          dispatch(driveMode(id));
+
+          break;
+        }
+
+        default:
+          if (status !== 'drive') {
+            resetAnimation();
+          }
+      }
     }
-  }, [raceData?.trajectory]);
-
-  useEffect(() => {
-    const status = raceData?.status;
-
-    if (status === 'broken') {
-      stopRaceAnimation();
-    }
-  }, [raceData?.status]);
+  }, [raceData]);
 
   return (
     <div className={styles.wrapper} ref={trackRef}>
       <MemorizedTrackControls id={id} name={name} color={color} />
       <div className={styles.road} ref={roadRef}>
         <p className={styles.road__title}>{`#${id} ${name}`}</p>
-        <MemorizedCar color={color} onMount={getCarRef} />
+        <MemorizedCar
+          color={color}
+          onMount={getCarRef}
+          classNames={[raceData?.status === 'broken' ? carStyles.wrapper_broken : '']}
+          additionalStyles={{
+            transform: getTransform(),
+          }}
+        />
       </div>
     </div>
   );

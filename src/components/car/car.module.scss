@@ -6,10 +6,6 @@
   bottom: 0;
   z-index: 10;
 
-  &_animated {
-    transition: transform var(--animation-duration, 1s) linear;
-  }
-
   &_broken {
     &::after {
       content: '';

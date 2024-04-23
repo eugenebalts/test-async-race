@@ -2,7 +2,7 @@ import { FC, useEffect, useRef } from 'react';
 import { CarProps } from './types';
 import styles from './car.module.scss';
 
-const Car: FC<CarProps> = ({ color, onMount }) => {
+const Car: FC<CarProps> = ({ color, onMount, additionalStyles = {}, classNames = [] }) => {
   const CAR_WIDTH = 60;
   const carRef = useRef<HTMLDivElement>(null);
 
@@ -13,7 +13,15 @@ const Car: FC<CarProps> = ({ color, onMount }) => {
   });
 
   return (
-    <div className={styles.wrapper} ref={carRef}>
+    <div
+      className={`${styles.wrapper} ${classNames.join(' ')}`}
+      ref={carRef}
+      style={
+        {
+          ...additionalStyles,
+        } as React.CSSProperties
+      }
+    >
       <svg
         width={CAR_WIDTH}
         xmlns='http://www.w3.org/2000/svg'

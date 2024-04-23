@@ -1,5 +1,10 @@
 export interface CarProps {
   color: string;
-  animationTime?: null | number;
+  additionalStyles?: AdditionalStyle;
+  classNames?: string[];
   onMount?: (ref: HTMLElement) => void;
+}
+
+interface AdditionalStyle {
+  [property: string]: string;
 }
