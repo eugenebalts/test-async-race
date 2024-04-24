@@ -50,16 +50,17 @@ const Track: FC<ICar> = ({ id, name, color }) => {
 
   const getTransform = () => {
     const status = raceData?.status;
-    if (status !== undefined) {
+
+    if (status !== undefined && carElement) {
       if (status === 'drive' || status === 'finished') {
-        return `translateX(${(difference ?? 0) + (carElement?.clientWidth ?? 0)}px)`;
+        return `translateX(${difference + carElement.clientWidth}px)`;
       }
 
       if (status === 'broken') {
         const offsetLeftPercent =
-          (carElement!.getBoundingClientRect().left - startPostition!) / initialDistance;
-        const currentRoadWidth = finishPosition! - startPostition!;
-        const drivenFromStart = offsetLeftPercent * currentRoadWidth + carElement!.clientWidth;
+          (carElement.getBoundingClientRect().left - startPostition) / initialDistance;
+        const currentRoadWidth = finishPosition - startPostition;
+        const drivenFromStart = offsetLeftPercent * currentRoadWidth + carElement.clientWidth;
 
         return `translateX(
         ${drivenFromStart}px)`;
@@ -70,7 +71,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   };
 
   useEffect(() => {
-    initialDistance = finishPosition! - startPostition!;
+    initialDistance = finishPosition - startPostition;
   });
 
   useEffect(() => {
@@ -81,35 +82,34 @@ const Track: FC<ICar> = ({ id, name, color }) => {
       dispatch(updateStartPosition(start));
       dispatch(updateFinishPosition(end));
     }
-  }, [width, roadRef.current]);
+  }, [width]);
 
   useEffect(() => {
     dispatch(updateDifference());
   }, [startPostition, finishPosition]);
 
   useEffect(() => {
-    if (raceData !== undefined) {
+    if (raceData) {
       const { status, trajectory } = raceData;
 
-      switch (status) {
-        case 'started': {
-          const { velocity, distance } = trajectory;
-          const raceTime = Math.round(distance / velocity);
+      if (status === 'drive') {
+        return;
+      }
 
-          setCarAnimation(raceTime);
+      if (status === 'started') {
+        const { velocity, distance } = trajectory;
+        const raceTime = Math.round(distance / velocity);
 
-          dispatch(informAboutStarting(id));
-          dispatch(driveMode(id));
+        setCarAnimation(raceTime);
 
-          break;
-        }
+        dispatch(informAboutStarting(id));
+        dispatch(driveMode(id));
 
-        default:
-          if (status !== 'drive') {
-            resetAnimation();
-          }
+        return;
       }
     }
+
+    resetAnimation();
   }, [raceData]);
 
   return (
