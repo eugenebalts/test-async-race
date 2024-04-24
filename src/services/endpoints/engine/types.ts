@@ -3,6 +3,8 @@ export interface StartEngineResponse {
   distance: number;
 }
 
+export type StopEngineResponse = StartEngineResponse;
+
 export interface DriveModeResponse {
   success: boolean;
 }

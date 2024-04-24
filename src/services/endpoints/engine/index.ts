@@ -1,5 +1,5 @@
 import api from '../../api';
-import { DriveModeResponse, StartEngineResponse } from './types';
+import { DriveModeResponse, StartEngineResponse, StopEngineResponse } from './types';
 
 class EngineApi {
   private readonly path: string = 'engine';
@@ -9,6 +9,16 @@ class EngineApi {
       const res = await api.patch(this.path, {}, {id: String(id), status: 'started'})
 
       return res as StartEngineResponse;
+    } catch (err) {
+      throw new Error((err as Error).message);
+    }
+  }
+
+  async stopEngine(id: number): Promise<StopEngineResponse> {
+    try {
+      const res = await api.patch(this.path, {}, {id: String(id), status: 'stopped'})
+
+      return res as StopEngineResponse;
     } catch (err) {
       throw new Error((err as Error).message);
     }

@@ -1,12 +1,15 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import StopIcon from '@mui/icons-material/Stop';
-import { RootState } from '../../../../redux/store/store';
+import { AppDispatch, RootState } from '../../../../redux/store/store';
 import CustomButton from '../../../button/button';
+import { stopEngine } from '../../../../redux/store/slices/race/actions';
 
 const StopButton = ({ id }: { id: number }) => {
+  const dispatch = useDispatch<AppDispatch>();
   const raceData = useSelector((state: RootState) => state.race.carsData[id]);
-  const handleClick = () => {
-    console.log('stop ', id);
+
+  const handleClick = async () => {
+    dispatch(stopEngine(id));
   };
 
   return (
