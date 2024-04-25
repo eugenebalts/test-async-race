@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../redux/store/store';
-import { Car } from '../../../../redux/store/slices/garage/types';
+import { ICar } from '../../../../redux/store/slices/garage/types';
 import UpdateCar from '../../../update-car/update-car';
 import { updateCar } from '../../../../redux/store/slices/garage/actions';
 import { CreateCarDto } from '../../../../services/endpoints/garage/types';
 
-const UpdateCarButton: FC<Car> = ({ id, name, color }) => {
+const UpdateCarButton: FC<ICar> = ({ id, name, color }) => {
   const initialData: CreateCarDto = { name, color };
   const dispatch = useDispatch<AppDispatch>();
 

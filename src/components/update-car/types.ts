@@ -5,4 +5,3 @@ export interface UpdateCarProps {
   onApply: (name: string, color: string) => void;
   initialData?: CreateCarDto;
 }
-

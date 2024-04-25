@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { NavigationTabProps } from '../types';
+import { INavigationTabProps } from '../types';
 import styles from '../navigation-bar.module.scss';
 
-const NavigationTab: FC<NavigationTabProps> = ({ href, icon, label }) => {
+const NavigationTab: FC<INavigationTabProps> = ({ href, icon, label }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {

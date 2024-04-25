@@ -1,10 +1,10 @@
-export interface CarProps {
-  color: string;
-  additionalStyles?: AdditionalStyle;
-  classNames?: string[];
-  onMount?: (ref: HTMLElement) => void;
+interface IAdditionalStyles {
+  [property: string]: string;
 }
 
-interface AdditionalStyle {
-  [property: string]: string;
+export interface ICarProps {
+  color: string;
+  additionalStyles?: IAdditionalStyles;
+  classNames?: string[];
+  onMount?: (ref: HTMLElement) => void;
 }

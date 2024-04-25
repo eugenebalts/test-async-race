@@ -1,3 +1,3 @@
-export interface CloseButtonProps {
+export interface ICloseButtonProps {
   onClose: () => void;
 }

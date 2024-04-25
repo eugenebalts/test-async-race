@@ -1,5 +1,5 @@
-import { Car } from '../../../redux/store/slices/garage/types';
+import { ICar } from '../../../redux/store/slices/garage/types';
 
-export type CreateCarDto = Omit<Car, 'id'>;
+export type CreateCarDto = Omit<ICar, 'id'>;
 
 export type UpdateCarDto = Partial<CreateCarDto>;

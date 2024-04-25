@@ -8,12 +8,12 @@ export const startEngine = createAsyncThunk('race/startEngine', async (id: numbe
 
     return {
       id,
-      response: res
+      response: res,
     } as ThunkStartEngineResponse;
   } catch (err) {
     return Promise.reject(err);
-  } 
-})
+  }
+});
 
 export const stopEngine = createAsyncThunk('race/stopEngine', async (id: number) => {
   try {
@@ -22,18 +22,27 @@ export const stopEngine = createAsyncThunk('race/stopEngine', async (id: number)
     return id;
   } catch (err) {
     return Promise.reject(err);
-  } 
-})
+  }
+});
 
-export const driveMode = createAsyncThunk('race/driveMode', async (id: number) => {
-  try {
-    const res = await EngineApi.driveMode(id);
+export const driveMode = createAsyncThunk(
+  'race/driveMode',
+  async ({ id, raceId }: { id: number; raceId: number }) => {
+    try {
+      const res = await EngineApi.driveMode(id);
 
-    return {
-      id,
-      response: res
-    } as ThunkDriveModeResponse;
-  } catch (err) {
-    return Promise.reject(id);
-  } 
-})
+      return {
+        id,
+        response: res,
+        raceId,
+      } as ThunkDriveModeResponse;
+    } catch (err) {
+      const response = {
+        id,
+        raceId,
+      };
+
+      return Promise.reject(JSON.stringify(response));
+    }
+  },
+);

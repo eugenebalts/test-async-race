@@ -2,14 +2,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import StopIcon from '@mui/icons-material/Stop';
 import { AppDispatch, RootState } from '../../../../redux/store/store';
 import CustomButton from '../../../button/button';
-import { stopEngine } from '../../../../redux/store/slices/race/actions';
+import { raceActions } from '../../../../redux/store/slices/race';
 
 const StopButton = ({ id }: { id: number }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const raceData = useSelector((state: RootState) => state.race.carsData[id]);
+  const status = useSelector((state: RootState) => state.race.carsData[id]?.status);
+
+  const { switchModeToStop } = raceActions;
 
   const handleClick = async () => {
-    dispatch(stopEngine(id));
+    dispatch(switchModeToStop(id));
   };
 
   return (
@@ -18,7 +20,7 @@ const StopButton = ({ id }: { id: number }) => {
       color='secondary'
       content={<StopIcon fontSize='small' />}
       onClick={handleClick}
-      disabled={!raceData?.status}
+      disabled={status === undefined ? true : status === 'stopped'}
     />
   );
 };

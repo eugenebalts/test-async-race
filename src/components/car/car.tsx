@@ -1,9 +1,9 @@
 import { FC, useEffect, useRef } from 'react';
-import { CarProps } from './types';
+import { ICarProps } from './types';
+import { CAR_WIDTH } from '../../constants';
 import styles from './car.module.scss';
 
-const Car: FC<CarProps> = ({ color, onMount, additionalStyles = {}, classNames = [] }) => {
-  const CAR_WIDTH = 60;
+const Car: FC<ICarProps> = ({ color, onMount, additionalStyles = {}, classNames = [] }) => {
   const carRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -1,16 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createCar, deleteCar, generateCars, getGarage, updateCar } from './actions';
-import { GarageState } from './types';
+import { IGarageState } from './types';
 
-const initialState: GarageState = {
+const initialState: IGarageState = {
   cars: {},
   pages: 1,
   currentPage: 1,
   carsOnPage: 7,
   status: null,
-  CAR_WIDTH: '60px',
-  START_POS: '130px',
-  END_POS: '60px',
 };
 
 const garageSlice = createSlice({
@@ -26,7 +23,9 @@ const garageSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getGarage.fulfilled, (state, { payload }) => {
-      payload.forEach((car) => {state.cars[car.id] = car});
+      payload.forEach((car) => {
+        state.cars[car.id] = car;
+      });
     });
     builder.addCase(createCar.fulfilled, (state, { payload }) => {
       const newCar = payload;
@@ -36,7 +35,9 @@ const garageSlice = createSlice({
     builder.addCase(generateCars.fulfilled, (state, { payload }) => {
       const sortedPayload = payload.sort((a, b) => a.id - b.id);
 
-      sortedPayload.forEach((car) => {state.cars[car.id] = car});
+      sortedPayload.forEach((car) => {
+        state.cars[car.id] = car;
+      });
     });
     builder.addCase(updateCar.fulfilled, (state, { payload }) => {
       const updatedCar = payload;

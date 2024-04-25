@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import Car from '../car/car';
 import TrackControls from './track-controls/track-controls';
-import { Car as ICar } from '../../redux/store/slices/garage/types';
-import { driveMode } from '../../redux/store/slices/race/actions';
+import { ICar } from '../../redux/store/slices/garage/types';
+import { driveMode, startEngine, stopEngine } from '../../redux/store/slices/race/actions';
+import { raceActions } from '../../redux/store/slices/race';
+import { CAR_WIDTH } from '../../constants';
 import styles from './track.module.scss';
 import carStyles from '../car/car.module.scss';
-import { raceActions } from '../../redux/store/slices/race';
 
 const MemorizedTrackControls = React.memo(TrackControls);
 const MemorizedCar = React.memo(Car);
@@ -15,13 +16,12 @@ const MemorizedCar = React.memo(Car);
 let initialDistance: number;
 
 const Track: FC<ICar> = ({ id, name, color }) => {
-  const CAR_WIDTH = 60;
-
   const { width } = useSelector((state: RootState) => state.windowWidth);
-  const raceData = useSelector((state: RootState) => state.race.carsData[id]);
+  const carData = useSelector((state: RootState) => state.race.carsData[id]);
   const { difference, startPostition, finishPosition } = useSelector(
     (state: RootState) => state.race,
   );
+  const { isStarted, raceId, isSingle } = useSelector((state: RootState) => state.race.raceData);
 
   const [carElement, setCarElement] = useState<HTMLElement | null>(null);
 
@@ -29,8 +29,14 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   const trackRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch<AppDispatch>();
-  const { updateStartPosition, updateFinishPosition, updateDifference, informAboutStarting } =
-    raceActions;
+  const {
+    updateStartPosition,
+    updateFinishPosition,
+    updateDifference,
+    switchModeToStart,
+    switchModeToStop,
+    switchModeToDrive,
+  } = raceActions;
 
   const getCarRef = (ref: HTMLElement) => {
     setCarElement(ref);
@@ -49,13 +55,9 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   };
 
   const getTransform = () => {
-    const status = raceData?.status;
+    const status = carData?.status;
 
-    if (status !== undefined && carElement) {
-      if (status === 'drive' || status === 'finished') {
-        return `translateX(${difference + carElement.clientWidth}px)`;
-      }
-
+    if (status !== undefined && status !== 'started' && status !== 'stopped' && carElement) {
       if (status === 'broken') {
         const offsetLeftPercent =
           (carElement.getBoundingClientRect().left - startPostition) / initialDistance;
@@ -65,6 +67,8 @@ const Track: FC<ICar> = ({ id, name, color }) => {
         return `translateX(
         ${drivenFromStart}px)`;
       }
+
+      return `translateX(${difference + carElement.clientWidth}px)`;
     }
 
     return 'unset';
@@ -89,28 +93,49 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   }, [startPostition, finishPosition]);
 
   useEffect(() => {
-    if (raceData) {
-      const { status, trajectory } = raceData;
-
-      if (status === 'drive') {
-        return;
+    if (isStarted) {
+      if (!isSingle) {
+        dispatch(switchModeToStart({ id, isSingle: false }));
       }
-
-      if (status === 'started') {
-        const { velocity, distance } = trajectory;
-        const raceTime = Math.round(distance / velocity);
-
-        setCarAnimation(raceTime);
-
-        dispatch(informAboutStarting(id));
-        dispatch(driveMode(id));
-
-        return;
-      }
+    } else {
+      dispatch(switchModeToStop(id));
     }
+  }, [isStarted]);
 
-    resetAnimation();
-  }, [raceData]);
+  useEffect(() => {
+    const status = carData?.status;
+
+    switch (status) {
+      case 'started':
+        dispatch(startEngine(id));
+        break;
+
+      case 'drive':
+        dispatch(driveMode({ id, raceId }));
+        break;
+      case 'stopped':
+        resetAnimation();
+        dispatch(stopEngine(id));
+        break;
+
+      default:
+        resetAnimation();
+        break;
+    }
+  }, [carData?.status]);
+
+  useEffect(() => {
+    const trajectory = carData?.trajectory;
+
+    if (trajectory) {
+      const { velocity, distance } = trajectory;
+      const raceTime = Math.round(distance / velocity);
+
+      setCarAnimation(raceTime);
+
+      dispatch(switchModeToDrive(id));
+    }
+  }, [carData?.trajectory]);
 
   return (
     <div className={styles.wrapper} ref={trackRef}>
@@ -120,7 +145,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
         <MemorizedCar
           color={color}
           onMount={getCarRef}
-          classNames={[raceData?.status === 'broken' ? carStyles.wrapper_broken : '']}
+          classNames={[carData?.status === 'broken' ? carStyles.wrapper_broken : '']}
           additionalStyles={{
             transform: getTransform(),
           }}

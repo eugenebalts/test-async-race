@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import GarageApi from '../../../../../services/endpoints/garage/index';
 import { CreateCarDto, UpdateCarDto } from '../../../../../services/endpoints/garage/types';
 import getRandomIndex from '../../../../../utils/getRandomIndex';
-import { CARS_BRANDS, CARS_MODELS } from '../../../../../constants/cars';
-import { Car } from '../types';
+import { CARS_BRANDS, CARS_MODELS } from '../../../../../constants';
+import { ICar } from '../types';
 import getRandomColor from '../../../../../utils/getRandomColor';
 
 export const getGarage = createAsyncThunk('garage/getGarage', async () => {
@@ -28,7 +28,7 @@ export const createCar = createAsyncThunk('garage/createCar', async (data: Creat
 
 export const generateCars = createAsyncThunk('garage/generateCars', async () => {
   const emptyMap = Array.from({ length: 100 });
-  const generatedCars: Car[] = [];
+  const generatedCars: ICar[] = [];
 
   await Promise.allSettled(
     emptyMap.map(async () => {
@@ -41,7 +41,7 @@ export const generateCars = createAsyncThunk('garage/generateCars', async () => 
       try {
         const response = await GarageApi.createCar({ name, color });
 
-        generatedCars.push(response as Car);
+        generatedCars.push(response);
       } catch (err) {
         throw new Error(`Cannot create car with error ${err}`);
       }
@@ -51,15 +51,18 @@ export const generateCars = createAsyncThunk('garage/generateCars', async () => 
   return generatedCars;
 });
 
-export const updateCar = createAsyncThunk('garage/updateCar', async ({id, data}: {id: number, data: UpdateCarDto}) => {
-  try {
-    const response = await GarageApi.updateCar(id, data);
+export const updateCar = createAsyncThunk(
+  'garage/updateCar',
+  async ({ id, data }: { id: number; data: UpdateCarDto }) => {
+    try {
+      const response = await GarageApi.updateCar(id, data);
 
-    return response;
-  } catch (err) {
-    return Promise.reject(err);
-  }
-});
+      return response;
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  },
+);
 
 export const deleteCar = createAsyncThunk('garage/deleteCar', async (id: number) => {
   try {

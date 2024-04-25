@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Button } from '@mui/material';
-import { ButtonProps } from './types';
+import { IButtonProps } from './types';
 import styles from './button.module.scss';
 
-const CustomButton: FC<ButtonProps> = ({
+const CustomButton: FC<IButtonProps> = ({
   content,
   variant = 'contained',
   color = 'primary',

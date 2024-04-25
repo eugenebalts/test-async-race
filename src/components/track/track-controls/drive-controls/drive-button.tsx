@@ -1,15 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../redux/store/store';
-import { startEngine } from '../../../../redux/store/slices/race/actions';
 import CustomButton from '../../../button/button';
+import { raceActions } from '../../../../redux/store/slices/race';
 
 const DriveButton = ({ id }: { id: number }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const raceData = useSelector((state: RootState) => state.race.carsData[id]);
+  const status = useSelector((state: RootState) => state.race.carsData[id]?.status);
+  const { switchModeToStart } = raceActions;
 
   const handleClick = async () => {
-    dispatch(startEngine(id));
+    dispatch(switchModeToStart({ id, isSingle: true }));
   };
 
   return (
@@ -17,7 +18,7 @@ const DriveButton = ({ id }: { id: number }) => {
       variant='text'
       content={<PlayArrowIcon fontSize='small' />}
       onClick={handleClick}
-      disabled={!!raceData?.status}
+      disabled={!!status}
     />
   );
 };

@@ -4,6 +4,7 @@ import { createCar } from '../../../redux/store/slices/garage/actions';
 import CreateCar from '../../../components/update-car/update-car';
 import styles from './garage-controls.module.scss';
 import GenerateCarsBtn from './generate-cars/generate-cars';
+import RaceControls from './race-controls/race-controls';
 
 const GarageControls = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,6 +15,9 @@ const GarageControls = () => {
 
   return (
     <ul className={styles.list}>
+      <li>
+        <RaceControls />
+      </li>
       <li>
         <CreateCar type='create' onApply={handleApply} />
       </li>

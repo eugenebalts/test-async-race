@@ -43,3 +43,7 @@ export const CARS_MODELS = [
   'XTS',
   'Model S',
 ];
+
+export const CAR_WIDTH = 60;
+export const START_POS = 130;
+export const END_POS = 60;

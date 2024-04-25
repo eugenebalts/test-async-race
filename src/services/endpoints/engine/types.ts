@@ -1,10 +1,10 @@
-export interface StartEngineResponse {
+export interface IStartEngineResponse {
   velocity: number;
   distance: number;
 }
 
-export type StopEngineResponse = StartEngineResponse;
+export type StopEngineResponse = IStartEngineResponse;
 
-export interface DriveModeResponse {
+export interface IDriveModeResponse {
   success: boolean;
 }

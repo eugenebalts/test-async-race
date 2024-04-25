@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export interface ButtonProps {
+export interface IButtonProps {
   content: ReactNode;
   variant?: 'text' | 'outlined' | 'contained';
   color?: 'primary' | 'secondary' | 'success' | 'error';

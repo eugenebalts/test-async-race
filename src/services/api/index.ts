@@ -29,27 +29,39 @@ class Api {
   }
 
   public async post<T>(path: string, data: unknown, queryParams?: QueryParams): Promise<T> {
-    return this.request<T>(`${this.baseUrl}/${path}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }, queryParams);
+    return this.request<T>(
+      `${this.baseUrl}/${path}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      },
+      queryParams,
+    );
   }
 
   public async put<T>(path: string, data: unknown, queryParams?: QueryParams): Promise<T> {
-    return this.request<T>(`${this.baseUrl}/${path}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }, queryParams);
+    return this.request<T>(
+      `${this.baseUrl}/${path}`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      },
+      queryParams,
+    );
   }
 
   public async patch<T>(path: string, data: unknown, queryParams?: QueryParams): Promise<T> {
-    return this.request<T>(`${this.baseUrl}/${path}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }, queryParams);
+    return this.request<T>(
+      `${this.baseUrl}/${path}`,
+      {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      },
+      queryParams,
+    );
   }
 
   public async delete<T>(path: string): Promise<T> {

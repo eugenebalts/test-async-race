@@ -1,13 +1,26 @@
-import { StartEngineResponse } from '../../../../services/endpoints/engine/types';
+import { IStartEngineResponse } from '../../../../services/endpoints/engine/types';
 
-export interface RaceState {
-  carsData: Record<string, CarRaceData>
+interface ICarRaceData {
+  trajectory: IStartEngineResponse | null;
+  status: 'started' | 'drive' | 'broken' | 'stopped' | 'finished';
+}
+
+interface IRaceData {
+  isStarted: boolean;
+  isSingle: boolean;
+  busyTracks: number[];
+  raceId: number;
+}
+
+export interface IRaceState {
+  carsData: Record<string, ICarRaceData>;
+  raceData: IRaceData;
   startPostition: number;
   finishPosition: number;
   difference: number;
 }
 
-interface CarRaceData {
-  trajectory: StartEngineResponse;
-  status: 'started' | 'drive' | 'broken' | 'finished';
+export interface ISwitchToStart {
+  id: number;
+  isSingle: boolean;
 }
