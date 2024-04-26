@@ -1,7 +1,6 @@
 import { FC, useEffect, useRef } from 'react';
 import { ICarProps } from './types';
 import { CAR_WIDTH } from '../../constants';
-import styles from './car.module.scss';
 
 const Car: FC<ICarProps> = ({ color, onMount, additionalStyles = {}, classNames = [] }) => {
   const carRef = useRef<HTMLDivElement>(null);
@@ -14,7 +13,7 @@ const Car: FC<ICarProps> = ({ color, onMount, additionalStyles = {}, classNames 
 
   return (
     <div
-      className={`${styles.wrapper} ${classNames.join(' ')}`}
+      className={classNames.join(' ')}
       ref={carRef}
       style={
         {

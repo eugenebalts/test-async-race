@@ -5,7 +5,9 @@
 
   &_hidden {
     height: 0;
-    gap: 0;
-    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-200%);
   }
 }
