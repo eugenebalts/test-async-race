@@ -1,0 +1,13 @@
+@import '../../../../styles/base/variables';
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  justify-content: center;
+  justify-items: center;
+  gap: 5px;
+  padding: 10px 0;
+  text-align: center;
+  word-break: break-all;
+  border-bottom: 2px solid $color-grey;
+}
