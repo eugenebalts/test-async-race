@@ -7,6 +7,7 @@ import Track from '../../../components/track/track';
 import FinishMark from '../../../components/mark/finish-mark';
 import StartMark from '../../../components/mark/start-mark';
 import styles from './tracks.module.scss';
+import WinnerDialog from '../winner-dialog/winner-dialog';
 
 const MemorizedTrack = React.memo(Track);
 
@@ -32,6 +33,7 @@ const Tracks = () => {
           <MemorizedTrack id={car.id} color={car.color} name={car.name} key={car.id} />
         ))}
       <FinishMark />
+      <WinnerDialog />
     </div>
   );
 };

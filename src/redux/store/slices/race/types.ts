@@ -5,11 +5,17 @@ interface ICarRaceData {
   status: 'started' | 'drive' | 'broken' | 'stopped' | 'finished';
 }
 
+interface IWinnerData {
+  id: number;
+  time: string;
+}
+
 interface IRaceData {
   isStarted: boolean;
   isSingle: boolean;
   busyTracks: number[];
   raceId: number;
+  winner: null | IWinnerData;
 }
 
 export interface IRaceState {

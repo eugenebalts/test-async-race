@@ -1,13 +1,12 @@
-import { Dialog } from '@mui/material';
 import { FC, useRef, useState } from 'react';
 import BuildIcon from '@mui/icons-material/Build';
 import UpdateName from './name/name';
-import CloseButton from '../close-button/close-button';
 import { UpdateCarProps } from './types';
 import styles from './update-car.module.scss';
 import ApplyButton from './apply-button/apply-button';
 import CustomButton from '../button/button';
 import UpdateColor from './color/color';
+import CustomDialog from '../dialog/dialog';
 
 const UpdateCar: FC<UpdateCarProps> = ({
   type,
@@ -52,8 +51,7 @@ const UpdateCar: FC<UpdateCarProps> = ({
         onClick={handleClickOpen}
         content={type === 'create' ? 'Create car' : <BuildIcon fontSize='small' />}
       />
-      <Dialog className={styles.dialog} open={open} onClose={handleClose}>
-        <CloseButton onClose={handleClose} />
+      <CustomDialog open={open} onClose={handleClose}>
         <form className={styles.content} ref={formRef} onSubmit={handleApply}>
           <h3>Car params</h3>
           <div className={styles.list}>
@@ -66,7 +64,7 @@ const UpdateCar: FC<UpdateCarProps> = ({
           </div>
           <ApplyButton />
         </form>
-      </Dialog>
+      </CustomDialog>
     </>
   );
 };

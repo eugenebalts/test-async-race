@@ -12,7 +12,6 @@ const CustomPagination = () => {
 
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     dispatch(updateCurrentPage(value));
-    console.log(value);
   };
 
   return (

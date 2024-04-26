@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IRaceState, ISwitchToStart } from './types';
 import { driveMode, startEngine, stopEngine } from './actions';
 import { ThunkDriveModeResponse, ThunkStartEngineResponse } from './actions/types';
+import calculateTravelTimeSec from '../../../../utils/calculate-travel-time';
 
 const initialState: IRaceState = {
   carsData: {},
@@ -10,6 +11,7 @@ const initialState: IRaceState = {
     isSingle: false,
     busyTracks: [],
     raceId: 0,
+    winner: null,
   },
   finishPosition: 0,
   startPostition: 0,
@@ -40,6 +42,7 @@ const raceSlice = createSlice({
       state.raceData.isStarted = false;
       state.raceData.isSingle = false;
       state.raceData.raceId = 0;
+      state.raceData.winner = null;
     },
     switchModeToStart(state, action: PayloadAction<ISwitchToStart>) {
       const { id, isSingle } = action.payload;
@@ -99,6 +102,22 @@ const raceSlice = createSlice({
 
       if (response?.success && state.carsData[id] && raceId === state.raceData.raceId) {
         state.carsData[id].status = 'finished';
+      }
+
+      const isCompetitiveRace = state.raceData.isStarted && !state.raceData.isSingle;
+
+      if (!state.raceData.winner && isCompetitiveRace) {
+        const trajectory = state.carsData[id]?.trajectory;
+        
+        if (trajectory ) {
+          const { velocity, distance } = trajectory;
+          const raceTime = calculateTravelTimeSec(velocity, distance);
+
+          state.raceData.winner = {
+            id,
+            time: `${raceTime}s`
+          };
+        }
       }
     });
     builder.addCase(driveMode.rejected, (state, { error }) => {
