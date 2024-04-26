@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import GarageApi from '../../../../../services/endpoints/garage/index';
 import { CreateCarDto, UpdateCarDto } from '../../../../../services/endpoints/garage/types';
-import getRandomIndex from '../../../../../utils/getRandomIndex';
+import getRandomIndex from '../../../../../utils/get-random-index';
 import { CARS_BRANDS, CARS_MODELS } from '../../../../../constants';
 import { ICar } from '../types';
-import getRandomColor from '../../../../../utils/getRandomColor';
+import getRandomColor from '../../../../../utils/get-random-color';
 
 export const getGarage = createAsyncThunk('garage/getGarage', async () => {
   try {

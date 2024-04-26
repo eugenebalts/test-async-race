@@ -9,7 +9,7 @@
     }
   },
   "rules": {
-    "max-lines": ["warn", { "max": 40 }],
+    "max-lines-per-function": ["warn", { "max": 40 }],
     "max-len": ["warn", { "tabWidth": 2, "code": 100 }],
     "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 2, 10, 100, 1000], "ignoreArrayIndexes": true, "enforceConst": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
