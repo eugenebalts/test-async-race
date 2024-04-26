@@ -9,6 +9,8 @@ import { raceActions } from '../../redux/store/slices/race';
 import { CAR_WIDTH } from '../../constants';
 import styles from './track.module.scss';
 import carStyles from '../car/car.module.scss';
+import truncateString from '../../utils/truncate-string';
+import calculateTravelTimeSec from '../../utils/calculate-travel-time';
 
 const MemorizedTrackControls = React.memo(TrackControls);
 const MemorizedCar = React.memo(Car);
@@ -42,9 +44,9 @@ const Track: FC<ICar> = ({ id, name, color }) => {
     setCarElement(ref);
   };
 
-  const setCarAnimation = (time: number) => {
+  const setCarAnimation = (durationSec: number) => {
     if (carElement) {
-      carElement.style.transition = `transform ${time / 1000}s linear`;
+      carElement.style.transition = `transform ${durationSec}s linear`;
     }
   };
 
@@ -129,9 +131,9 @@ const Track: FC<ICar> = ({ id, name, color }) => {
 
     if (trajectory) {
       const { velocity, distance } = trajectory;
-      const raceTime = Math.round(distance / velocity);
+      const animationTime = calculateTravelTimeSec(velocity, distance);
 
-      setCarAnimation(raceTime);
+      setCarAnimation(animationTime);
 
       dispatch(switchModeToDrive(id));
     }
@@ -141,7 +143,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
     <div className={styles.wrapper} ref={trackRef}>
       <MemorizedTrackControls id={id} name={name} color={color} />
       <div className={styles.road} ref={roadRef}>
-        <p className={styles.road__title}>{`#${id} ${name}`}</p>
+        <p className={styles.road__title}>{`#${id} ${truncateString(name)}`}</p>
         <MemorizedCar
           color={color}
           onMount={getCarRef}
