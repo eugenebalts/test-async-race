@@ -102,21 +102,21 @@ const raceSlice = createSlice({
 
       if (response?.success && state.carsData[id] && raceId === state.raceData.raceId) {
         state.carsData[id].status = 'finished';
-      }
 
-      const isCompetitiveRace = state.raceData.isStarted && !state.raceData.isSingle;
+        const isCompetitiveRace = state.raceData.isStarted && !state.raceData.isSingle;
 
-      if (!state.raceData.winner && isCompetitiveRace) {
-        const trajectory = state.carsData[id]?.trajectory;
-        
-        if (trajectory ) {
-          const { velocity, distance } = trajectory;
-          const raceTime = calculateTravelTimeSec(velocity, distance);
+        if (!state.raceData.winner && isCompetitiveRace) {
+          const trajectory = state.carsData[id]?.trajectory;
+          
+          if (trajectory ) {
+            const { velocity, distance } = trajectory;
+            const raceTime = calculateTravelTimeSec(velocity, distance);
 
-          state.raceData.winner = {
-            id,
-            time: `${raceTime}s`
-          };
+            state.raceData.winner = {
+              id,
+              time: `${raceTime}s`
+            };
+          }
         }
       }
     });
