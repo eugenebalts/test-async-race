@@ -16,7 +16,7 @@ const WinnersList = () => {
 
   useEffect(() => {
     dispatch(getWinners());
-  });
+  }, []);
 
   return (
     <ul className={styles.wrapper}>
