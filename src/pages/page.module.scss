@@ -1,0 +1,11 @@
+.wrapper, .content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &_hidden {
+    height: 0;
+    gap: 0;
+    visibility: hidden;
+  }
+}

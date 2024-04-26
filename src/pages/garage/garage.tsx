@@ -1,17 +1,15 @@
-import NavigationBar from '../../components/navigation-bar/navigation-bar';
 import GaragePagination from './garage-pagination/pagination';
 import Tracks from './tracks/tracks';
 import GarageControls from './garage-controls/garage-controls';
-import styles from './garage.module.scss';
+import Page from '../page';
 
-const GaragePage = () => (
-  <div className={styles.wrapper}>
-    <NavigationBar />
+const GaragePage = ({ visible }: { visible: boolean }) => (
+  <Page visible={visible}>
     <h2>Garage</h2>
     <GarageControls />
     <GaragePagination />
     <Tracks />
-  </div>
+  </Page>
 );
 
 export default GaragePage;

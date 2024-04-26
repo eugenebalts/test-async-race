@@ -8,7 +8,11 @@ const NavigationBar = () => (
   <div className={styles.wrapper}>
     <BottomNavigation showLabels className={styles.navigation}>
       <NavigationTab label='Garage' href='/' icon={<GarageIcon color='primary' />} />
-      <NavigationTab label='Winners' href='/winners' icon={<EmojiEventsIcon color='secondary' />} />
+      <NavigationTab
+        label='Winners'
+        href='/#winners'
+        icon={<EmojiEventsIcon color='secondary' />}
+      />
     </BottomNavigation>
   </div>
 );

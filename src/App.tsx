@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from './redux/store/store';
@@ -9,6 +9,7 @@ import { setWindowWidth } from './redux/store/slices/window';
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,13 +24,10 @@ const App = () => {
   });
 
   return (
-    <Routes>
-      <Route path='/' element={<Layout />}>
-        <Route index element={<GaragePage />} />
-        <Route path='/winners' element={<WinnersPage />} />
-        <Route path='*' element={<Navigate to='/' />} />
-      </Route>
-    </Routes>
+    <Layout>
+      <GaragePage visible={location.hash !== ''} />
+      <WinnersPage visible={location.hash !== '#winners'} />
+    </Layout>
   );
 };
 

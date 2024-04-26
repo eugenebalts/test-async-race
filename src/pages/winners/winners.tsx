@@ -1,11 +1,7 @@
-import NavigationBar from '../../components/navigation-bar/navigation-bar';
-import styles from './winners.module.scss';
+import Page from '../page';
 
-const WinnersPage = () => (
-  <div className={styles.wrapper}>
-    <NavigationBar />
-    Winners PAGE
-  </div>
+const WinnersPage = ({ visible }: { visible: boolean }) => (
+  <Page visible={visible}>Winners PAGE</Page>
 );
 
 export default WinnersPage;
