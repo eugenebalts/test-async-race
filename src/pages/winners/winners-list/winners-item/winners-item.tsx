@@ -3,7 +3,7 @@ import Car from '../../../../components/car/car';
 import { WinnerItemProps } from './types';
 import styles from './winners-item.module.scss';
 
-const WinnerListItem: FC<WinnerItemProps> = ({ id, color, name, wins, time }) => {
+const WinnersItem: FC<WinnerItemProps> = ({ id, color, name, wins, time }) => {
   return (
     <li className={styles.wrapper}>
       <p>{id}</p>
@@ -17,4 +17,4 @@ const WinnerListItem: FC<WinnerItemProps> = ({ id, color, name, wins, time }) =>
   );
 };
 
-export default WinnerListItem;
+export default WinnersItem;
