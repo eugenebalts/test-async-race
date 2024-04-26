@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store/store';
 import { getGarage } from '../../../redux/store/slices/garage/actions';
@@ -9,7 +9,7 @@ import StartMark from '../../../components/mark/start-mark';
 import styles from './tracks.module.scss';
 import WinnerDialog from '../winner-dialog/winner-dialog';
 
-const MemorizedTrack = React.memo(Track);
+const MemorizedTrack = memo(Track);
 
 const Tracks = () => {
   const dispatch = useDispatch<AppDispatch>();

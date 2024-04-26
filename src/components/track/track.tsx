@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import Car from '../car/car';
@@ -12,8 +12,8 @@ import carStyles from '../car/car.module.scss';
 import truncateString from '../../utils/truncate-string';
 import calculateTravelTimeSec from '../../utils/calculate-travel-time';
 
-const MemorizedTrackControls = React.memo(TrackControls);
-const MemorizedCar = React.memo(Car);
+const MemorizedTrackControls = memo(TrackControls);
+const MemorizedCar = memo(Car);
 
 let initialDistance: number;
 
