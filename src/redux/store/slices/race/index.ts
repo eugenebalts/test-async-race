@@ -13,8 +13,6 @@ const initialState: IRaceState = {
     raceId: 0,
     winner: null,
   },
-  finishPosition: 0,
-  startPostition: 0,
   difference: 0,
 };
 
@@ -22,16 +20,8 @@ const raceSlice = createSlice({
   name: 'race',
   initialState,
   reducers: {
-    updateStartPosition(state, action: PayloadAction<number>) {
-      state.startPostition = action.payload;
-    },
-    updateFinishPosition(state, action: PayloadAction<number>) {
-      state.finishPosition = action.payload;
-    },
-    updateDifference(state) {
-      const { finishPosition, startPostition } = state;
-
-      state.difference = finishPosition - startPostition;
+    updateDifference(state, action: PayloadAction<number>) {
+      state.difference = action.payload;
     },
     startRace(state) {
       state.raceData.isStarted = true;

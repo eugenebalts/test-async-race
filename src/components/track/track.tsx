@@ -1,5 +1,6 @@
 import { FC, useEffect, useRef, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { motion } from 'framer-motion';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import Car from '../car/car';
 import TrackControls from './track-controls/track-controls';
@@ -8,91 +9,69 @@ import { driveMode, startEngine, stopEngine } from '../../redux/store/slices/rac
 import { raceActions } from '../../redux/store/slices/race';
 import { CAR_WIDTH } from '../../constants';
 import styles from './track.module.scss';
-import carStyles from '../car/car.module.scss';
 import truncateString from '../../utils/truncate-string';
 import calculateTravelTimeSec from '../../utils/calculate-travel-time';
+import extractNumericValuesFromString from '../../utils/extract-numeric-value-from-string';
 
 const MemorizedTrackControls = memo(TrackControls);
 const MemorizedCar = memo(Car);
 
-let initialDistance: number;
-
 const Track: FC<ICar> = ({ id, name, color }) => {
   const { width } = useSelector((state: RootState) => state.windowWidth);
   const carData = useSelector((state: RootState) => state.race.carsData[id]);
-  const { difference, startPostition, finishPosition } = useSelector(
-    (state: RootState) => state.race,
-  );
+  const { difference } = useSelector((state: RootState) => state.race);
   const { isStarted, raceId, isSingle } = useSelector((state: RootState) => state.race.raceData);
 
-  const [carElement, setCarElement] = useState<HTMLElement | null>(null);
+  const [animationDuration, setAnimationDuration] = useState<number>();
+  const [transform, setTransform] = useState<number>();
+  const [drivenPercent, setDrivenPercent] = useState<number>(0);
+  const initialDifferenceRef = useRef<number>(0);
 
   const roadRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const motionRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch<AppDispatch>();
-  const {
-    updateStartPosition,
-    updateFinishPosition,
-    updateDifference,
-    switchModeToStart,
-    switchModeToStop,
-    switchModeToDrive,
-  } = raceActions;
-
-  const getCarRef = (ref: HTMLElement) => {
-    setCarElement(ref);
-  };
-
-  const setCarAnimation = (durationSec: number) => {
-    if (carElement) {
-      carElement.style.transition = `transform ${durationSec}s linear`;
-    }
-  };
-
-  const resetAnimation = () => {
-    if (carElement) {
-      carElement.style.transition = 'unset';
-    }
-  };
+  const { updateDifference, switchModeToStart, switchModeToStop, switchModeToDrive } = raceActions;
 
   const getTransform = () => {
     const status = carData?.status;
 
-    if (status !== undefined && status !== 'started' && status !== 'stopped' && carElement) {
+    if (status && status !== 'started' && status !== 'stopped') {
       if (status === 'broken') {
-        const offsetLeftPercent =
-          (carElement.getBoundingClientRect().left - startPostition) / initialDistance;
-        const currentRoadWidth = finishPosition - startPostition;
-        const drivenFromStart = offsetLeftPercent * currentRoadWidth + carElement.clientWidth;
+        if (motionRef.current && !drivenPercent) {
+          const currentTransform = motionRef?.current?.style.transform;
+          const currentTranslateX = extractNumericValuesFromString(currentTransform, 'translateX');
+          const newDrivenPercent = currentTranslateX / initialDifferenceRef.current;
+          setDrivenPercent(newDrivenPercent);
 
-        return `translateX(
-        ${drivenFromStart}px)`;
+          return newDrivenPercent * difference;
+        }
+
+        return drivenPercent * difference;
       }
 
-      return `translateX(${difference + carElement.clientWidth}px)`;
+      return difference;
     }
 
-    return 'unset';
+    return 0;
   };
-
-  useEffect(() => {
-    initialDistance = finishPosition - startPostition;
-  });
 
   useEffect(() => {
     if (roadRef?.current) {
       const start = roadRef.current.getBoundingClientRect().left + CAR_WIDTH;
-      const end = roadRef.current.getBoundingClientRect().right - CAR_WIDTH;
+      const finish = roadRef.current.getBoundingClientRect().right;
 
-      dispatch(updateStartPosition(start));
-      dispatch(updateFinishPosition(end));
+      if (!initialDifferenceRef.current) {
+        initialDifferenceRef.current = finish - start;
+      }
+
+      dispatch(updateDifference(finish - start));
     }
   }, [width]);
 
   useEffect(() => {
-    dispatch(updateDifference());
-  }, [startPostition, finishPosition]);
+    setTransform(getTransform());
+  }, [difference, animationDuration]);
 
   useEffect(() => {
     if (isStarted) {
@@ -115,13 +94,16 @@ const Track: FC<ICar> = ({ id, name, color }) => {
       case 'drive':
         dispatch(driveMode({ id, raceId }));
         break;
+
       case 'stopped':
-        resetAnimation();
+        setAnimationDuration(0);
+        setTransform(0);
+        setDrivenPercent(0);
         dispatch(stopEngine(id));
         break;
 
       default:
-        resetAnimation();
+        setAnimationDuration(0);
         break;
     }
   }, [carData?.status]);
@@ -133,25 +115,26 @@ const Track: FC<ICar> = ({ id, name, color }) => {
       const { velocity, distance } = trajectory;
       const animationTime = calculateTravelTimeSec(velocity, distance);
 
-      setCarAnimation(animationTime);
+      setAnimationDuration(animationTime);
 
       dispatch(switchModeToDrive(id));
     }
   }, [carData?.trajectory]);
 
   return (
-    <div className={styles.wrapper} ref={trackRef}>
+    <div className={styles.wrapper}>
       <MemorizedTrackControls id={id} name={name} color={color} />
       <div className={styles.road} ref={roadRef}>
         <p className={styles.road__title}>{`#${id} ${truncateString(name)}`}</p>
-        <MemorizedCar
-          color={color}
-          onMount={getCarRef}
-          classNames={[carData?.status === 'broken' ? carStyles.wrapper_broken : '']}
-          additionalStyles={{
-            transform: getTransform(),
+        <motion.div
+          transition={{ duration: animationDuration, ease: 'linear' }}
+          animate={{
+            x: transform,
           }}
-        />
+          ref={motionRef}
+        >
+          <MemorizedCar color={color} isBroken={carData?.status === 'broken'} />
+        </motion.div>
       </div>
     </div>
   );

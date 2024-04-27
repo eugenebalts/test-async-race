@@ -12,10 +12,6 @@
   &:nth-last-child(2) {
     border: none;
   }
-
-  &_broken {
-    animation: broken-car 2s infinite;
-  }
 }
 
 .road {
@@ -40,19 +36,5 @@
     left: 0;
     bottom: 0;
     z-index: 10;
-  }
-}
-
-@keyframes broken-car {
-  0% {
-    background-color: transparent;
-  }
-
-  50% {
-    background-color: rgba(255, 0, 0, 0.3);
-  }
-
-  100% {
-    background-color: transparent;
   }
 }

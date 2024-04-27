@@ -21,8 +21,6 @@ interface IRaceData {
 export interface IRaceState {
   carsData: Record<string, ICarRaceData>;
   raceData: IRaceData;
-  startPostition: number;
-  finishPosition: number;
   difference: number;
 }
 

@@ -1,6 +1,6 @@
 @import '../../styles/base/variables';
 
-.wrapper_broken {
+.broken {
   &::after {
     content: '';
     position: absolute;

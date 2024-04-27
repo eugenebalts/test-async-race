@@ -1,26 +1,16 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC } from 'react';
+import clsx from 'clsx';
 import { ICarProps } from './types';
 import { CAR_WIDTH } from '../../constants';
+import styles from './car.module.scss';
 
-const Car: FC<ICarProps> = ({ color, onMount, additionalStyles = {}, classNames = [] }) => {
-  const carRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (carRef.current && onMount) {
-      onMount(carRef.current);
-    }
+const Car: FC<ICarProps> = ({ color, isBroken = false }) => {
+  const carClasses = clsx('car-classes', {
+    [styles.broken]: isBroken,
   });
 
   return (
-    <div
-      className={classNames.join(' ')}
-      ref={carRef}
-      style={
-        {
-          ...additionalStyles,
-        } as React.CSSProperties
-      }
-    >
+    <div className={carClasses}>
       <svg
         width={CAR_WIDTH}
         xmlns='http://www.w3.org/2000/svg'
