@@ -8,10 +8,6 @@
   align-items: flex-end;
   gap: 10px;
   border-bottom: 2px dashed $color-grey;
-
-  &:nth-last-child(2) {
-    border: none;
-  }
 }
 
 .road {

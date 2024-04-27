@@ -9,7 +9,7 @@ import { setWindowWidth } from './redux/store/slices/window';
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const location = useLocation();
+  const { hash } = useLocation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -21,12 +21,12 @@ const App = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  });
+  }, []);
 
   return (
     <Layout>
-      <GaragePage visible={location.hash !== ''} />
-      <WinnersPage visible={location.hash !== '#winners'} />
+      <GaragePage visible={hash !== ''} />
+      <WinnersPage visible={hash !== '#winners'} />
     </Layout>
   );
 };

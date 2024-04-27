@@ -1,10 +1,12 @@
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { AppDispatch } from '../../../../redux/store/store';
-import { deleteCar } from '../../../../redux/store/slices/garage/actions';
-import CustomButton from '../../../button/button';
+import { AppDispatch } from '../../../../../redux/store/store';
+import { deleteCar } from '../../../../../redux/store/slices/garage/actions';
+import CustomButton from '../../../../button/button';
+import { IButtonWithIdProps } from '../../../../../general-types/types';
 
-const DeleteCarButton = ({ id }: { id: number }) => {
+const DeleteCarButton: FC<IButtonWithIdProps> = ({ id }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = () => {

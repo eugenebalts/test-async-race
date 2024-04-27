@@ -1,0 +1,8 @@
+@import '../../../styles/base/variables';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: $color-white !important;
+}

@@ -5,16 +5,17 @@ import CreateCar from '../../../components/update-car/update-car';
 import styles from './garage-controls.module.scss';
 import GenerateCarsBtn from './generate-cars/generate-cars';
 import RaceControls from './race-controls/race-controls';
+import { CreateCarDto } from '../../../services/endpoints/garage/types';
 
 const GarageControls = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleApply = (name: string, color: string) => {
-    dispatch(createCar({ name, color }));
+  const handleApply = (updatedCarData: CreateCarDto) => {
+    dispatch(createCar(updatedCarData));
   };
 
   return (
-    <ul className={styles.list}>
+    <ul className={styles.wrapper}>
       <li>
         <RaceControls />
       </li>

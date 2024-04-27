@@ -15,7 +15,7 @@ const CustomPagination = () => {
   };
 
   return (
-    <div className={style.pagination}>
+    <div className={style.wrapper}>
       <Pagination count={pages} page={currentPage} color='primary' onChange={handleChange} />
     </div>
   );

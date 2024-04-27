@@ -4,8 +4,7 @@ import Container from '../../components/container/container';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 
-const Layout = ({ children }: { children: ReactNode }) => {
-  return (
+const Layout = ({ children }: { children: ReactNode }) => (
     <div className={styles.wrapper}>
       <Header />
       <main>
@@ -14,6 +13,5 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <Footer />
     </div>
   );
-};
 
 export default Layout;

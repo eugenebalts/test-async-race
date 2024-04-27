@@ -1,10 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
-import styles from './name.module.scss';
-import updateStyles from '../update-car.module.scss';
 import { UpdateNameProps } from './types';
+import styles from './name.module.scss';
 
-const UpdateName: FC<UpdateNameProps> = ({ onChange, initialName = '' }) => {
+const UpdateName: FC<UpdateNameProps> = ({ onChange, initialName }) => {
   const [name, setName] = useState<string>(initialName);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,9 +15,10 @@ const UpdateName: FC<UpdateNameProps> = ({ onChange, initialName = '' }) => {
   }, [name]);
 
   return (
-    <div className={`${styles.wrapper} ${updateStyles.item__wrapper}`}>
+    <>
       <h4>Car marque</h4>
       <TextField
+        className={styles.content}
         id='outlined-basic'
         label='Type marque'
         variant='outlined'
@@ -27,7 +27,7 @@ const UpdateName: FC<UpdateNameProps> = ({ onChange, initialName = '' }) => {
         value={name}
         required
       />
-    </div>
+    </>
   );
 };
 

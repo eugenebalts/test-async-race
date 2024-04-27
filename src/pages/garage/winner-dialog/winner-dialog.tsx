@@ -28,7 +28,7 @@ const WinnerDialog = () => {
 
   return (
     <CustomDialog open={isDialogOpen} onClose={handleDialogClose} hiddenCloseButton>
-      <div className={styles.wrapper}>
+      <div className={styles.content}>
         {winner && (
           <>
             <p className={styles.row}>{`Winner: ${truncateString(cars[winner.id].name)}`}</p>
