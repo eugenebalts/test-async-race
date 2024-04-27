@@ -12,7 +12,6 @@ class WinnersApi {
       throw new Error(err instanceof Error ? err.message : 'Failed to get winners');
     }
   }
-
 }
 
 export default new WinnersApi();

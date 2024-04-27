@@ -97,14 +97,14 @@ const raceSlice = createSlice({
 
         if (!state.raceData.winner && isCompetitiveRace) {
           const trajectory = state.carsData[id]?.trajectory;
-          
-          if (trajectory ) {
+
+          if (trajectory) {
             const { velocity, distance } = trajectory;
             const raceTime = calculateTravelTimeSec(velocity, distance);
 
             state.raceData.winner = {
               id,
-              time: `${raceTime}s`
+              time: `${raceTime}s`,
             };
           }
         }

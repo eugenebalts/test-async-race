@@ -8,8 +8,8 @@ export const getWinners = createAsyncThunk('winners/getWinners', async () => {
 
     return res as IWinner[];
   } catch (err) {
-    return Promise.reject(err)
+    return Promise.reject(err);
   }
-})
+});
 
 export const emptyImport = true;
