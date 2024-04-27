@@ -7,6 +7,7 @@ import calculateTravelTimeSec from '../../../../utils/calculate-travel-time';
 const initialState: IRaceState = {
   carsData: {},
   raceData: {
+    membersForRace: 0,
     isStarted: false,
     isSingle: false,
     busyTracks: [],
@@ -23,7 +24,8 @@ const raceSlice = createSlice({
     updateDifference(state, action: PayloadAction<number>) {
       state.difference = action.payload;
     },
-    startRace(state) {
+    startRace(state, action: PayloadAction<number>) {
+      state.raceData.membersForRace = action.payload;
       state.raceData.isStarted = true;
       state.raceData.isSingle = false;
       state.raceData.raceId = new Date().getTime();
@@ -38,12 +40,11 @@ const raceSlice = createSlice({
       const { id, isSingle } = action.payload;
 
       state.carsData[id] = {
-        trajectory: null,
+        time: 0,
         status: 'started',
       };
 
       state.raceData.isStarted = true;
-      state.raceData.busyTracks.push(id);
       state.raceData.isSingle = isSingle;
     },
     switchModeToDrive(state, action: PayloadAction<number>) {
@@ -57,7 +58,7 @@ const raceSlice = createSlice({
       const id = action.payload;
 
       if (state.carsData[id]) {
-        state.carsData[id].trajectory = null;
+        state.carsData[id].time = 0;
         state.carsData[id].status = 'stopped';
       }
     },
@@ -69,7 +70,11 @@ const raceSlice = createSlice({
         const { id, response } = action.payload;
 
         if (state.carsData[id]) {
-          state.carsData[id].trajectory = response;
+          const { velocity, distance } = response;
+          const animationTime = calculateTravelTimeSec(velocity, distance);
+    
+          state.carsData[id].time = animationTime;
+          state.raceData.busyTracks.push(id);
         }
       },
     );
@@ -83,6 +88,7 @@ const raceSlice = createSlice({
       delete state.carsData[id];
 
       if (!Object.keys(state.carsData).length) {
+        state.raceData.membersForRace = 0;
         state.raceData.isStarted = false;
         state.raceData.raceId = 0;
       }
@@ -93,18 +99,15 @@ const raceSlice = createSlice({
       if (response?.success && state.carsData[id] && raceId === state.raceData.raceId) {
         state.carsData[id].status = 'finished';
 
-        const isCompetitiveRace = state.raceData.isStarted && !state.raceData.isSingle;
+        const isCompetitiveRace = state.raceData.isStarted && !state.raceData.isSingle; // MAY DELETE IS STARTED
 
         if (!state.raceData.winner && isCompetitiveRace) {
-          const trajectory = state.carsData[id]?.trajectory;
+          const time = state.carsData[id]?.time;
 
-          if (trajectory) {
-            const { velocity, distance } = trajectory;
-            const raceTime = calculateTravelTimeSec(velocity, distance);
-
+          if (time) {
             state.raceData.winner = {
               id,
-              time: `${raceTime}s`,
+              time: `${time}s`,
             };
           }
         }
@@ -116,6 +119,7 @@ const raceSlice = createSlice({
 
         if (state.carsData[id] && raceId === state.raceData.raceId) {
           state.carsData[id].status = 'broken';
+          state.carsData[id].time = 0;
         }
       }
     });

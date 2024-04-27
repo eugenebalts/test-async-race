@@ -1,7 +1,5 @@
-import { IStartEngineResponse } from '../../../../services/endpoints/engine/types';
-
 interface ICarRaceData {
-  trajectory: IStartEngineResponse | null;
+  time: number;
   status: 'started' | 'drive' | 'broken' | 'stopped' | 'finished';
 }
 
@@ -11,6 +9,7 @@ interface IWinnerData {
 }
 
 interface IRaceData {
+  membersForRace: number;
   isStarted: boolean;
   isSingle: boolean;
   busyTracks: number[];
