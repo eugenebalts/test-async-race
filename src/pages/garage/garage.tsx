@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import { IPageProps } from '../types';
-import GaragePagination from './garage-pagination/pagination';
+import GaragePagination from './garage-pagination/garage-pagination';
 import Tracks from './tracks/tracks';
 import GarageControls from './garage-controls/garage-controls';
 import Page from '../page';
