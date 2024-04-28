@@ -11,6 +11,7 @@ import { CAR_WIDTH } from '../../constants';
 import truncateString from '../../utils/truncate-string';
 import extractNumericValuesFromString from '../../utils/extract-numeric-value-from-string';
 import styles from './track.module.scss';
+import { CarRaceStatus } from '../../redux/store/slices/race/types';
 
 const MemorizedTrackControls = memo(TrackControls);
 const MemorizedCar = memo(Car);
@@ -29,7 +30,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   const roadRef = useRef<HTMLDivElement>(null);
   const motionRef = useRef<HTMLDivElement>(null);
   const initialDifferenceRef = useRef<number>(0);
-  const statusRef = useRef<string>();
+  const statusRef = useRef<CarRaceStatus>();
 
   const dispatch = useDispatch<AppDispatch>();
   const { updateDifference, switchModeToStart, switchModeToStop, switchModeToDrive, stopRace } =
@@ -84,10 +85,6 @@ const Track: FC<ICar> = ({ id, name, color }) => {
       const start = roadRef.current.getBoundingClientRect().left + CAR_WIDTH;
       const finish = roadRef.current.getBoundingClientRect().right;
 
-      if (!initialDifferenceRef.current) {
-        initialDifferenceRef.current = finish - start;
-      }
-
       dispatch(updateDifference(finish - start));
     }
   }, [width]);
@@ -98,6 +95,8 @@ const Track: FC<ICar> = ({ id, name, color }) => {
 
   useEffect(() => {
     // 1* sets status 'started / stopped' after click start/stop race btn
+    initialDifferenceRef.current = difference;
+
     if (isSingle) return;
 
     if (isStarted) {
