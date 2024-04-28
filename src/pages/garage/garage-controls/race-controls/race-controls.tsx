@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { ButtonGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
+import { stopEngine } from '../../../../redux/store/slices/race/actions';
 import { raceActions } from '../../../../redux/store/slices/race';
 import { AppDispatch, RootState } from '../../../../redux/store/store';
 import StartButton from './start-button/start-button';
@@ -21,6 +23,20 @@ const RaceControls = () => {
   const handleStop = () => {
     dispatch(stopRace());
   };
+
+  useEffect(() => {
+    const beforeUnloadHandler = () => {
+      busyTracks.forEach((id) => {
+        dispatch(stopEngine(id));
+      });
+    };
+
+    window.addEventListener('beforeunload', beforeUnloadHandler);
+
+    return () => {
+      window.removeEventListener('beforeunload', beforeUnloadHandler);
+    };
+  }, []);
 
   return (
     <ButtonGroup>
