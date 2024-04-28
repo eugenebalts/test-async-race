@@ -17,7 +17,7 @@ export const getWinners = createAsyncThunk('winners/getWinners', async (_, {reje
 // optimistic creation;
 export const createOrUpdateWinner = createAsyncThunk('winners/createOrUpdateWinner', async (data: ICreateOrUpdateDto, {rejectWithValue}) => {
   try {
-    const isWinnerExists = await winnersApi.getWinnerById(data.id) as IWinner;
+    const isWinnerExists = await winnersApi.getWinnerById(data.id);
 
     const {wins, time} = isWinnerExists;
     
@@ -29,14 +29,14 @@ export const createOrUpdateWinner = createAsyncThunk('winners/createOrUpdateWinn
       time: updatedTime,
     }
 
-    const updatedWinner = await winnersApi.updateWinner(data.id, updateWinnerDto) as IWinner;
+    const updatedWinner = await winnersApi.updateWinner(data.id, updateWinnerDto);
       
     return updatedWinner;
   } catch (error) {
     try {
       const createWinnerDto: IWinner = {...data, wins: 1};
 
-      const createdWinner = await winnersApi.createWinner(createWinnerDto) as IWinner;
+      const createdWinner = await winnersApi.createWinner(createWinnerDto);
       
       return createdWinner;
     } catch (err) {

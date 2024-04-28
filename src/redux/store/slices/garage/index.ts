@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createCar, deleteCar, generateCars, getGarage, updateCar } from './actions';
-import { IGarageState } from './types';
+import { ICar, IGarageState } from './types';
 
 const initialState: IGarageState = {
   isOpen: false,
@@ -18,38 +18,40 @@ const garageSlice = createSlice({
     updatePages(state) {
       state.pages = Math.ceil(Object.keys(state.cars).length / state.carsOnPage);
     },
-    updateCurrentPage(state, { payload }) {
-      state.currentPage = payload;
+    updateCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
     },
     setIsPageOpen(state, action: PayloadAction<boolean>) {
       state.isOpen = action.payload;
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getGarage.fulfilled, (state, { payload }) => {
-      payload.forEach((car) => {
+    builder.addCase(getGarage.fulfilled, (state, action: PayloadAction<ICar[]>) => {
+      const recievedCars = action.payload;
+
+      recievedCars.forEach((car) => {
         state.cars[car.id] = car;
       });
     });
-    builder.addCase(createCar.fulfilled, (state, { payload }) => {
-      const newCar = payload;
+    builder.addCase(createCar.fulfilled, (state, action: PayloadAction<ICar>) => {
+      const newCar = action.payload;
 
       state.cars[newCar.id] = newCar;
     });
-    builder.addCase(generateCars.fulfilled, (state, { payload }) => {
-      const sortedPayload = payload.sort((a, b) => a.id - b.id);
+    builder.addCase(generateCars.fulfilled, (state, action: PayloadAction<ICar[]>) => {
+      const sortedPayload = action.payload.sort((a, b) => a.id - b.id);
 
       sortedPayload.forEach((car) => {
         state.cars[car.id] = car;
       });
     });
-    builder.addCase(updateCar.fulfilled, (state, { payload }) => {
-      const updatedCar = payload;
+    builder.addCase(updateCar.fulfilled, (state, action: PayloadAction<ICar>) => {
+      const updatedCar = action.payload;
 
       state.cars[updatedCar.id] = updatedCar;
     });
-    builder.addCase(deleteCar.fulfilled, (state, { payload }) => {
-      const carId = payload;
+    builder.addCase(deleteCar.fulfilled, (state, action: PayloadAction<number>) => {
+      const carId = action.payload;
 
       delete state.cars[carId];
     });

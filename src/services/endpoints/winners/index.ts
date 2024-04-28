@@ -9,7 +9,7 @@ class WinnersApi {
     try {
       const res = await api.get(this.path);
 
-      return res;
+      return res as IWinner[];
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : 'Failed to get winners');
     }
@@ -21,7 +21,7 @@ class WinnersApi {
     try {
       const res = await api.get(path);
 
-      return res;
+      return res as IWinner;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : 'Failed to get winner');
     }
@@ -31,7 +31,7 @@ class WinnersApi {
     try {
       const res = await api.post(this.path, data);
 
-      return res;
+      return res as IWinner;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : 'Failed to create winner');
     }
@@ -43,7 +43,7 @@ class WinnersApi {
     try {
       const res = await api.put(path, data);
 
-      return res;
+      return res as IWinner;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : 'Failed to update winner');
     }
