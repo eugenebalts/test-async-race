@@ -35,16 +35,18 @@ const WinnersList = () => {
       </li>
       {Object.values(winners)
         .slice((currentPage - 1) * limit, currentPage * limit)
-        .map(({ id, time, wins }) => (
-          <MemorizedWinnersItem
-            key={id}
-            id={id}
-            color={cars[id]?.color ?? ''}
-            name={cars[id]?.name ?? ''}
-            wins={wins}
-            time={time}
-          />
-        ))}
+        .map(({ id, time, wins }) =>
+          cars[id] ? (
+            <MemorizedWinnersItem
+              key={id}
+              id={id}
+              color={cars[id].color}
+              name={cars[id].name}
+              wins={wins}
+              time={time}
+            />
+          ) : null,
+        )}
     </ul>
   );
 };
