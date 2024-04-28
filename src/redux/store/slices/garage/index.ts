@@ -5,6 +5,7 @@ import { ICar, IGarageState } from './types';
 const initialState: IGarageState = {
   isOpen: false,
   cars: {},
+  carsCount: 0,
   pages: 1,
   currentPage: 1,
   carsOnPage: 7,
@@ -41,11 +42,14 @@ const garageSlice = createSlice({
       recievedCars.forEach((car) => {
         state.cars[car.id] = car;
       });
+
+      state.carsCount = Object.keys(state.cars).length;
     });
     builder.addCase(createCar.fulfilled, (state, action: PayloadAction<ICar>) => {
       const newCar = action.payload;
 
       state.cars[newCar.id] = newCar;
+      state.carsCount = Object.keys(state.cars).length;
     });
     builder.addCase(generateCars.fulfilled, (state, action: PayloadAction<ICar[]>) => {
       const sortedPayload = action.payload.sort((a, b) => a.id - b.id);
@@ -53,6 +57,8 @@ const garageSlice = createSlice({
       sortedPayload.forEach((car) => {
         state.cars[car.id] = car;
       });
+
+      state.carsCount = Object.keys(state.cars).length;
     });
     builder.addCase(updateCar.fulfilled, (state, action: PayloadAction<ICar>) => {
       const updatedCar = action.payload;
@@ -63,6 +69,8 @@ const garageSlice = createSlice({
       const carId = action.payload;
 
       delete state.cars[carId];
+
+      state.carsCount = Object.keys(state.cars).length;
     });
   },
 });

@@ -7,6 +7,7 @@ export interface ICar {
 export interface IGarageState {
   isOpen: boolean;
   cars: Record<string, ICar>;
+  carsCount: number;
   pages: number;
   currentPage: number;
   carsOnPage: number;
