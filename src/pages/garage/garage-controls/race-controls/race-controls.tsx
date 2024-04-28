@@ -9,13 +9,13 @@ import StopButton from './stop-button/stop-button';
 
 const RaceControls = () => {
   const { busyTracks } = useSelector((state: RootState) => state.race.raceData);
-  const { carsOnPage, cars } = useSelector((state: RootState) => state.garage);
+  const { limit, cars } = useSelector((state: RootState) => state.garage);
 
   const dispatch = useDispatch<AppDispatch>();
   const { startRace, stopRace } = raceActions;
 
   const handleStart = () => {
-    const membersCount = Object.keys(cars).slice(0, carsOnPage).length;
+    const membersCount = Object.keys(cars).slice(0, limit).length;
 
     dispatch(startRace(membersCount));
   };

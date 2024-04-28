@@ -13,7 +13,7 @@ const TracksList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { updatePages } = garageActions;
   const { resetRaceState } = raceActions;
-  const { cars, currentPage, carsOnPage } = useSelector((state: RootState) => state.garage);
+  const { cars, currentPage, limit } = useSelector((state: RootState) => state.garage);
 
   useEffect(() => {
     dispatch(getGarage());
@@ -30,7 +30,7 @@ const TracksList = () => {
   return (
     <div className={styles.wrapper}>
       {Object.values(cars)
-        .slice(Number(`${(currentPage - 1) * carsOnPage}`), currentPage * carsOnPage)
+        .slice((currentPage - 1) * limit, currentPage * limit)
         .map((car) => (
           <MemorizedTrack id={car.id} color={car.color} name={car.name} key={car.id} />
         ))}

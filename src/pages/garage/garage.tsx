@@ -10,7 +10,7 @@ import { garageActions } from '../../redux/store/slices/garage';
 import pageStyles from '../page.module.scss';
 
 const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
-  const { carsCount } = useSelector((state: RootState) => state.garage);
+  const { totalCount } = useSelector((state: RootState) => state.garage);
 
   const dispatch = useDispatch<AppDispatch>();
   const { setIsPageOpen } = garageActions;
@@ -22,7 +22,7 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   return (
     <Page visible={visible}>
       <GarageControls />
-      <h2 className={pageStyles.title}>Garage: {carsCount}</h2>
+      <h2 className={pageStyles.title}>Garage: {totalCount}</h2>
       <Tracks />
       <GaragePagination />
     </Page>
