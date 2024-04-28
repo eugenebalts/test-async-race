@@ -16,7 +16,16 @@ const garageSlice = createSlice({
   initialState,
   reducers: {
     updatePages(state) {
-      state.pages = Math.ceil(Object.keys(state.cars).length / state.carsOnPage);
+      const { cars, carsOnPage } = state;
+      const pages = Math.ceil(Object.keys(cars).length / carsOnPage);
+      
+      if (pages) {
+        state.pages = pages;
+        state.currentPage = Math.min(state.currentPage, pages);
+      } else {
+        state.pages = 1;
+        state.currentPage = 1;
+      }
     },
     updateCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
