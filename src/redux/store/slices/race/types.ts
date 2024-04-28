@@ -1,11 +1,13 @@
+export type CarRaceStatus = 'started' | 'drive' | 'broken' | 'stopped' | 'finished';
+
 interface ICarRaceData {
   time: number;
-  status: 'started' | 'drive' | 'broken' | 'stopped' | 'finished';
+  status: CarRaceStatus;
 }
 
 interface IWinnerData {
   id: number;
-  time: string;
+  time: number;
 }
 
 interface IRaceData {

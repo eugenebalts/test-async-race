@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomDialog from '../../../components/dialog/dialog';
-import { RootState } from '../../../redux/store/store';
+import { AppDispatch, RootState } from '../../../redux/store/store';
 import styles from './winner-dialog.module.scss';
 import truncateString from '../../../utils/truncate-string';
+import { createOrUpdateWinner } from '../../../redux/store/slices/winners/actions';
 
 const WinnerDialog = () => {
   const { cars } = useSelector((state: RootState) => state.garage);
   const { winner } = useSelector((state: RootState) => state.race.raceData);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const DIALOG_CLOSE_DELAY = 5000;
 
   useEffect(() => {
     if (winner) {
       setIsDialogOpen(true);
+      dispatch(createOrUpdateWinner(winner));
 
       setTimeout(() => {
         setIsDialogOpen(false);
@@ -32,7 +36,7 @@ const WinnerDialog = () => {
         {winner && (
           <>
             <p className={styles.row}>{`Winner: ${truncateString(cars[winner.id].name)}`}</p>
-            <p className={styles.row}>{`Time: ${winner.time}`}</p>
+            <p className={styles.row}>{`Time: ${winner.time}s`}</p>
           </>
         )}
       </div>

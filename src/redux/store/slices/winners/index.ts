@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { getWinners } from './actions';
+import { createOrUpdateWinner, getWinners } from './actions';
 import { IWinner, IWinnersState } from './types';
 
 const initialState: IWinnersState = {
@@ -22,7 +22,13 @@ const winnersSlice = createSlice({
       payload.forEach((winner) => {
         state.winners[winner.id] = winner;
       });
-    })}
+    })
+    builder.addCase(createOrUpdateWinner.fulfilled, (state, action: PayloadAction<IWinner>) => {
+      const { payload } = action;
+
+      state.winners[payload.id] = payload;
+    })
+  }
 })
 
 export const winnersActions = winnersSlice.actions;

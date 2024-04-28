@@ -99,7 +99,7 @@ const raceSlice = createSlice({
       if (response?.success && state.carsData[id] && raceId === state.raceData.raceId) {
         state.carsData[id].status = 'finished';
 
-        const isCompetitiveRace = state.raceData.isStarted && !state.raceData.isSingle; // MAY DELETE IS STARTED
+        const isCompetitiveRace = !state.raceData.isSingle;
 
         if (!state.raceData.winner && isCompetitiveRace) {
           const time = state.carsData[id]?.time;
@@ -107,7 +107,7 @@ const raceSlice = createSlice({
           if (time) {
             state.raceData.winner = {
               id,
-              time: `${time}s`,
+              time,
             };
           }
         }
