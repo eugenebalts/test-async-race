@@ -33,8 +33,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   const statusRef = useRef<CarRaceStatus>();
 
   const dispatch = useDispatch<AppDispatch>();
-  const { updateDifference, switchModeToStart, switchModeToStop, switchModeToDrive, stopRace } =
-    raceActions;
+  const { updateDifference, switchModeToStart, switchModeToDrive, switchModeToStop } = raceActions;
 
   const getTransform = useCallback((): number => {
     const status = carData?.status;
@@ -68,13 +67,8 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   );
 
   useEffect(() => {
-    if (isStarted) {
-      dispatch(stopEngine(id));
-    }
-
     return () => {
       if (statusRef.current) {
-        dispatch(stopRace());
         dispatch(stopEngine(id));
       }
     };

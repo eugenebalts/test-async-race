@@ -62,6 +62,10 @@ const raceSlice = createSlice({
         state.carsData[id].status = 'stopped';
       }
     },
+    resetRaceState(state) {
+      state.carsData = {};
+      state.raceData = initialState.raceData;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(

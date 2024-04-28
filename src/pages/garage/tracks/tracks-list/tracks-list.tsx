@@ -5,12 +5,14 @@ import { getGarage } from '../../../../redux/store/slices/garage/actions';
 import { garageActions } from '../../../../redux/store/slices/garage';
 import Track from '../../../../components/track/track';
 import styles from './tracks-list.module.scss';
+import { raceActions } from '../../../../redux/store/slices/race';
 
 const MemorizedTrack = memo(Track);
 
 const TracksList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { updatePages } = garageActions;
+  const { resetRaceState } = raceActions;
   const { cars, currentPage, carsOnPage } = useSelector((state: RootState) => state.garage);
 
   useEffect(() => {
@@ -20,6 +22,10 @@ const TracksList = () => {
   useEffect(() => {
     dispatch(updatePages());
   }, [cars]);
+
+  useEffect(() => {
+    dispatch(resetRaceState());
+  }, [currentPage]);
 
   return (
     <div className={styles.wrapper}>
