@@ -1,8 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createCar, deleteCar, generateCars, getGarage, updateCar } from './actions';
 import { IGarageState } from './types';
 
 const initialState: IGarageState = {
+  isOpen: false,
   cars: {},
   pages: 1,
   currentPage: 1,
@@ -20,6 +21,9 @@ const garageSlice = createSlice({
     updateCurrentPage(state, { payload }) {
       state.currentPage = payload;
     },
+    setIsPageOpen(state, action: PayloadAction<boolean>) {
+      state.isOpen = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getGarage.fulfilled, (state, { payload }) => {

@@ -7,7 +7,7 @@ import truncateString from '../../../utils/truncate-string';
 import { createOrUpdateWinner } from '../../../redux/store/slices/winners/actions';
 
 const WinnerDialog = () => {
-  const { cars } = useSelector((state: RootState) => state.garage);
+  const { cars, isOpen } = useSelector((state: RootState) => state.garage);
   const { winner } = useSelector((state: RootState) => state.race.raceData);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
@@ -17,7 +17,10 @@ const WinnerDialog = () => {
 
   useEffect(() => {
     if (winner) {
-      setIsDialogOpen(true);
+      if (isOpen) {
+        setIsDialogOpen(true);
+      }
+
       dispatch(createOrUpdateWinner(winner));
 
       setTimeout(() => {
