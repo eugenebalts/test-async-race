@@ -7,7 +7,6 @@ import TrackControls from './track-controls/track-controls';
 import { ICar } from '../../redux/store/slices/garage/types';
 import { driveMode, startEngine, stopEngine } from '../../redux/store/slices/race/actions';
 import { raceActions } from '../../redux/store/slices/race';
-import { CAR_WIDTH } from '../../constants';
 import truncateString from '../../utils/truncate-string';
 import extractNumericValuesFromString from '../../utils/extract-numeric-value-from-string';
 import styles from './track.module.scss';
@@ -17,7 +16,6 @@ const MemorizedTrackControls = memo(TrackControls);
 const MemorizedCar = memo(Car);
 
 const Track: FC<ICar> = ({ id, name, color }) => {
-  const { width } = useSelector((state: RootState) => state.windowWidth);
   const carParams = useSelector((state: RootState) => state.race.carsParams[id]);
   const { difference } = useSelector((state: RootState) => state.race);
   const { isStarted, raceId, isSingle, busyTracks, membersForRace } = useSelector(
@@ -33,7 +31,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   const statusRef = useRef<CarRaceStatus>();
 
   const dispatch = useDispatch<AppDispatch>();
-  const { updateDifference, switchModeToStart, switchModeToDrive, switchModeToStop } = raceActions;
+  const { switchModeToStart, switchModeToDrive, switchModeToStop } = raceActions;
 
   const getTransform = useCallback((): number => {
     const status = carParams?.status;
@@ -73,15 +71,6 @@ const Track: FC<ICar> = ({ id, name, color }) => {
       }
     };
   }, []);
-
-  useEffect(() => {
-    if (roadRef?.current) {
-      const start = roadRef.current.getBoundingClientRect().left + CAR_WIDTH;
-      const finish = roadRef.current.getBoundingClientRect().right;
-
-      dispatch(updateDifference(finish - start));
-    }
-  }, [width]);
 
   useEffect(() => {
     setTransform(getTransform()); // 5 after carData.status has become DRIVING we'll get transform
