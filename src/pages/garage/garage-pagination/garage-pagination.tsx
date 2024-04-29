@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store/store';
 import { garageActions } from '../../../redux/store/slices/garage';
@@ -9,7 +10,7 @@ const GaragePagination = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { updateCurrentPage } = garageActions;
 
-  const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (_: ChangeEvent<unknown>, value: number) => {
     dispatch(updateCurrentPage(value));
   };
 

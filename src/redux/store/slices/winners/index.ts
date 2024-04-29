@@ -6,14 +6,14 @@ const compareValues = (a: number, b: number, order: SortOption): number => {
   if (order === 'ascending') {
     return a - b;
   }
-   if (order === 'descending') {
+  if (order === 'descending') {
     return b - a;
   }
   return 0;
 };
 
-const sortWinners = (initialArray: IWinner[], sortOption: WinnersSortOptions) => {
-  return initialArray.sort((a, b) => {
+const sortWinners = (initialArray: IWinner[], sortOption: WinnersSortOptions) =>
+  initialArray.sort((a, b) => {
     let result = 0;
 
     result = compareValues(a.wins, b.wins, sortOption.wins);
@@ -24,7 +24,6 @@ const sortWinners = (initialArray: IWinner[], sortOption: WinnersSortOptions) =>
 
     return result;
   });
-};
 
 const initialState: IWinnersState = {
   winners: {},

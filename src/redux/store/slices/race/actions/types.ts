@@ -1,20 +1,20 @@
 import {
-  IDriveModeResponse,
-  IStartEngineResponse,
+  IEngineDriveResponse,
+  IEngineStartResponse,
 } from '../../../../../services/endpoints/engine/types';
 
-export interface ThunkStartEngineResponse {
+export interface EngineStartThunkResponse {
   id: number;
-  response: IStartEngineResponse;
+  response: IEngineStartResponse;
 }
 
-export interface ThunkDriveModeResponse {
+export interface EngineDriveModeThunkResponse {
   id: number;
-  response: IDriveModeResponse;
+  response: IEngineDriveResponse;
   raceId: number;
 }
 
-export interface ThunkDriveModeRejectResponse {
+export interface EngineDriveModeThunkRejectResponse {
   id: number;
-  error: IDriveModeResponse;
+  error: IEngineDriveResponse;
 }

@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import { FC, FormEvent, useRef, useState } from 'react';
 import ApplyButton from './apply-button/apply-button';
 import UpdateColor from './color/color';
 import UpdateName from './name/name';
@@ -8,6 +8,7 @@ import styles from './form.module.scss';
 const UpdateForm: FC<IUpdateFormProps> = ({ initialData, onApply }) => {
   const [name, setName] = useState(initialData.name);
   const [color, setColor] = useState(initialData.color);
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleChangeName = (inputName: string) => {
@@ -18,7 +19,7 @@ const UpdateForm: FC<IUpdateFormProps> = ({ initialData, onApply }) => {
     setColor(inputColor);
   };
 
-  const handleApply = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleApply = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (formRef?.current?.reportValidity()) {
@@ -31,10 +32,10 @@ const UpdateForm: FC<IUpdateFormProps> = ({ initialData, onApply }) => {
       <h3>Car params</h3>
       <div className={styles.list}>
         <div className={styles.item}>
-          <UpdateName onChange={handleChangeName} initialName={initialData?.name} />
+          <UpdateName onChange={handleChangeName} initialName={initialData.name} />
         </div>
         <div className={styles.item}>
-          <UpdateColor onChange={handleChangeColor} initialColor={initialData?.color} />
+          <UpdateColor onChange={handleChangeColor} initialColor={initialData.color} />
         </div>
       </div>
       <ApplyButton />

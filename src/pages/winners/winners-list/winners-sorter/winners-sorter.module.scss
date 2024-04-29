@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  height: fit-content;
   padding: 20px;
+  height: fit-content;
 }
 
 .open-button__wrapper {
@@ -11,7 +11,8 @@
   align-self: flex-end;
 }
 
-.list, .item {
+.list,
+.item {
   display: flex;
   flex-direction: column;
   gap: 15px;

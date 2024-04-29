@@ -7,11 +7,13 @@ import truncateString from '../../../utils/truncate-string';
 import { createOrUpdateWinner } from '../../../redux/store/slices/winners/actions';
 
 const WinnerDialog = () => {
+  const DIALOG_CLOSE_DELAY = 5000;
   const { cars, isOpen } = useSelector((state: RootState) => state.garage);
   const { winner } = useSelector((state: RootState) => state.race.raceData);
+
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+
   const dispatch = useDispatch<AppDispatch>();
-  const DIALOG_CLOSE_DELAY = 5000;
 
   useEffect(() => {
     if (winner) {
@@ -38,7 +40,9 @@ const WinnerDialog = () => {
       <div className={styles.content}>
         {winner && (
           <>
-            <p className={styles.row}>{`Winner: ${truncateString(cars[winner.id]?.name ?? '')}`}</p>
+            <p
+              className={styles.row}
+            >{`Winner: ${truncateString(cars[winner.id]?.name ?? 'unknown')}`}</p>
             <p className={styles.row}>{`Time: ${winner.time}s`}</p>
           </>
         )}

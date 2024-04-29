@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store/store';
 import CustomPagination from '../../../components/pagination/pagination';
@@ -9,7 +10,7 @@ const WinnersPagination = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { updateCurrentPage } = winnersActions;
 
-  const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (_: ChangeEvent<unknown>, value: number) => {
     dispatch(updateCurrentPage(value));
   };
 

@@ -1,30 +1,34 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import GarageApi from '../../../../../services/endpoints/garage/index';
-import { CreateCarDto, UpdateCarDto } from '../../../../../services/endpoints/garage/types';
+import { CreateCarDto } from '../../../../../services/endpoints/garage/types';
 import getRandomIndex from '../../../../../utils/get-random-index';
 import { CARS_BRANDS, CARS_MODELS } from '../../../../../constants';
 import { ICar } from '../types';
 import getRandomColor from '../../../../../utils/get-random-color';
+import { IUpdateCarPayload } from './types';
 
-export const getGarage = createAsyncThunk('garage/getGarage', async () => {
+export const getGarage = createAsyncThunk('garage/getGarage', async (_, { rejectWithValue }) => {
   try {
     const response = await GarageApi.getCars();
 
     return response;
   } catch (err) {
-    return Promise.reject(err);
+    return rejectWithValue(err);
   }
 });
 
-export const createCar = createAsyncThunk('garage/createCar', async (data: CreateCarDto) => {
-  try {
-    const response = await GarageApi.createCar(data);
+export const createCar = createAsyncThunk(
+  'garage/createCar',
+  async (data: CreateCarDto, { rejectWithValue }) => {
+    try {
+      const response = await GarageApi.createCar(data);
 
-    return response;
-  } catch (err) {
-    return Promise.reject(err);
-  }
-});
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);
 
 export const generateCars = createAsyncThunk('garage/generateCars', async () => {
   const emptyMap = Array.from({ length: 100 });
@@ -53,23 +57,26 @@ export const generateCars = createAsyncThunk('garage/generateCars', async () => 
 
 export const updateCar = createAsyncThunk(
   'garage/updateCar',
-  async ({ id, data }: { id: number; data: UpdateCarDto }) => {
+  async ({ id, data }: IUpdateCarPayload, { rejectWithValue }) => {
     try {
       const response = await GarageApi.updateCar(id, data);
 
       return response;
     } catch (err) {
-      return Promise.reject(err);
+      return rejectWithValue(err);
     }
   },
 );
 
-export const deleteCar = createAsyncThunk('garage/deleteCar', async (id: number) => {
-  try {
-    const response = await GarageApi.deleteCar(id);
+export const deleteCar = createAsyncThunk(
+  'garage/deleteCar',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const response = await GarageApi.deleteCar(id);
 
-    return response;
-  } catch (err) {
-    return Promise.reject(err);
-  }
-});
+      return response;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  },
+);

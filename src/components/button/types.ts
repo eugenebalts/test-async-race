@@ -8,3 +8,7 @@ export interface IButtonProps {
   disabled?: boolean;
   onClick?: () => void;
 }
+
+export interface IButtonWithIdProps {
+  id: number;
+}

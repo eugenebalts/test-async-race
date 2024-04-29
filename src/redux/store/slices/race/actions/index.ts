@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import EngineApi from '../../../../../services/endpoints/engine/index';
-import { ThunkDriveModeResponse, ThunkStartEngineResponse } from './types';
+import { EngineDriveModeThunkResponse, EngineStartThunkResponse } from './types';
 
 export const startEngine = createAsyncThunk('race/startEngine', async (id: number) => {
   try {
@@ -9,7 +9,7 @@ export const startEngine = createAsyncThunk('race/startEngine', async (id: numbe
     return {
       id,
       response: res,
-    } as ThunkStartEngineResponse;
+    } as EngineStartThunkResponse;
   } catch (err) {
     return Promise.reject(err);
   }
@@ -35,7 +35,7 @@ export const driveMode = createAsyncThunk(
         id,
         response: res,
         raceId,
-      } as ThunkDriveModeResponse;
+      } as EngineDriveModeThunkResponse;
     } catch (err) {
       const response = {
         id,

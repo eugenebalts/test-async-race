@@ -7,8 +7,8 @@
   gap: 30px;
 
   &_hidden {
-    height: 0;
     position: absolute;
+    height: 0;
     top: -200%;
     left: -200%;
   }

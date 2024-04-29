@@ -74,7 +74,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   );
 
   useEffect(() => {
-    setTransform(getTransform()); // 5 after carData.status has become DRIVING we'll get transform
+    setTransform(getTransform()); // 5 after carParams.status has become DRIVING we'll get transform
   }, [difference, carParams?.status]);
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
     switch (status) {
       case 'started':
         setDrivenPercent(0);
-        dispatch(startEngine(id)); //  2 start engine req (get anim time and take place on track)
+        dispatch(startEngine(id)); //  2 start engine req (get anim time and take place on busyTracks)
         break;
 
       case 'drive':
@@ -124,7 +124,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   }, [carParams?.time, busyTracks, membersForRace]);
 
   return (
-    <div className={styles.wrapper}>
+    <li className={styles.wrapper}>
       <MemorizedTrackControls id={id} name={name} color={color} />
       <div className={styles.road} ref={roadRef}>
         <p className={styles.road__title}>{`#${id} ${truncateString(name)}`}</p>
@@ -138,7 +138,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
           <MemorizedCar color={color} isBroken={carParams?.status === 'broken'} />
         </motion.div>
       </div>
-    </div>
+    </li>
   );
 };
 

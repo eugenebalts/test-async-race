@@ -11,7 +11,7 @@ import styles from './winners.module.scss';
 import MobileWinnersSorter from './winners-list/winners-sorter/mobile-winners-sorter';
 import { TABLET_WIDTH } from '../../constants';
 
-const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }: { visible: boolean }) => {
+const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   const { totalCount } = useSelector((state: RootState) => state.winners);
   const { width } = useSelector((state: RootState) => state.windowWidth);
 

@@ -2,12 +2,16 @@
 
 .wrapper {
   position: relative;
-  width: 100%;
   display: grid;
   grid-template-columns: 120px 1fr;
   align-items: flex-end;
   gap: 10px;
+  width: 100%;
   border-bottom: 2px dashed $color-grey;
+
+  &:last-child {
+    border: none;
+  }
 }
 
 .road {

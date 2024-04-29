@@ -10,12 +10,9 @@ const UpdateCarButton: FC<UpdateCarButtonProps> = ({ id, name, color }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleApply = (updatedCarData: CreateCarDto) => {
-    dispatch(
-      updateCar({
-        id,
-        data: updatedCarData,
-      }),
-    );
+    const data = updatedCarData;
+
+    dispatch(updateCar({ id, data }));
   };
 
   return <UpdateCar type='update' onApply={handleApply} initialData={{ name, color }} />;

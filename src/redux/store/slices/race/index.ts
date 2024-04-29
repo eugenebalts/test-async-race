@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IRaceState, ISwitchToStart } from './types';
+import { IRaceState, ISwitchToStartPayload } from './types';
 import { driveMode, startEngine, stopEngine } from './actions';
-import { ThunkDriveModeResponse, ThunkStartEngineResponse } from './actions/types';
+import { EngineDriveModeThunkResponse, EngineStartThunkResponse } from './actions/types';
 import calculateTravelTimeSec from '../../../../utils/calculate-travel-time';
 
 const initialState: IRaceState = {
@@ -38,7 +38,7 @@ const raceSlice = createSlice({
       state.raceData.winner = null;
       state.raceData.hasResults = false;
     },
-    switchModeToStart(state, action: PayloadAction<ISwitchToStart>) {
+    switchModeToStart(state, action: PayloadAction<ISwitchToStartPayload>) {
       const { id, isSingle } = action.payload;
 
       state.carsParams[id] = {
@@ -72,7 +72,7 @@ const raceSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       startEngine.fulfilled,
-      (state, action: PayloadAction<ThunkStartEngineResponse>) => {
+      (state, action: PayloadAction<EngineStartThunkResponse>) => {
         const { id, response } = action.payload;
 
         if (state.carsParams[id]) {
@@ -103,30 +103,33 @@ const raceSlice = createSlice({
         state.raceData.raceId = 0;
       }
     });
-    builder.addCase(driveMode.fulfilled, (state, action: PayloadAction<ThunkDriveModeResponse>) => {
-      const { id, response, raceId } = action.payload;
+    builder.addCase(
+      driveMode.fulfilled,
+      (state, action: PayloadAction<EngineDriveModeThunkResponse>) => {
+        const { id, response, raceId } = action.payload;
 
-      if (response?.success && state.carsParams[id] && raceId === state.raceData.raceId) {
-        state.carsParams[id].status = 'finished';
+        if (response?.success && state.carsParams[id] && raceId === state.raceData.raceId) {
+          state.carsParams[id].status = 'finished';
 
-        const { isSingle, winner, hasResults } = state.raceData;
+          const { isSingle, winner, hasResults } = state.raceData;
 
-        const isCompetitiveRace = !isSingle;
+          const isCompetitiveRace = !isSingle;
 
-        if (!winner && !hasResults && isCompetitiveRace) {
-          const time = state.carsParams[id]?.time;
+          if (!winner && !hasResults && isCompetitiveRace) {
+            const time = state.carsParams[id]?.time;
 
-          if (time) {
-            state.raceData.winner = {
-              id,
-              time,
-            };
+            if (time) {
+              state.raceData.winner = {
+                id,
+                time,
+              };
 
-            state.raceData.hasResults = true;
+              state.raceData.hasResults = true;
+            }
           }
         }
-      }
-    });
+      },
+    );
     builder.addCase(driveMode.rejected, (state, { error }) => {
       if (error.message) {
         const { id, raceId } = JSON.parse(error.message);

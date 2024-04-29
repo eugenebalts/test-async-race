@@ -28,13 +28,13 @@ const TracksList = () => {
   }, [currentPage]);
 
   return (
-    <div className={styles.wrapper}>
+    <ul className={styles.wrapper}>
       {Object.values(cars)
         .slice((currentPage - 1) * limit, currentPage * limit)
         .map((car) => (
           <MemorizedTrack id={car.id} color={car.color} name={car.name} key={car.id} />
         ))}
-    </div>
+    </ul>
   );
 };
 

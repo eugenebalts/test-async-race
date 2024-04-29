@@ -2,11 +2,11 @@
 
 .wrapper {
   position: relative;
-  width: 100%;
-  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  min-height: 100px;
   border: 2px dashed $color-white;
   border-right: none;
   border-left: none;

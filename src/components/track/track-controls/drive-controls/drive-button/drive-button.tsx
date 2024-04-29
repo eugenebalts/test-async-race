@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../../redux/store/store';
 import CustomButton from '../../../../button/button';
 import { raceActions } from '../../../../../redux/store/slices/race';
-import { IButtonWithIdProps } from '../../../../../general-types/types';
+import { IButtonWithIdProps } from '../../../../button/types';
 
 const DriveButton: FC<IButtonWithIdProps> = ({ id }) => {
   const status = useSelector((state: RootState) => state.race.carsParams[id]?.status);

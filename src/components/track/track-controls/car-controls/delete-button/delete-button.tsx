@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { AppDispatch, RootState } from '../../../../../redux/store/store';
 import { deleteCar } from '../../../../../redux/store/slices/garage/actions';
 import CustomButton from '../../../../button/button';
-import { IButtonWithIdProps } from '../../../../../general-types/types';
+import { IButtonWithIdProps } from '../../../../button/types';
 import { deleteWinner } from '../../../../../redux/store/slices/winners/actions';
 import { stopEngine } from '../../../../../redux/store/slices/race/actions';
 

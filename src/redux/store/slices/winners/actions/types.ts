@@ -1,3 +1,3 @@
 import { IWinner } from '../types';
 
-export type ICreateOrUpdateDto = Omit<IWinner, 'wins'>;
+export type ICreateOrUpdatePayload = Omit<IWinner, 'wins'>;

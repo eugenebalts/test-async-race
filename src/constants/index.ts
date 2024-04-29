@@ -53,4 +53,3 @@ export const START_POS = 130;
 export const END_POS = 60;
 
 export const DEFAULT_UPDATE_CAR_DATA: CreateCarDto = { name: '', color: '#ffffff' };
-

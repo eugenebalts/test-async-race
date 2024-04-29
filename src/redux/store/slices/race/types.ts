@@ -1,6 +1,6 @@
 export type CarRaceStatus = 'started' | 'drive' | 'broken' | 'stopped' | 'finished';
 
-interface ICarRaceData {
+interface ICarParams {
   time: number;
   status: CarRaceStatus;
 }
@@ -21,12 +21,12 @@ interface IRaceData {
 }
 
 export interface IRaceState {
-  carsParams: Record<string, ICarRaceData>;
+  carsParams: Record<string, ICarParams>;
   raceData: IRaceData;
   difference: number;
 }
 
-export interface ISwitchToStart {
+export interface ISwitchToStartPayload {
   id: number;
   isSingle: boolean;
 }
