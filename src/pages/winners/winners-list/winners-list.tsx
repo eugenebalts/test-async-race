@@ -1,5 +1,6 @@
 import { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import clsx from 'clsx';
 import { AppDispatch, RootState } from '../../../redux/store/store';
 import { getWinners } from '../../../redux/store/slices/winners/actions';
 import WinnersItem from './winners-item/winners-item';
@@ -26,7 +27,7 @@ const WinnersList = () => {
 
   return (
     <ul className={styles.wrapper}>
-      <li className={itemStyles.wrapper}>
+      <li className={clsx(itemStyles.wrapper, itemStyles.wrapper_heading)}>
         <p>№</p>
         <p>Car</p>
         <p>Name</p>
@@ -35,18 +36,16 @@ const WinnersList = () => {
       </li>
       {Object.values(winners)
         .slice((currentPage - 1) * limit, currentPage * limit)
-        .map(({ id, time, wins }) =>
-          cars[id] ? (
-            <MemorizedWinnersItem
-              key={id}
-              id={id}
-              color={cars[id].color}
-              name={cars[id].name}
-              wins={wins}
-              time={time}
-            />
-          ) : null,
-        )}
+        .map(({ id, time, wins }) => (
+          <MemorizedWinnersItem
+            key={id}
+            id={id}
+            color={cars[id]?.color ?? 'transparent'}
+            name={cars[id]?.name ?? 'unknown'}
+            wins={wins}
+            time={time}
+          />
+        ))}
     </ul>
   );
 };

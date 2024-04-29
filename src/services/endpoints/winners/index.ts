@@ -5,7 +5,7 @@ import { UpdateWinnerDto } from './types';
 class WinnersApi {
   private readonly path: string = 'winners';
 
-  async getWinners() {
+  async getWinners(): Promise<IWinner[]> {
     try {
       const res = await api.get(this.path);
 
@@ -15,7 +15,7 @@ class WinnersApi {
     }
   }
 
-  async getWinnerById(id: number) {
+  async getWinnerById(id: number): Promise<IWinner> {
     const path = `${this.path}/${id}`;
       
     try {
@@ -27,7 +27,7 @@ class WinnersApi {
     }
   }
 
-  async createWinner(data: IWinner) {
+  async createWinner(data: IWinner): Promise<IWinner> {
     try {
       const res = await api.post(this.path, data);
 
@@ -37,7 +37,7 @@ class WinnersApi {
     }
   }
 
-  async updateWinner(id: number, data: UpdateWinnerDto) {
+  async updateWinner(id: number, data: UpdateWinnerDto): Promise<IWinner> {
     const path = `${this.path}/${id}`;
 
     try {
@@ -46,6 +46,16 @@ class WinnersApi {
       return res as IWinner;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : 'Failed to update winner');
+    }
+  }
+
+  async deleteWinner(id: number): Promise<void> {
+    const path = `${this.path}/${id}`;
+
+    try {
+      await api.delete(path);
+    } catch (err) {
+      throw new Error(err instanceof Error ? err.message : 'Failed to delete winner');
     }
   }
 }

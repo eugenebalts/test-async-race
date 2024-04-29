@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { createOrUpdateWinner, getWinners } from './actions';
+import { createOrUpdateWinner, deleteWinner, getWinners } from './actions';
 import { IWinner, IWinnersState } from './types';
 
 const initialState: IWinnersState = {
@@ -50,6 +50,17 @@ const winnersSlice = createSlice({
       }
 
       state.winners[payload.id] = payload;
+    })
+    builder.addCase(deleteWinner.fulfilled, (state, action: PayloadAction<number>) => {
+      const id = action.payload;
+
+      console.log('DELEEETEEEE', id)
+
+      if (state.winners[id]) {
+        delete state.winners[id];
+
+        state.totalCount -= 1;
+      }
     })
   }
 })

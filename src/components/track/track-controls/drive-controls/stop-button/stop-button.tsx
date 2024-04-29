@@ -7,7 +7,7 @@ import { raceActions } from '../../../../../redux/store/slices/race';
 import { IButtonWithIdProps } from '../../../../../general-types/types';
 
 const StopButton: FC<IButtonWithIdProps> = ({ id }) => {
-  const status = useSelector((state: RootState) => state.race.carsData[id]?.status);
+  const status = useSelector((state: RootState) => state.race.carsParams[id]?.status);
 
   const dispatch = useDispatch<AppDispatch>();
   const { switchModeToStop } = raceActions;
@@ -22,7 +22,7 @@ const StopButton: FC<IButtonWithIdProps> = ({ id }) => {
       color='secondary'
       content={<StopIcon fontSize='small' />}
       onClick={handleClick}
-      disabled={status === undefined ? true : status === 'stopped'}
+      disabled={!status ? true : status === 'stopped'}
     />
   );
 };

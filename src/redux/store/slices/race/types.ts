@@ -17,10 +17,11 @@ interface IRaceData {
   busyTracks: number[];
   raceId: number;
   winner: null | IWinnerData;
+  hasResults: boolean;
 }
 
 export interface IRaceState {
-  carsData: Record<string, ICarRaceData>;
+  carsParams: Record<string, ICarRaceData>;
   raceData: IRaceData;
   difference: number;
 }

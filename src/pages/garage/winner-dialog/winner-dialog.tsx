@@ -26,6 +26,8 @@ const WinnerDialog = () => {
       setTimeout(() => {
         setIsDialogOpen(false);
       }, DIALOG_CLOSE_DELAY);
+    } else {
+      setIsDialogOpen(false);
     }
   }, [winner]);
 
@@ -38,7 +40,7 @@ const WinnerDialog = () => {
       <div className={styles.content}>
         {winner && (
           <>
-            <p className={styles.row}>{`Winner: ${truncateString(cars[winner.id].name)}`}</p>
+            <p className={styles.row}>{`Winner: ${truncateString(cars[winner.id]?.name ?? '')}`}</p>
             <p className={styles.row}>{`Time: ${winner.time}s`}</p>
           </>
         )}

@@ -18,7 +18,7 @@ const MemorizedCar = memo(Car);
 
 const Track: FC<ICar> = ({ id, name, color }) => {
   const { width } = useSelector((state: RootState) => state.windowWidth);
-  const carData = useSelector((state: RootState) => state.race.carsData[id]);
+  const carParams = useSelector((state: RootState) => state.race.carsParams[id]);
   const { difference } = useSelector((state: RootState) => state.race);
   const { isStarted, raceId, isSingle, busyTracks, membersForRace } = useSelector(
     (state: RootState) => state.race.raceData,
@@ -36,7 +36,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   const { updateDifference, switchModeToStart, switchModeToDrive, switchModeToStop } = raceActions;
 
   const getTransform = useCallback((): number => {
-    const status = carData?.status;
+    const status = carParams?.status;
 
     if (status === 'drive' || status === 'finished') {
       return difference;
@@ -59,11 +59,11 @@ const Track: FC<ICar> = ({ id, name, color }) => {
     }
 
     return 0;
-  }, [carData?.status, difference, drivenPercent]);
+  }, [carParams?.status, difference, drivenPercent]);
 
   const getAnimationDuration = useCallback(
-    () => (carData?.status === 'drive' ? carData.time : 0),
-    [carData?.status],
+    () => (carParams?.status === 'drive' ? carParams.time : 0),
+    [carParams?.status],
   );
 
   useEffect(() => {
@@ -85,7 +85,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
 
   useEffect(() => {
     setTransform(getTransform()); // 5 after carData.status has become DRIVING we'll get transform
-  }, [difference, carData?.status]);
+  }, [difference, carParams?.status]);
 
   useEffect(() => {
     // 1* sets status 'started / stopped' after click start/stop race btn
@@ -95,13 +95,13 @@ const Track: FC<ICar> = ({ id, name, color }) => {
 
     if (isStarted) {
       dispatch(switchModeToStart({ id, isSingle: false }));
-    } else if (carData?.status) {
+    } else if (carParams?.status) {
       dispatch(switchModeToStop(id));
     }
   }, [isStarted, isSingle]);
 
   useEffect(() => {
-    const status = carData?.status;
+    const status = carParams?.status;
     statusRef.current = status;
 
     switch (status) {
@@ -122,15 +122,16 @@ const Track: FC<ICar> = ({ id, name, color }) => {
       default:
         break;
     }
-  }, [carData?.status]);
+  }, [carParams?.status]);
 
   useEffect(() => {
-    const time = carData?.time;
+    const time = carParams?.time;
+    const status = carParams?.status;
 
-    if (time && (busyTracks.length === membersForRace || isSingle)) {
+    if (time && status === 'started' && (busyTracks.length === membersForRace || isSingle)) {
       dispatch(switchModeToDrive(id)); // 3 sets status drive all the cars simultaneously
     }
-  }, [carData?.time, busyTracks, membersForRace]);
+  }, [carParams?.time, busyTracks, membersForRace]);
 
   return (
     <div className={styles.wrapper}>
@@ -144,7 +145,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
           }}
           ref={motionRef}
         >
-          <MemorizedCar color={color} isBroken={carData?.status === 'broken'} />
+          <MemorizedCar color={color} isBroken={carParams?.status === 'broken'} />
         </motion.div>
       </div>
     </div>

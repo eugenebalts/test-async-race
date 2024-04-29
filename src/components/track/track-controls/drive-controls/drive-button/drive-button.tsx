@@ -7,7 +7,7 @@ import { raceActions } from '../../../../../redux/store/slices/race';
 import { IButtonWithIdProps } from '../../../../../general-types/types';
 
 const DriveButton: FC<IButtonWithIdProps> = ({ id }) => {
-  const status = useSelector((state: RootState) => state.race.carsData[id]?.status);
+  const status = useSelector((state: RootState) => state.race.carsParams[id]?.status);
 
   const dispatch = useDispatch<AppDispatch>();
   const { switchModeToStart } = raceActions;

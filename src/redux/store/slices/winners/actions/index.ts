@@ -45,4 +45,14 @@ export const createOrUpdateWinner = createAsyncThunk('winners/createOrUpdateWinn
   }
 })
 
+export const deleteWinner = createAsyncThunk('winners/deleteWinner', async (id: number, {rejectWithValue}) => {
+  try {
+    await winnersApi.deleteWinner(id);
+
+    return id;
+  } catch (err) {
+    return rejectWithValue(err);
+  }
+})
+
 export const emptyImport = true;
