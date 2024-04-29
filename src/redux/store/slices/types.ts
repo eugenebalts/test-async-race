@@ -1,5 +1,5 @@
 export interface IPageState {
-  pages: number,
+  pages: number;
   currentPage: number;
   limit: number;
   totalCount: number;

@@ -19,7 +19,7 @@ const garageSlice = createSlice({
     updatePages(state) {
       const { cars, limit } = state;
       const pages = Math.ceil(Object.keys(cars).length / limit);
-      
+
       if (pages) {
         state.pages = pages;
         state.currentPage = Math.min(state.currentPage, pages);
@@ -33,7 +33,7 @@ const garageSlice = createSlice({
     },
     setIsPageOpen(state, action: PayloadAction<boolean>) {
       state.isOpen = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getGarage.fulfilled, (state, action: PayloadAction<ICar[]>) => {

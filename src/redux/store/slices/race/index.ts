@@ -67,7 +67,7 @@ const raceSlice = createSlice({
     resetRaceState(state) {
       state.carsParams = {};
       state.raceData = initialState.raceData;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -78,7 +78,7 @@ const raceSlice = createSlice({
         if (state.carsParams[id]) {
           const { velocity, distance } = response;
           const animationTime = calculateTravelTimeSec(velocity, distance);
-    
+
           state.carsParams[id].time = animationTime;
           state.raceData.busyTracks.push(id);
         }
@@ -109,10 +109,9 @@ const raceSlice = createSlice({
       if (response?.success && state.carsParams[id] && raceId === state.raceData.raceId) {
         state.carsParams[id].status = 'finished';
 
-        const {isSingle, winner, hasResults} = state.raceData;
+        const { isSingle, winner, hasResults } = state.raceData;
 
         const isCompetitiveRace = !isSingle;
-
 
         if (!winner && !hasResults && isCompetitiveRace) {
           const time = state.carsParams[id]?.time;

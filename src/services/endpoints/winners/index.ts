@@ -17,7 +17,7 @@ class WinnersApi {
 
   async getWinnerById(id: number): Promise<IWinner> {
     const path = `${this.path}/${id}`;
-      
+
     try {
       const res = await api.get(path);
 

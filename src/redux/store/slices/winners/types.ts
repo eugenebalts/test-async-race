@@ -6,14 +6,14 @@ export interface IWinner {
   time: number;
 }
 
-export interface IWinnersState extends IPageState {
-  winners: Record<string, IWinner>;
-  sortedWinners: IWinner[];
-  sortedBy: WinnersSortOptions,
-}
+export type SortOption = 'none' | 'ascending' | 'descending';
 
 export type WinnersSortOptions = {
   [K in keyof Partial<IWinner>]: SortOption;
-}
+};
 
-export type SortOption = 'none' | 'ascending' | 'descending';
+export interface IWinnersState extends IPageState {
+  winners: Record<string, IWinner>;
+  sortedWinners: IWinner[];
+  sortedBy: WinnersSortOptions;
+}

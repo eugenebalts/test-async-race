@@ -4,11 +4,11 @@ import { IWinner, WinnersSortOptions, IWinnersState, SortOption } from './types'
 
 const sortWinners = (initialArray: IWinner[], sortOption: WinnersSortOptions) => {
   const keys = Object.keys(sortOption) as (keyof IWinner)[];
-  
+
   return initialArray.sort((a, b) => {
     let result = 0;
 
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (result !== 0) return;
       const order = sortOption[key];
       if (order === 'ascending') {
@@ -36,7 +36,7 @@ const initialState: IWinnersState = {
   currentPage: 1,
   limit: 7,
   error: null,
-}
+};
 
 const winnersSlice = createSlice({
   name: 'winners',
@@ -45,7 +45,7 @@ const winnersSlice = createSlice({
     updatePages(state) {
       const { winners, limit } = state;
       const pages = Math.ceil(Object.keys(winners).length / limit);
-      
+
       if (pages) {
         state.pages = pages;
         state.currentPage = Math.min(state.currentPage, pages);
@@ -64,13 +64,13 @@ const winnersSlice = createSlice({
       state.sortedBy.wins = action.payload;
     },
     sortWinners(state) {
-      const {winners, sortedBy} = state;
+      const { winners, sortedBy } = state;
 
       state.sortedWinners = sortWinners(Object.values(winners), sortedBy);
     },
     resetSortOptions(state) {
       state.sortedBy = initialState.sortedBy;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getWinners.fulfilled, (state, action: PayloadAction<IWinner[]>) => {
@@ -81,7 +81,7 @@ const winnersSlice = createSlice({
       });
 
       state.totalCount = Object.keys(state.winners).length;
-    })
+    });
     builder.addCase(createOrUpdateWinner.fulfilled, (state, action: PayloadAction<IWinner>) => {
       const { payload } = action;
 
@@ -90,7 +90,7 @@ const winnersSlice = createSlice({
       }
 
       state.winners[payload.id] = payload;
-    })
+    });
     builder.addCase(deleteWinner.fulfilled, (state, action: PayloadAction<number>) => {
       const id = action.payload;
 
@@ -99,9 +99,9 @@ const winnersSlice = createSlice({
 
         state.totalCount -= 1;
       }
-    })
-  }
-})
+    });
+  },
+});
 
 export const winnersActions = winnersSlice.actions;
 export const winnersReducer = winnersSlice.reducer;
