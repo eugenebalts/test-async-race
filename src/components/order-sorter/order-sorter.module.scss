@@ -1,0 +1,6 @@
+.wrapper {
+  & * {
+    font-family: unset !important;
+    font-size: 12px !important;
+  }
+}

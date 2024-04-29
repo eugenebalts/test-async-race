@@ -68,11 +68,7 @@ const winnersSlice = createSlice({
     sortWinners(state) {
       const { winners, sortedBy } = state;
 
-      console.log(JSON.stringify(sortedBy));
-
       state.sortedWinners = sortWinners(Object.values(winners), sortedBy);
-
-      console.log(JSON.stringify(state.sortedWinners));
     },
     resetSortOptions(state) {
       state.sortedBy = initialState.sortedBy;
