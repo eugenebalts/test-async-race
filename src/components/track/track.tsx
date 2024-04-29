@@ -118,7 +118,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
     const time = carParams?.time;
     const status = carParams?.status;
 
-    if (time && status === 'started' && (busyTracks.length === membersForRace || isSingle)) {
+    if (time && status === 'started' && (busyTracks.length >= membersForRace || isSingle)) {
       dispatch(switchModeToDrive(id)); // 3 sets status drive all the cars simultaneously
     }
   }, [carParams?.time, busyTracks, membersForRace]);

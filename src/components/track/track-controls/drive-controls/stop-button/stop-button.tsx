@@ -22,7 +22,7 @@ const StopButton: FC<IButtonWithIdProps> = ({ id }) => {
       color='secondary'
       content={<StopIcon fontSize='small' />}
       onClick={handleClick}
-      disabled={!status ? true : status === 'stopped'}
+      disabled={!status ? true : status === 'stopped' || status === 'started'}
     />
   );
 };
