@@ -7,20 +7,20 @@ import { winnersActions } from '../../../../../redux/store/slices/winners';
 import { SortOption } from '../../../../../redux/store/slices/winners/types';
 import CustomAccordion from '../../../../../components/accordion/accordion';
 
-const TimeSorter = () => {
-  const { time } = useSelector((state: RootState) => state.winners.sortedBy);
+const WinsSorter = () => {
+  const { wins } = useSelector((state: RootState) => state.winners.sortedBy);
 
   const dispatch = useDispatch<AppDispatch>();
-  const { sortByTime } = winnersActions;
+  const { sortByWins } = winnersActions;
 
   const handleChange = (event: SyntheticEvent<Element, Event>) => {
     const { value } = event.currentTarget as HTMLInputElement;
 
-    dispatch(sortByTime(value as SortOption));
+    dispatch(sortByWins(value as SortOption));
   };
 
   return (
-    <CustomAccordion title='Time'>
+    <CustomAccordion title='Wins'>
       <RadioGroup
         aria-labelledby='demo-form-control-label-placement'
         name='position'
@@ -31,25 +31,25 @@ const TimeSorter = () => {
           control={<Radio />}
           label='None'
           onChange={handleChange}
-          checked={time === 'none'}
+          checked={wins === 'none'}
         />
         <FormControlLabel
           value='ascending'
           control={<Radio />}
           label='Low to high'
           onChange={handleChange}
-          checked={time === 'ascending'}
+          checked={wins === 'ascending'}
         />
         <FormControlLabel
           value='descending'
           control={<Radio />}
           label='High to low'
           onChange={handleChange}
-          checked={time === 'descending'}
+          checked={wins === 'descending'}
         />
       </RadioGroup>
     </CustomAccordion>
   );
 };
 
-export default TimeSorter;
+export default WinsSorter;

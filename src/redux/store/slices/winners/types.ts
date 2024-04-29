@@ -9,7 +9,7 @@ export interface IWinner {
 export type SortOption = 'none' | 'ascending' | 'descending';
 
 export type WinnersSortOptions = {
-  [K in keyof Partial<IWinner>]: SortOption;
+  [K in keyof Omit<IWinner, 'id'>]: SortOption;
 };
 
 export interface IWinnersState extends IPageState {

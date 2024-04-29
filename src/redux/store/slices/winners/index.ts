@@ -2,23 +2,25 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { createOrUpdateWinner, deleteWinner, getWinners } from './actions';
 import { IWinner, WinnersSortOptions, IWinnersState, SortOption } from './types';
 
-const sortWinners = (initialArray: IWinner[], sortOption: WinnersSortOptions) => {
-  const keys = Object.keys(sortOption) as (keyof IWinner)[];
+const compareValues = (a: number, b: number, order: SortOption): number => {
+  if (order === 'ascending') {
+    return a - b;
+  }
+   if (order === 'descending') {
+    return b - a;
+  }
+  return 0;
+};
 
+const sortWinners = (initialArray: IWinner[], sortOption: WinnersSortOptions) => {
   return initialArray.sort((a, b) => {
     let result = 0;
 
-    keys.forEach((key) => {
-      if (result !== 0) return;
-      const order = sortOption[key];
-      if (order === 'ascending') {
-        if (a[key] < b[key]) result = -1;
-        if (a[key] > b[key]) result = 1;
-      } else if (order === 'descending') {
-        if (a[key] < b[key]) result = 1;
-        if (a[key] > b[key]) result = -1;
-      }
-    });
+    result = compareValues(a.wins, b.wins, sortOption.wins);
+
+    if (result === 0) {
+      result = compareValues(a.time, b.time, sortOption.time);
+    }
 
     return result;
   });
@@ -66,7 +68,11 @@ const winnersSlice = createSlice({
     sortWinners(state) {
       const { winners, sortedBy } = state;
 
+      console.log(JSON.stringify(sortedBy));
+
       state.sortedWinners = sortWinners(Object.values(winners), sortedBy);
+
+      console.log(JSON.stringify(state.sortedWinners));
     },
     resetSortOptions(state) {
       state.sortedBy = initialState.sortedBy;
