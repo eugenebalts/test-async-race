@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  background: unset !important;
+  box-shadow: none !important;
+  color: unset !important;
+
+  &::before {
+    background: unset !important;
+  }
+}
+
+.title {
+  height: 1rem !important;
+  min-height: unset !important;
+}
