@@ -64,13 +64,14 @@ const Track: FC<ICar> = ({ id, name, color }) => {
     [carParams?.status],
   );
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (statusRef.current) {
         dispatch(stopEngine(id));
       }
-    };
-  }, []);
+    },
+    [],
+  );
 
   useEffect(() => {
     setTransform(getTransform()); // 5 after carData.status has become DRIVING we'll get transform

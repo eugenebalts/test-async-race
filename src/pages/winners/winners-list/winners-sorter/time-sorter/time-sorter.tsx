@@ -36,12 +36,14 @@ const TimeSorter = () => {
           control={<Radio />}
           label='Low to high'
           onChange={handleChange}
+          checked={time === 'ascending'}
         />
         <FormControlLabel
           value='descending'
           control={<Radio />}
           label='High to low'
           onChange={handleChange}
+          checked={time === 'descending'}
         />
       </RadioGroup>
     </CustomAccordion>

@@ -10,9 +10,7 @@ const WinnerDialog = () => {
   const { cars, isOpen } = useSelector((state: RootState) => state.garage);
   const { winner } = useSelector((state: RootState) => state.race.raceData);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-
   const dispatch = useDispatch<AppDispatch>();
-
   const DIALOG_CLOSE_DELAY = 5000;
 
   useEffect(() => {

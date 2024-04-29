@@ -67,6 +67,9 @@ const winnersSlice = createSlice({
       const {winners, sortedBy} = state;
 
       state.sortedWinners = sortWinners(Object.values(winners), sortedBy);
+    },
+    resetSortOptions(state) {
+      state.sortedBy = initialState.sortedBy;
     }
   },
   extraReducers: (builder) => {

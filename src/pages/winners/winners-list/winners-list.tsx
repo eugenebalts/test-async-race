@@ -15,7 +15,6 @@ const WinnersList = () => {
   const { winners, sortedBy, sortedWinners, currentPage, limit } = useSelector(
     (state: RootState) => state.winners,
   );
-
   const dispatch = useDispatch<AppDispatch>();
   const { updatePages, sortWinners } = winnersActions;
 

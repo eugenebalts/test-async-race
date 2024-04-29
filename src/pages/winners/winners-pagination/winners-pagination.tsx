@@ -13,7 +13,9 @@ const WinnersPagination = () => {
     dispatch(updateCurrentPage(value));
   };
 
-  return <CustomPagination count={pages} page={currentPage} onChange={handleChange} />;
+  return (
+    <CustomPagination color='secondary' count={pages} page={currentPage} onChange={handleChange} />
+  );
 };
 
 export default WinnersPagination;

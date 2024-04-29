@@ -20,7 +20,7 @@ const Tracks = () => {
   const finishMarkRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (startMarkRef?.current && finishMarkRef?.current && isOpen) {
+    if (startMarkRef.current && finishMarkRef.current && isOpen) {
       const start = startMarkRef.current.getBoundingClientRect().left;
       const finish = finishMarkRef.current.getBoundingClientRect().right + CAR_WIDTH;
 
