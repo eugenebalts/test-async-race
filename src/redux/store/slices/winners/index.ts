@@ -1,11 +1,37 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { createOrUpdateWinner, deleteWinner, getWinners } from './actions';
-import { IWinner, IWinnersState } from './types';
+import { IWinner, WinnersSortOptions, IWinnersState, SortOption } from './types';
+
+const sortWinners = (initialArray: IWinner[], sortOption: WinnersSortOptions) => {
+  const keys = Object.keys(sortOption) as (keyof IWinner)[];
+  
+  return initialArray.sort((a, b) => {
+    let result = 0;
+
+    keys.forEach(key => {
+      if (result !== 0) return;
+      const order = sortOption[key];
+      if (order === 'ascending') {
+        if (a[key] < b[key]) result = -1;
+        if (a[key] > b[key]) result = 1;
+      } else if (order === 'descending') {
+        if (a[key] < b[key]) result = 1;
+        if (a[key] > b[key]) result = -1;
+      }
+    });
+
+    return result;
+  });
+};
 
 const initialState: IWinnersState = {
   winners: {},
   totalCount: 0,
   sortedWinners: [],
+  sortedBy: {
+    time: 'none',
+    wins: 'none',
+  },
   pages: 1,
   currentPage: 1,
   limit: 7,
@@ -31,6 +57,17 @@ const winnersSlice = createSlice({
     updateCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
+    sortByTime(state, action: PayloadAction<SortOption>) {
+      state.sortedBy.time = action.payload;
+    },
+    sortByWins(state, action: PayloadAction<SortOption>) {
+      state.sortedBy.wins = action.payload;
+    },
+    sortWinners(state) {
+      const {winners, sortedBy} = state;
+
+      state.sortedWinners = sortWinners(Object.values(winners), sortedBy);
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getWinners.fulfilled, (state, action: PayloadAction<IWinner[]>) => {
@@ -53,8 +90,6 @@ const winnersSlice = createSlice({
     })
     builder.addCase(deleteWinner.fulfilled, (state, action: PayloadAction<number>) => {
       const id = action.payload;
-
-      console.log('DELEEETEEEE', id)
 
       if (state.winners[id]) {
         delete state.winners[id];

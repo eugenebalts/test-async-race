@@ -12,18 +12,21 @@ const MemorizedWinnersItem = memo(WinnersItem);
 
 const WinnersList = () => {
   const { cars } = useSelector((state: RootState) => state.garage);
-  const { winners, currentPage, limit } = useSelector((state: RootState) => state.winners);
+  const { winners, sortedBy, sortedWinners, currentPage, limit } = useSelector(
+    (state: RootState) => state.winners,
+  );
 
   const dispatch = useDispatch<AppDispatch>();
-  const { updatePages } = winnersActions;
+  const { updatePages, sortWinners } = winnersActions;
 
   useEffect(() => {
     dispatch(getWinners());
   }, []);
 
   useEffect(() => {
+    dispatch(sortWinners());
     dispatch(updatePages());
-  }, [winners]);
+  }, [winners, sortedBy]);
 
   return (
     <ul className={styles.wrapper}>
@@ -34,7 +37,7 @@ const WinnersList = () => {
         <p>Wins</p>
         <p>Time (sec)</p>
       </li>
-      {Object.values(winners)
+      {Object.values(sortedWinners)
         .slice((currentPage - 1) * limit, currentPage * limit)
         .map(({ id, time, wins }) => (
           <MemorizedWinnersItem

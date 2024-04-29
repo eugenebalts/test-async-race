@@ -9,8 +9,9 @@
   padding: 10px 0;
   text-align: center;
   word-break: break-word;
-  border-bottom: 2px solid $color-grey;
   font-family: $font-family-jersey;
+  font-size: 16px;
+  border-bottom: 2px solid $color-grey;
 
   &_heading {
     font-family: unset;
