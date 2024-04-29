@@ -6,7 +6,7 @@ import styles from './accordion.module.scss';
 
 const CustomAccordion: FC<IAccordionProps> = ({ title, children }) => (
   <Accordion className={styles.wrapper}>
-    <AccordionSummary expandIcon={<ExpandMoreIcon />} className={styles.title}>
+    <AccordionSummary expandIcon={<ExpandMoreIcon color='primary' />} className={styles.title}>
       <h4>{title}</h4>
     </AccordionSummary>
     <AccordionDetails>{children}</AccordionDetails>
