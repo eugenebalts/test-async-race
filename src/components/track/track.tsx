@@ -94,7 +94,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
     switch (status) {
       case 'started':
         setDrivenPercent(0);
-        dispatch(startEngine(id)); //  2 start engine req (get anim time and take place on busyTracks)
+        dispatch(startEngine(id)); //  2 start engine req (get anim time and take place on track)
         break;
 
       case 'drive':

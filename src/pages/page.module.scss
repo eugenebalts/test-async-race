@@ -19,3 +19,16 @@
   font-style: italic;
   text-shadow: 10px 3px 5px $color-secondary;
 }
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}

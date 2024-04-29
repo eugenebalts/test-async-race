@@ -36,7 +36,7 @@ const initialState: IWinnersState = {
   pages: 1,
   currentPage: 1,
   limit: 7,
-  error: null,
+  status: 'pending',
 };
 
 const winnersSlice = createSlice({
@@ -82,6 +82,13 @@ const winnersSlice = createSlice({
       });
 
       state.totalCount = Object.keys(state.winners).length;
+      state.status = 'fullfield';
+    });
+    builder.addCase(getWinners.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(getWinners.rejected, (state) => {
+      state.status = 'rejected';
     });
     builder.addCase(createOrUpdateWinner.fulfilled, (state, action: PayloadAction<IWinner>) => {
       const { payload } = action;

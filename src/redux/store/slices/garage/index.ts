@@ -9,7 +9,7 @@ const initialState: IGarageState = {
   pages: 1,
   currentPage: 1,
   limit: 7,
-  error: null,
+  status: 'pending',
 };
 
 const garageSlice = createSlice({
@@ -44,6 +44,13 @@ const garageSlice = createSlice({
       });
 
       state.totalCount = Object.keys(state.cars).length;
+      state.status = 'fullfield';
+    });
+    builder.addCase(getGarage.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(getGarage.rejected, (state) => {
+      state.status = 'rejected';
     });
     builder.addCase(createCar.fulfilled, (state, action: PayloadAction<ICar>) => {
       const newCar = action.payload;

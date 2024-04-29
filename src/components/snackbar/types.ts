@@ -6,5 +6,5 @@ export interface ISnackbarState extends SnackbarOrigin {
 
 export interface ISnackbarProps {
   cause: boolean;
-  message: string; 
+  message: string;
 }

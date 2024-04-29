@@ -2,7 +2,6 @@ import { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { AppDispatch, RootState } from '../../../redux/store/store';
-import { getWinners } from '../../../redux/store/slices/winners/actions';
 import WinnersItem from './winners-item/winners-item';
 import styles from './winners-list.module.scss';
 import itemStyles from './winners-item/winners-item.module.scss';
@@ -17,10 +16,6 @@ const WinnersList = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
   const { updatePages, sortWinners } = winnersActions;
-
-  useEffect(() => {
-    dispatch(getWinners());
-  }, []);
 
   useEffect(() => {
     dispatch(sortWinners());
