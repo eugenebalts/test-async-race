@@ -14,3 +14,31 @@ $color-background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 // FONTS
 $font-family-press: 'Press Start 2P', serif;
 $font-family-jersey: 'Jersey 20', sans-serif;
+
+// BREAKPOINTS
+
+$max-container-width: 1220px;
+
+$laptop-width: 1024px;
+$tablet-width: 768px;
+$mobile-width: 500px;
+
+// MEDIA
+
+@mixin laptop {
+  @media (max-width: $laptop-width) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet-width) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile-width) {
+    @content;
+  }
+}
