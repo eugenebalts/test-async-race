@@ -21,8 +21,8 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
 
   return (
     <Page visible={visible}>
-      <GarageControls />
       <h2 className={pageStyles.title}>Garage: {totalCount}</h2>
+      <GarageControls />
       <Tracks />
       <GaragePagination />
     </Page>
