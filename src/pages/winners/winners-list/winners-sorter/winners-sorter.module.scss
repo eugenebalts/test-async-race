@@ -6,10 +6,19 @@
   padding: 20px;
 }
 
-.list {
+.open-button__wrapper {
+  width: fit-content;
+  align-self: flex-end;
+}
+
+.list, .item {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.item {
+  padding-left: 1rem;
 }
 
 .content {
