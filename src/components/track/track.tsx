@@ -10,7 +10,6 @@ import { raceActions } from '../../redux/store/slices/race';
 import truncateString from '../../utils/truncate-string';
 import extractNumericValuesFromString from '../../utils/extract-numeric-value-from-string';
 import styles from './track.module.scss';
-import { CarRaceStatus } from '../../redux/store/slices/race/types';
 
 const MemorizedTrackControls = memo(TrackControls);
 const MemorizedCar = memo(Car);
@@ -28,7 +27,6 @@ const Track: FC<ICar> = ({ id, name, color }) => {
   const roadRef = useRef<HTMLDivElement>(null);
   const motionRef = useRef<HTMLDivElement>(null);
   const initialDifferenceRef = useRef<number>(0);
-  const statusRef = useRef<CarRaceStatus>();
 
   const dispatch = useDispatch<AppDispatch>();
   const { switchModeToStart, switchModeToDrive, switchModeToStop } = raceActions;
@@ -66,7 +64,7 @@ const Track: FC<ICar> = ({ id, name, color }) => {
 
   useEffect(
     () => () => {
-      if (statusRef.current) {
+      if (carParams?.status) {
         dispatch(stopEngine(id));
       }
     },
@@ -92,7 +90,6 @@ const Track: FC<ICar> = ({ id, name, color }) => {
 
   useEffect(() => {
     const status = carParams?.status;
-    statusRef.current = status;
 
     switch (status) {
       case 'started':
