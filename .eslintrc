@@ -33,7 +33,9 @@
     "quotes": ["warn", "single"],
     "jsx-quotes": ["warn", "prefer-single"],
     "arrow-body-style": ["warn", "as-needed"],
-    "class-methods-use-this": ["off"]
+    "class-methods-use-this": ["off"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "warn"
   },
   "settings": {
     "import/resolver": {
