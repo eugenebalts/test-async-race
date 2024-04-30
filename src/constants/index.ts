@@ -1,5 +1,10 @@
 import { CreateCarDto } from '../services/endpoints/garage/types';
 
+export enum NavigationLinks {
+  GARAGE = '',
+  WINNERS = '#winners',
+}
+
 export const CARS_BRANDS = [
   'Lada',
   'VAZ',

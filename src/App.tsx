@@ -6,13 +6,12 @@ import Layout from './layout/layout';
 import GaragePage from './pages/garage/garage';
 import WinnersPage from './pages/winners/winners';
 import { setWindowWidth } from './redux/store/slices/window';
+import { NavigationLinks } from './constants';
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { hash } = useLocation();
   const navigate = useNavigate();
-
-  const pathnames = ['', '#winners'];
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,15 +26,15 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (!pathnames.includes(hash)) {
+    if (!Object.values(NavigationLinks).includes(hash as NavigationLinks)) {
       navigate('');
     }
   }, [hash]);
 
   return (
     <Layout>
-      <GaragePage visible={hash === ''} />
-      <WinnersPage visible={hash === '#winners'} />
+      <GaragePage visible={hash === NavigationLinks.GARAGE} />
+      <WinnersPage visible={hash === NavigationLinks.WINNERS} />
     </Layout>
   );
 };
