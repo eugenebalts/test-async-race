@@ -3,7 +3,7 @@ import { createCar, deleteCar, generateCars, getGarage, updateCar } from './acti
 import { IGarageState } from './types';
 import { updatePages, updateCurrentPage, setIsPageOpen } from './reducers/index';
 import {
-  hadnleCreateCarFullfield,
+  hadnleCreateCarFullfilled,
   hadnleCreateCarPending,
   hadnleCreateCarRejected,
   hadnleGenerateCarsFulfilled,
@@ -12,10 +12,10 @@ import {
   handleDeleteCarFulfilled,
   handleDeleteCarPending,
   handleDeleteCarRejected,
-  handleGetGarageFullfield,
+  handleGetGarageFullfilled,
   handleGetGaragePending,
   handleGetGarageRejected,
-  handleUpdateCarFullfield,
+  handleUpdateCarFullfilled,
   handleUpdateCarPending,
   handleUpdateCarRejected,
 } from './extra-reducers';
@@ -40,16 +40,16 @@ const garageSlice = createSlice({
     setIsPageOpen,
   },
   extraReducers: (builder) => {
-    builder.addCase(getGarage.fulfilled, handleGetGarageFullfield);
+    builder.addCase(getGarage.fulfilled, handleGetGarageFullfilled);
     builder.addCase(getGarage.pending, handleGetGaragePending);
     builder.addCase(getGarage.rejected, handleGetGarageRejected);
-    builder.addCase(createCar.fulfilled, hadnleCreateCarFullfield);
+    builder.addCase(createCar.fulfilled, hadnleCreateCarFullfilled);
     builder.addCase(createCar.pending, hadnleCreateCarPending);
     builder.addCase(createCar.rejected, hadnleCreateCarRejected);
     builder.addCase(generateCars.fulfilled, hadnleGenerateCarsFulfilled);
     builder.addCase(generateCars.pending, hadnleGenerateCarsPending);
     builder.addCase(generateCars.rejected, hadnleGenerateCarsRejected);
-    builder.addCase(updateCar.fulfilled, handleUpdateCarFullfield);
+    builder.addCase(updateCar.fulfilled, handleUpdateCarFullfilled);
     builder.addCase(updateCar.pending, handleUpdateCarPending);
     builder.addCase(updateCar.rejected, handleUpdateCarRejected);
     builder.addCase(deleteCar.fulfilled, handleDeleteCarFulfilled);

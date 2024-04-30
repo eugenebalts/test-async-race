@@ -1,4 +1,4 @@
-export type Status = 'pending' | 'rejected' | 'fullfield';
+export type Status = 'pending' | 'rejected' | 'fullfilled';
 
 export interface IPageState {
   pages: number;

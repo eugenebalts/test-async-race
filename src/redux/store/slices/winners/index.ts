@@ -83,7 +83,7 @@ const winnersSlice = createSlice({
       });
 
       state.totalCount = Object.keys(state.winners).length;
-      state.status = 'fullfield';
+      state.status = 'fullfilled';
     });
     builder.addCase(getWinners.pending, (state) => {
       state.status = 'pending';

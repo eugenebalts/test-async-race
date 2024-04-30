@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { ICar, IGarageState } from '../types';
 
-export const handleGetGarageFullfield = (state: IGarageState, action: PayloadAction<ICar[]>) => {
+export const handleGetGarageFullfilled = (state: IGarageState, action: PayloadAction<ICar[]>) => {
   const recievedCars = action.payload;
 
   recievedCars.forEach((car) => {
@@ -9,7 +9,7 @@ export const handleGetGarageFullfield = (state: IGarageState, action: PayloadAct
   });
 
   state.totalCount = Object.keys(state.cars).length;
-  state.status = 'fullfield';
+  state.status = 'fullfilled';
   state.error = false;
 };
 
@@ -23,7 +23,7 @@ export const handleGetGarageRejected = (state: IGarageState) => {
   state.error = true;
 };
 
-export const hadnleCreateCarFullfield = (state: IGarageState, action: PayloadAction<ICar>) => {
+export const hadnleCreateCarFullfilled = (state: IGarageState, action: PayloadAction<ICar>) => {
   const newCar = action.payload;
 
   state.cars[newCar.id] = newCar;
@@ -58,7 +58,7 @@ export const hadnleGenerateCarsRejected = (state: IGarageState) => {
   state.error = true;
 };
 
-export const handleUpdateCarFullfield = (state: IGarageState, action: PayloadAction<ICar>) => {
+export const handleUpdateCarFullfilled = (state: IGarageState, action: PayloadAction<ICar>) => {
   const updatedCar = action.payload;
 
   state.cars[updatedCar.id] = updatedCar;
