@@ -9,21 +9,20 @@ import { deleteWinner } from '../../../../../redux/store/slices/winners/actions'
 import { stopEngine } from '../../../../../redux/store/slices/race/actions';
 
 const DeleteCarButton: FC<IButtonWithIdProps> = ({ id }) => {
-  const { winners } = useSelector((state: RootState) => state.winners);
   const carParams = useSelector((state: RootState) => state.race.carsParams[id]);
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (carParams?.status) {
       dispatch(stopEngine(id));
     }
 
-    if (winners[id]) {
+    const deleteCarResults = await dispatch(deleteCar(id));
+
+    if (deleteCarResults.meta.requestStatus === 'fulfilled') {
       dispatch(deleteWinner(id));
     }
-
-    dispatch(deleteCar(id));
   };
 
   return (
