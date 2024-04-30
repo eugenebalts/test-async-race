@@ -6,10 +6,10 @@ import Page from '../page';
 import WinnersList from './winners-list/winners-list';
 import WinnersPagination from './winners-pagination/winners-pagination';
 import WinnersSorter from './winners-list/winners-sorter/winners-sorter';
-import styles from './winners.module.scss';
 import MobileWinnersSorter from './winners-list/winners-sorter/mobile-winners-sorter';
 import { TABLET_WIDTH } from '../../constants';
 import { getWinners } from '../../redux/store/slices/winners/actions';
+import styles from './winners.module.scss';
 
 const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   const { totalCount, status, error } = useSelector((state: RootState) => state.winners);

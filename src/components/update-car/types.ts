@@ -1,6 +1,6 @@
 import { CreateCarDto } from '../../services/endpoints/garage/types';
 
-export interface UpdateCarProps {
+export interface IUpdateCarProps {
   type: 'create' | 'update';
   onApply: (updatedCarData: CreateCarDto) => void;
   initialData?: CreateCarDto;

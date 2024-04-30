@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
 import BuildIcon from '@mui/icons-material/Build';
-import { UpdateCarProps } from './types';
+import { IUpdateCarProps } from './types';
 import CustomButton from '../button/button';
 import CustomDialog from '../dialog/dialog';
 import { DEFAULT_UPDATE_CAR_DATA } from '../../constants';
 import UpdateForm from './form/form';
 import { CreateCarDto } from '../../services/endpoints/garage/types';
 
-const UpdateCar: FC<UpdateCarProps> = ({
+const UpdateCar: FC<IUpdateCarProps> = ({
   type,
   onApply,
   initialData = DEFAULT_UPDATE_CAR_DATA,

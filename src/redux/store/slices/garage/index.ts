@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit';
 import { createCar, deleteCar, generateCars, getGarage, updateCar } from './actions';
 import { IGarageState } from './types';
 import { updatePages, updateCurrentPage, setIsPageOpen } from './reducers/index';
@@ -39,7 +39,7 @@ const garageSlice = createSlice({
     updateCurrentPage,
     setIsPageOpen,
   },
-  extraReducers: (builder) => {
+  extraReducers: (builder: ActionReducerMapBuilder<IGarageState>) => {
     builder.addCase(getGarage.fulfilled, handleGetGarageFulfilled);
     builder.addCase(getGarage.pending, handleGetGaragePending);
     builder.addCase(getGarage.rejected, handleGetGarageRejected);

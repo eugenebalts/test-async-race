@@ -4,9 +4,9 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import { Box, CircularProgress } from '@mui/material';
 import NavigationBar from '../components/navigation-bar/navigation-bar';
 import { IPageProps } from './types';
-import styles from './page.module.scss';
 import CustomSnackbar from '../components/snackbar/snackbar';
 import { ERROR_MESSAGE } from '../constants';
+import styles from './page.module.scss';
 
 const Page: FC<IPageProps> = ({ title, visible, children, status, error = false, onReload }) => {
   const pageClasses = clsx('page-classes', {

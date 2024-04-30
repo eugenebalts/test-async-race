@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { AppDispatch, RootState } from '../../../redux/store/store';
 import WinnersItem from './winners-item/winners-item';
-import styles from './winners-list.module.scss';
-import itemStyles from './winners-item/winners-item.module.scss';
 import { winnersActions } from '../../../redux/store/slices/winners';
 import { getGarage } from '../../../redux/store/slices/garage/actions';
+import styles from './winners-list.module.scss';
+import itemStyles from './winners-item/winners-item.module.scss';
 
 const MemorizedWinnersItem = memo(WinnersItem);
 

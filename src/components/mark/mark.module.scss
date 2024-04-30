@@ -4,21 +4,18 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 20px;
   font-size: 12px;
-  border-top: none;
-  border-bottom: none;
   text-transform: uppercase;
   writing-mode: vertical-lr;
-  background: $color-background;
   color: $color-white;
-  filter: brightness(0.7);
-  border: 1px groove $color-black;
+  background: $color-background;
   border-top: none;
   border-bottom: none;
+  border: 1px groove $color-black;
   z-index: 1;
 
   & > svg {

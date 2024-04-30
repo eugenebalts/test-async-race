@@ -9,10 +9,11 @@ import { raceActions } from '../../../../redux/store/slices/race';
 const MemorizedTrack = memo(Track);
 
 const TracksList = () => {
+  const { cars, currentPage, limit } = useSelector((state: RootState) => state.garage);
+
   const dispatch = useDispatch<AppDispatch>();
   const { updatePages } = garageActions;
   const { resetRaceState } = raceActions;
-  const { cars, currentPage, limit } = useSelector((state: RootState) => state.garage);
 
   useEffect(() => {
     dispatch(updatePages());

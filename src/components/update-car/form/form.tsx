@@ -1,8 +1,8 @@
 import { FC, FormEvent, useRef, useState } from 'react';
-import ApplyButton from './apply-button/apply-button';
 import UpdateColor from './color/color';
 import UpdateName from './name/name';
 import { IUpdateFormProps } from './types';
+import CustomButton from '../../button/button';
 import styles from './form.module.scss';
 
 const UpdateForm: FC<IUpdateFormProps> = ({ initialData, onApply }) => {
@@ -38,7 +38,7 @@ const UpdateForm: FC<IUpdateFormProps> = ({ initialData, onApply }) => {
           <UpdateColor onChange={handleChangeColor} initialColor={initialData.color} />
         </div>
       </div>
-      <ApplyButton />
+      <CustomButton variant='contained' color='primary' content='Apply' type='submit' />
     </form>
   );
 };

@@ -1,7 +1,7 @@
 import { CreateCarDto } from '../../../services/endpoints/garage/types';
-import { UpdateCarProps } from '../types';
+import { IUpdateCarProps } from '../types';
 
-export interface IUpdateFormProps extends Pick<UpdateCarProps, 'initialData'> {
+export interface IUpdateFormProps extends Pick<IUpdateCarProps, 'onApply'> {
   initialData: CreateCarDto;
   onApply: (updatedCarData: CreateCarDto) => void;
 }
