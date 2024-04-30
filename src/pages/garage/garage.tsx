@@ -12,6 +12,7 @@ import { getGarage } from '../../redux/store/slices/garage/actions';
 
 const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   const { totalCount, status, error } = useSelector((state: RootState) => state.garage);
+  const raceErrors = useSelector((state: RootState) => state.race.error);
 
   const dispatch = useDispatch<AppDispatch>();
   const { setIsPageOpen } = garageActions;
@@ -29,7 +30,7 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
       title={`Garage: ${totalCount}`}
       visible={visible}
       status={status}
-      error={error}
+      error={error || raceErrors}
       onReload={() => dispatch(getGarage())}
     >
       <GarageControls />

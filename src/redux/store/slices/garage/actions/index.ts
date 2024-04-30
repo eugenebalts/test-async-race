@@ -19,29 +19,26 @@ export const createCar = createAsyncThunk('garage/createCar', async (data: Creat
   return response;
 });
 
-export const generateCars = createAsyncThunk(
-  'garage/generateCars',
-  async () => {
-    const emptyMap = Array.from({ length: 100 });
-    const generatedCars: ICar[] = [];
+export const generateCars = createAsyncThunk('garage/generateCars', async () => {
+  const emptyMap = Array.from({ length: 100 });
+  const generatedCars: ICar[] = [];
 
-      await Promise.all(
-        emptyMap.map(async () => {
-          const carName = CARS_BRANDS[getRandomIndex(CARS_BRANDS.length)];
-          const carModel = CARS_MODELS[getRandomIndex(CARS_MODELS.length)];
+  await Promise.all(
+    emptyMap.map(async () => {
+      const carName = CARS_BRANDS[getRandomIndex(CARS_BRANDS.length)];
+      const carModel = CARS_MODELS[getRandomIndex(CARS_MODELS.length)];
 
-          const name = `${carName} ${carModel}`;
-          const color = getRandomColor();
+      const name = `${carName} ${carModel}`;
+      const color = getRandomColor();
 
-          const response = await GarageApi.createCar({ name, color });
+      const response = await GarageApi.createCar({ name, color });
 
-          generatedCars.push(response);
-        }),
-      );
+      generatedCars.push(response);
+    }),
+  );
 
-    return generatedCars;
-  },
-);
+  return generatedCars;
+});
 
 export const updateCar = createAsyncThunk(
   'garage/updateCar',

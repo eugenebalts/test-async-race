@@ -6,16 +6,23 @@ import WinnersItem from './winners-item/winners-item';
 import styles from './winners-list.module.scss';
 import itemStyles from './winners-item/winners-item.module.scss';
 import { winnersActions } from '../../../redux/store/slices/winners';
+import { getGarage } from '../../../redux/store/slices/garage/actions';
 
 const MemorizedWinnersItem = memo(WinnersItem);
 
 const WinnersList = () => {
-  const { cars } = useSelector((state: RootState) => state.garage);
+  const { cars, totalCount } = useSelector((state: RootState) => state.garage);
   const { winners, sortedBy, sortedWinners, currentPage, limit } = useSelector(
     (state: RootState) => state.winners,
   );
   const dispatch = useDispatch<AppDispatch>();
   const { updatePages, sortWinners } = winnersActions;
+
+  useEffect(() => {
+    if (!totalCount) {
+      dispatch(getGarage());
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(sortWinners());

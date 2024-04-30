@@ -24,6 +24,7 @@ export interface IRaceState {
   carsParams: Record<string, ICarParams>;
   raceData: IRaceData;
   difference: number;
+  error: boolean;
 }
 
 export interface ISwitchToStartPayload {

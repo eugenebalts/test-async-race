@@ -1,5 +1,6 @@
 import api from '../../api';
 import { EngineStopResponse, IEngineDriveResponse, IEngineStartResponse } from './types';
+import { ERROR_MESSAGE } from '../../../constants';
 
 class EngineApi {
   private readonly path: string = 'engine';
@@ -10,7 +11,7 @@ class EngineApi {
 
       return res as IEngineStartResponse;
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to start engine');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
@@ -20,7 +21,7 @@ class EngineApi {
 
       return res as EngineStopResponse;
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to stop engine');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
@@ -30,7 +31,7 @@ class EngineApi {
 
       return res as IEngineDriveResponse;
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to switch to drive mode');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 }

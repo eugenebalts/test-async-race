@@ -1,33 +1,37 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import EngineApi from '../../../../../services/endpoints/engine/index';
-import { EngineDriveModeThunkResponse, EngineStartThunkResponse } from './types';
+import {
+  EngineDriveModeThunkRejectResponse,
+  IEngineDriveModeThunkPayload,
+  IEngineDriveModeThunkResponse,
+  IEngineStartThunkResponse,
+} from './types';
 
-export const startEngine = createAsyncThunk('race/startEngine', async (id: number) => {
-  try {
-    const res = await EngineApi.startEngine(id);
+export const startEngine = createAsyncThunk(
+  'race/startEngine',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const res = await EngineApi.startEngine(id);
 
-    return {
-      id,
-      response: res,
-    } as EngineStartThunkResponse;
-  } catch (err) {
-    return Promise.reject(err);
-  }
-});
+      return {
+        id,
+        response: res,
+      } as IEngineStartThunkResponse;
+    } catch (err) {
+      return rejectWithValue(id);
+    }
+  },
+);
 
 export const stopEngine = createAsyncThunk('race/stopEngine', async (id: number) => {
-  try {
-    await EngineApi.stopEngine(id);
+  await EngineApi.stopEngine(id);
 
-    return id;
-  } catch (err) {
-    return Promise.reject(err);
-  }
+  return id;
 });
 
 export const driveMode = createAsyncThunk(
   'race/driveMode',
-  async ({ id, raceId }: { id: number; raceId: number }) => {
+  async ({ id, raceId }: IEngineDriveModeThunkPayload, { rejectWithValue }) => {
     try {
       const res = await EngineApi.driveMode(id);
 
@@ -35,14 +39,14 @@ export const driveMode = createAsyncThunk(
         id,
         response: res,
         raceId,
-      } as EngineDriveModeThunkResponse;
+      } as IEngineDriveModeThunkResponse;
     } catch (err) {
-      const response = {
+      const response: EngineDriveModeThunkRejectResponse = {
         id,
         raceId,
       };
 
-      return Promise.reject(JSON.stringify(response));
+      return rejectWithValue(response);
     }
   },
 );

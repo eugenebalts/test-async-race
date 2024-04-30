@@ -3,18 +3,20 @@ import {
   IEngineStartResponse,
 } from '../../../../../services/endpoints/engine/types';
 
-export interface EngineStartThunkResponse {
+export interface IEngineStartThunkResponse {
   id: number;
   response: IEngineStartResponse;
 }
 
-export interface EngineDriveModeThunkResponse {
+export interface IEngineDriveModeThunkPayload {
+  id: number;
+  raceId: number;
+}
+
+export interface IEngineDriveModeThunkResponse {
   id: number;
   response: IEngineDriveResponse;
   raceId: number;
 }
 
-export interface EngineDriveModeThunkRejectResponse {
-  id: number;
-  error: IEngineDriveResponse;
-}
+export type EngineDriveModeThunkRejectResponse = Omit<IEngineDriveModeThunkResponse, 'response'>;
