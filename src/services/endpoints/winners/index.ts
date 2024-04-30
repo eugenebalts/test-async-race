@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from '../../../constants';
 import { IWinner } from '../../../redux/store/slices/winners/types';
 import api from '../../api';
 import { UpdateWinnerDto } from './types';
@@ -7,11 +8,11 @@ class WinnersApi {
 
   async getWinners(): Promise<IWinner[]> {
     try {
-      const res = await api.get(this.path);
+      const response = await api.get(this.path);
 
-      return res as IWinner[];
+      return response as IWinner[];
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to get winners');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
@@ -19,21 +20,21 @@ class WinnersApi {
     const path = `${this.path}/${id}`;
 
     try {
-      const res = await api.get(path);
+      const response = await api.get(path);
 
-      return res as IWinner;
+      return response as IWinner;
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to get winner');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
   async createWinner(data: IWinner): Promise<IWinner> {
     try {
-      const res = await api.post(this.path, data);
+      const response = await api.post(this.path, data);
 
-      return res as IWinner;
+      return response as IWinner;
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to create winner');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
@@ -41,11 +42,11 @@ class WinnersApi {
     const path = `${this.path}/${id}`;
 
     try {
-      const res = await api.put(path, data);
+      const response = await api.put(path, data);
 
-      return res as IWinner;
+      return response as IWinner;
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to update winner');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
@@ -55,7 +56,7 @@ class WinnersApi {
     try {
       await api.delete(path);
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to delete winner');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 }

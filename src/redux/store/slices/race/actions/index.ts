@@ -11,11 +11,11 @@ export const startEngine = createAsyncThunk(
   'race/startEngine',
   async (id: number, { rejectWithValue }) => {
     try {
-      const res = await EngineApi.startEngine(id);
+      const response = await EngineApi.startEngine(id);
 
       return {
         id,
-        response: res,
+        response,
       } as IEngineStartThunkResponse;
     } catch (err) {
       return rejectWithValue(id);
@@ -40,11 +40,11 @@ export const driveMode = createAsyncThunk(
   'race/driveMode',
   async ({ id, raceId }: IEngineDriveModeThunkPayload, { rejectWithValue }) => {
     try {
-      const res = await EngineApi.driveMode(id);
+      const response = await EngineApi.driveMode(id);
 
       return {
         id,
-        response: res,
+        response,
         raceId,
       } as IEngineDriveModeThunkResponse;
     } catch (err) {

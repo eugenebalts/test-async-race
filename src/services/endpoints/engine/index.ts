@@ -7,9 +7,9 @@ class EngineApi {
 
   async startEngine(id: number): Promise<IEngineStartResponse> {
     try {
-      const res = await api.patch(this.path, {}, { id: String(id), status: 'started' });
+      const response = await api.patch(this.path, {}, { id: String(id), status: 'started' });
 
-      return res as IEngineStartResponse;
+      return response as IEngineStartResponse;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
@@ -17,9 +17,9 @@ class EngineApi {
 
   async stopEngine(id: number): Promise<EngineStopResponse> {
     try {
-      const res = await api.patch(this.path, {}, { id: String(id), status: 'stopped' });
+      const response = await api.patch(this.path, {}, { id: String(id), status: 'stopped' });
 
-      return res as EngineStopResponse;
+      return response as EngineStopResponse;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
@@ -27,9 +27,9 @@ class EngineApi {
 
   async driveMode(id: number): Promise<IEngineDriveResponse> {
     try {
-      const res = await api.patch(this.path, {}, { id: String(id), status: 'drive' });
+      const response = await api.patch(this.path, {}, { id: String(id), status: 'drive' });
 
-      return res as IEngineDriveResponse;
+      return response as IEngineDriveResponse;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }

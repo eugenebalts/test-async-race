@@ -8,9 +8,9 @@ class GarageApi {
 
   async getCars(): Promise<ICar[]> {
     try {
-      const res = await api.get(this.path);
+      const response = await api.get(this.path);
 
-      return res as ICar[];
+      return response as ICar[];
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
@@ -18,9 +18,9 @@ class GarageApi {
 
   async createCar(data: CreateCarDto): Promise<ICar> {
     try {
-      const res = await api.post(this.path, data);
+      const response = await api.post(this.path, data);
 
-      return res as ICar;
+      return response as ICar;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
@@ -30,9 +30,9 @@ class GarageApi {
     const path = `${this.path}/${id}`;
 
     try {
-      const res = await api.put(path, data);
+      const response = await api.put(path, data);
 
-      return res as ICar;
+      return response as ICar;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
