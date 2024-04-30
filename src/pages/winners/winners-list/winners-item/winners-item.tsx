@@ -9,7 +9,7 @@ const WinnersItem: FC<WinnerItemProps> = ({ id, color, name, wins, time }) => (
     <div>
       <Car color={color} />
     </div>
-    <p>{name}</p>
+    <p style={{ wordBreak: 'break-word' }}>{name}</p>
     <p>{wins}</p>
     <p>{time}</p>
   </li>

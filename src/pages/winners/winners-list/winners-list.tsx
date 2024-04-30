@@ -7,6 +7,7 @@ import { winnersActions } from '../../../redux/store/slices/winners';
 import { getGarage } from '../../../redux/store/slices/garage/actions';
 import styles from './winners-list.module.scss';
 import itemStyles from './winners-item/winners-item.module.scss';
+import truncateString from '../../../utils/truncate-string';
 
 const MemorizedWinnersItem = memo(WinnersItem);
 
@@ -45,7 +46,7 @@ const WinnersList = () => {
             key={id}
             id={id}
             color={cars[id]?.color ?? 'transparent'}
-            name={cars[id]?.name ?? 'unknown'}
+            name={cars[id]?.name ? truncateString(cars[id].name) : 'unknown'}
             wins={wins}
             time={time}
           />
