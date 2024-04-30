@@ -12,7 +12,7 @@ import { TABLET_WIDTH } from '../../constants';
 import { getWinners } from '../../redux/store/slices/winners/actions';
 
 const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
-  const { totalCount, status } = useSelector((state: RootState) => state.winners);
+  const { totalCount, status, error } = useSelector((state: RootState) => state.winners);
   const { width } = useSelector((state: RootState) => state.windowWidth);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -28,6 +28,7 @@ const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
       onReload={() => {
         dispatch(getWinners());
       }}
+      error={visible && error}
       title={`Winners: ${totalCount}`}
     >
       <div className={styles.content}>
