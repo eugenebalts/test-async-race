@@ -27,7 +27,7 @@ const App = () => {
 
   useEffect(() => {
     if (!Object.values(NavigationLinks).includes(hash as NavigationLinks)) {
-      navigate('');
+      navigate(NavigationLinks.GARAGE);
     }
   }, [hash]);
 

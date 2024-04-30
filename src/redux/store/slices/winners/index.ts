@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit';
 import { createOrUpdateWinner, deleteWinner, getWinners } from './actions';
 import { IWinnersState } from './types';
 import {
@@ -43,7 +43,7 @@ const winnersSlice = createSlice({
     sortWinners,
     resetSortOptions,
   },
-  extraReducers: (builder) => {
+  extraReducers: (builder: ActionReducerMapBuilder<IWinnersState>) => {
     builder.addCase(getWinners.fulfilled, handleGetWinnersFulfilled);
     builder.addCase(getWinners.pending, handleGetWinnersPending);
     builder.addCase(getWinners.rejected, handleGetWinnersRejected);
