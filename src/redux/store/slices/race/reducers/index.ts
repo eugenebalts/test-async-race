@@ -1,5 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { IRaceState, ISwitchToStartPayload } from '../types';
+import { initialState } from '..';
 
 export const updateDifference = (state: IRaceState, action: PayloadAction<number>) => {
   state.difference = action.payload;
@@ -52,17 +53,7 @@ export const switchModeToStop = (state: IRaceState, action: PayloadAction<number
   }
 };
 
-const raceData = {
-  membersForRace: 0,
-  isStarted: false,
-  isSingle: false,
-  busyTracks: [],
-  raceId: 0,
-  winner: null,
-  hasResults: false,
-};
-
 export const resetRaceState = (state: IRaceState) => {
   state.carsParams = {};
-  state.raceData = raceData;
+  state.raceData = initialState.raceData;
 };
