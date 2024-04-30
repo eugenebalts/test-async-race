@@ -30,7 +30,7 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
       title={`Garage: ${totalCount}`}
       visible={visible}
       status={status}
-      error={error || raceErrors}
+      error={visible && (error || raceErrors)}
       onReload={() => dispatch(getGarage())}
     >
       <GarageControls />
