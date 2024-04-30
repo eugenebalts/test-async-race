@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import GarageApi from '../../../../../services/endpoints/garage/index';
+import garageApi from '../../../../../services/endpoints/garage/index';
 import { CreateCarDto } from '../../../../../services/endpoints/garage/types';
 import getRandomIndex from '../../../../../utils/get-random-index';
 import { CARS_BRANDS, CARS_MODELS } from '../../../../../constants';
@@ -8,13 +8,13 @@ import getRandomColor from '../../../../../utils/get-random-color';
 import { IUpdateCarPayload } from './types';
 
 export const getGarage = createAsyncThunk('garage/getGarage', async () => {
-  const response = await GarageApi.getCars();
+  const response = await garageApi.getCars();
 
   return response;
 });
 
 export const createCar = createAsyncThunk('garage/createCar', async (data: CreateCarDto) => {
-  const response = await GarageApi.createCar(data);
+  const response = await garageApi.createCar(data);
 
   return response;
 });
@@ -31,7 +31,7 @@ export const generateCars = createAsyncThunk('garage/generateCars', async () => 
       const name = `${carName} ${carModel}`;
       const color = getRandomColor();
 
-      const response = await GarageApi.createCar({ name, color });
+      const response = await garageApi.createCar({ name, color });
 
       generatedCars.push(response);
     }),
@@ -43,7 +43,7 @@ export const generateCars = createAsyncThunk('garage/generateCars', async () => 
 export const updateCar = createAsyncThunk(
   'garage/updateCar',
   async ({ id, data }: IUpdateCarPayload) => {
-    const response = await GarageApi.updateCar(id, data);
+    const response = await garageApi.updateCar(id, data);
 
     return response;
   },
@@ -53,7 +53,7 @@ export const deleteCar = createAsyncThunk(
   'garage/deleteCar',
   async (id: number, { rejectWithValue }) => {
     try {
-      const response = await GarageApi.deleteCar(id);
+      const response = await garageApi.deleteCar(id);
 
       return response;
     } catch (err) {
