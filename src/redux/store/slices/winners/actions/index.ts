@@ -4,20 +4,16 @@ import { IWinner } from '../types';
 import { UpdateWinnerDto } from '../../../../../services/endpoints/winners/types';
 import { ICreateOrUpdatePayload } from './types';
 
-export const getWinners = createAsyncThunk('winners/getWinners', async (_, { rejectWithValue }) => {
-  try {
-    const res = await winnersApi.getWinners();
+export const getWinners = createAsyncThunk('winners/getWinners', async () => {
+  const response = await winnersApi.getWinners();
 
-    return res;
-  } catch (err) {
-    return rejectWithValue(err);
-  }
+  return response;
 });
 
 // optimistic creation;
 export const createOrUpdateWinner = createAsyncThunk(
   'winners/createOrUpdateWinner',
-  async (data: ICreateOrUpdatePayload, { rejectWithValue }) => {
+  async (data: ICreateOrUpdatePayload) => {
     try {
       const isWinnerExists = await winnersApi.getWinnerById(data.id);
 
@@ -36,15 +32,11 @@ export const createOrUpdateWinner = createAsyncThunk(
 
       return updatedWinner;
     } catch (err) {
-      try {
-        const createWinnerDto: IWinner = { ...data, wins: 1 };
+      const createWinnerDto: IWinner = { ...data, wins: 1 };
 
-        const createdWinner = await winnersApi.createWinner(createWinnerDto);
+      const createdWinner = await winnersApi.createWinner(createWinnerDto);
 
-        return createdWinner;
-      } catch (error) {
-        return rejectWithValue(error);
-      }
+      return createdWinner;
     }
   },
 );
