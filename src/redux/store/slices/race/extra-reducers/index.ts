@@ -7,7 +7,7 @@ import {
 } from '../actions/types';
 import calculateTravelTimeSec from '../../../../../utils/calculate-travel-time';
 
-export const handleStartEngineFullfilled = (
+export const handleStartEngineFulfilled = (
   state: IRaceState,
   action: PayloadAction<IEngineStartThunkResponse>,
 ) => {
@@ -38,7 +38,7 @@ export const handleStartEngineRejected = (state: IRaceState, action: PayloadActi
   state.error = true;
 };
 
-export const handleStopEngineFullfilled = (state: IRaceState, action: PayloadAction<number>) => {
+export const handleStopEngineFulfilled = (state: IRaceState, action: PayloadAction<number>) => {
   const id = action.payload;
 
   const { busyTracks, winner } = state.raceData;
@@ -72,7 +72,7 @@ export const handleStopEngineRejected = (state: IRaceState, action: PayloadActio
   }
 };
 
-export const handleDriveModeFullfilled = (
+export const handleDriveModeFulfilled = (
   state: IRaceState,
   action: PayloadAction<IEngineDriveModeThunkResponse>,
 ) => {

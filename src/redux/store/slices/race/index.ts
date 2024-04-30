@@ -11,9 +11,9 @@ import {
   resetRaceState,
 } from './reducers/index';
 import {
-  handleStartEngineFullfilled,
-  handleStopEngineFullfilled,
-  handleDriveModeFullfilled,
+  handleStartEngineFulfilled,
+  handleStopEngineFulfilled,
+  handleDriveModeFulfilled,
   handleDriveModeRejected,
   handleStartEngineRejected,
   handleStartEnginePending,
@@ -49,13 +49,13 @@ const raceSlice = createSlice({
     resetRaceState,
   },
   extraReducers: (builder: ActionReducerMapBuilder<IRaceState>) => {
-    builder.addCase(startEngine.fulfilled, handleStartEngineFullfilled);
+    builder.addCase(startEngine.fulfilled, handleStartEngineFulfilled);
     builder.addCase(startEngine.pending, handleStartEnginePending);
     builder.addCase(startEngine.rejected, handleStartEngineRejected);
-    builder.addCase(stopEngine.fulfilled, handleStopEngineFullfilled);
+    builder.addCase(stopEngine.fulfilled, handleStopEngineFulfilled);
     builder.addCase(stopEngine.pending, handleStopEnginePending);
     builder.addCase(stopEngine.rejected, handleStopEngineRejected);
-    builder.addCase(driveMode.fulfilled, handleDriveModeFullfilled);
+    builder.addCase(driveMode.fulfilled, handleDriveModeFulfilled);
     builder.addCase(driveMode.rejected, handleDriveModeRejected);
   },
 });

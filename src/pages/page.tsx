@@ -19,7 +19,7 @@ const Page: FC<IPageProps> = ({ title, visible, children, status, error = false,
       <NavigationBar />
       <div className={styles.content}>
         {title && <h2 className={styles.title}>{title}</h2>}
-        {status === 'fullfilled' || !status ? (
+        {status === 'fulfilled' || !status ? (
           children
         ) : (
           <div className={styles.loading}>
