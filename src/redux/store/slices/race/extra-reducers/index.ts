@@ -64,8 +64,12 @@ export const handleStopEnginePending = (state: IRaceState) => {
   state.error = false;
 };
 
-export const handleStopEngineRejected = (state: IRaceState) => {
-  state.error = true;
+export const handleStopEngineRejected = (state: IRaceState, action: PayloadAction<unknown>) => {
+  const id = action.payload as number;
+
+  if (state.carsParams[id]) {
+    state.error = true;
+  }
 };
 
 export const handleDriveModeFullfilled = (

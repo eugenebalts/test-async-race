@@ -86,6 +86,10 @@ export const handleDeleteCarPending = (state: IGarageState) => {
   state.error = false;
 };
 
-export const handleDeleteCarRejected = (state: IGarageState) => {
-  state.error = true;
+export const handleDeleteCarRejected = (state: IGarageState, action: PayloadAction<unknown>) => {
+  const id = action.payload as number;
+
+  if (state.cars[id]) {
+    state.error = true;
+  }
 };

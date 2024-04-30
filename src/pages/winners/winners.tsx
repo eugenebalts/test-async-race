@@ -18,10 +18,8 @@ const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (visible) {
-      dispatch(getWinners());
-    }
-  }, [visible]);
+    dispatch(getWinners());
+  }, []);
 
   return (
     <Page

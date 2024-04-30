@@ -23,11 +23,18 @@ export const startEngine = createAsyncThunk(
   },
 );
 
-export const stopEngine = createAsyncThunk('race/stopEngine', async (id: number) => {
-  await EngineApi.stopEngine(id);
+export const stopEngine = createAsyncThunk(
+  'race/stopEngine',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await EngineApi.stopEngine(id);
 
-  return id;
-});
+      return id;
+    } catch (err) {
+      return rejectWithValue(id);
+    }
+  },
+);
 
 export const driveMode = createAsyncThunk(
   'race/driveMode',

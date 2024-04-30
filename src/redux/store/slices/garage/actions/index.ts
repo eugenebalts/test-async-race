@@ -49,8 +49,15 @@ export const updateCar = createAsyncThunk(
   },
 );
 
-export const deleteCar = createAsyncThunk('garage/deleteCar', async (id: number) => {
-  const response = await GarageApi.deleteCar(id);
+export const deleteCar = createAsyncThunk(
+  'garage/deleteCar',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      const response = await GarageApi.deleteCar(id);
 
-  return response;
-});
+      return response;
+    } catch (err) {
+      return rejectWithValue(id);
+    }
+  },
+);
