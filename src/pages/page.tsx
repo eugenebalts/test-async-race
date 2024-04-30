@@ -6,8 +6,9 @@ import NavigationBar from '../components/navigation-bar/navigation-bar';
 import { IPageProps } from './types';
 import styles from './page.module.scss';
 import CustomSnackbar from '../components/snackbar/snackbar';
+import { ERROR_MESSAGE } from '../constants';
 
-const Page: FC<IPageProps> = ({ title, visible, children, status, onReload }) => {
+const Page: FC<IPageProps> = ({ title, visible, children, status, error = false, onReload }) => {
   const pageClasses = clsx('page-classes', {
     [styles.wrapper]: true,
     [styles.wrapper_hidden]: !visible,
@@ -33,7 +34,7 @@ const Page: FC<IPageProps> = ({ title, visible, children, status, onReload }) =>
           </div>
         )}
       </div>
-      <CustomSnackbar cause={status === 'rejected'} message='Failed to load page' />
+      <CustomSnackbar cause={error} message={ERROR_MESSAGE} />
     </div>
   );
 };

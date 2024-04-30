@@ -53,3 +53,5 @@ export const START_POS = 130;
 export const END_POS = 60;
 
 export const DEFAULT_UPDATE_CAR_DATA: CreateCarDto = { name: '', color: '#ffffff' };
+
+export const ERROR_MESSAGE = 'An error occurred. Please try again later.';

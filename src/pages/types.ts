@@ -6,5 +6,6 @@ export interface IPageProps {
   visible: boolean;
   children: ReactNode;
   status?: Status;
+  error?: boolean;
   onReload: () => void;
 }

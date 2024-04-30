@@ -1,6 +1,24 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { createCar, deleteCar, generateCars, getGarage, updateCar } from './actions';
-import { ICar, IGarageState } from './types';
+import { IGarageState } from './types';
+import { updatePages, updateCurrentPage, setIsPageOpen } from './reducers/index';
+import {
+  hadnleCreateCarFullfield,
+  hadnleCreateCarPending,
+  hadnleCreateCarRejected,
+  hadnleGenerateCarsFulfilled,
+  hadnleGenerateCarsPending,
+  hadnleGenerateCarsRejected,
+  handleDeleteCarFulfilled,
+  handleDeleteCarPending,
+  handleDeleteCarRejected,
+  handleGetGarageFullfield,
+  handleGetGaragePending,
+  handleGetGarageRejected,
+  handleUpdateCarFullfield,
+  handleUpdateCarPending,
+  handleUpdateCarRejected,
+} from './extra-reducers';
 
 const initialState: IGarageState = {
   isOpen: false,
@@ -10,75 +28,33 @@ const initialState: IGarageState = {
   currentPage: 1,
   limit: 7,
   status: 'pending',
+  error: false,
 };
 
 const garageSlice = createSlice({
   name: 'garage',
   initialState,
   reducers: {
-    updatePages(state) {
-      const { cars, limit } = state;
-      const pages = Math.ceil(Object.keys(cars).length / limit);
-
-      if (pages) {
-        state.pages = pages;
-        state.currentPage = Math.min(state.currentPage, pages);
-      } else {
-        state.pages = 1;
-        state.currentPage = 1;
-      }
-    },
-    updateCurrentPage(state, action: PayloadAction<number>) {
-      state.currentPage = action.payload;
-    },
-    setIsPageOpen(state, action: PayloadAction<boolean>) {
-      state.isOpen = action.payload;
-    },
+    updatePages,
+    updateCurrentPage,
+    setIsPageOpen,
   },
   extraReducers: (builder) => {
-    builder.addCase(getGarage.fulfilled, (state, action: PayloadAction<ICar[]>) => {
-      const recievedCars = action.payload;
-
-      recievedCars.forEach((car) => {
-        state.cars[car.id] = car;
-      });
-
-      state.totalCount = Object.keys(state.cars).length;
-      state.status = 'fullfield';
-    });
-    builder.addCase(getGarage.pending, (state) => {
-      state.status = 'pending';
-    });
-    builder.addCase(getGarage.rejected, (state) => {
-      state.status = 'rejected';
-    });
-    builder.addCase(createCar.fulfilled, (state, action: PayloadAction<ICar>) => {
-      const newCar = action.payload;
-
-      state.cars[newCar.id] = newCar;
-      state.totalCount = Object.keys(state.cars).length;
-    });
-    builder.addCase(generateCars.fulfilled, (state, action: PayloadAction<ICar[]>) => {
-      const sortedPayload = action.payload.sort((a, b) => a.id - b.id);
-
-      sortedPayload.forEach((car) => {
-        state.cars[car.id] = car;
-      });
-
-      state.totalCount = Object.keys(state.cars).length;
-    });
-    builder.addCase(updateCar.fulfilled, (state, action: PayloadAction<ICar>) => {
-      const updatedCar = action.payload;
-
-      state.cars[updatedCar.id] = updatedCar;
-    });
-    builder.addCase(deleteCar.fulfilled, (state, action: PayloadAction<number>) => {
-      const carId = action.payload;
-
-      delete state.cars[carId];
-
-      state.totalCount = Object.keys(state.cars).length;
-    });
+    builder.addCase(getGarage.fulfilled, handleGetGarageFullfield);
+    builder.addCase(getGarage.pending, handleGetGaragePending);
+    builder.addCase(getGarage.rejected, handleGetGarageRejected);
+    builder.addCase(createCar.fulfilled, hadnleCreateCarFullfield);
+    builder.addCase(createCar.pending, hadnleCreateCarPending);
+    builder.addCase(createCar.rejected, hadnleCreateCarRejected);
+    builder.addCase(generateCars.fulfilled, hadnleGenerateCarsFulfilled);
+    builder.addCase(generateCars.pending, hadnleGenerateCarsPending);
+    builder.addCase(generateCars.rejected, hadnleGenerateCarsRejected);
+    builder.addCase(updateCar.fulfilled, handleUpdateCarFullfield);
+    builder.addCase(updateCar.pending, handleUpdateCarPending);
+    builder.addCase(updateCar.rejected, handleUpdateCarRejected);
+    builder.addCase(deleteCar.fulfilled, handleDeleteCarFulfilled);
+    builder.addCase(deleteCar.pending, handleDeleteCarPending);
+    builder.addCase(deleteCar.rejected, handleDeleteCarRejected);
   },
 });
 

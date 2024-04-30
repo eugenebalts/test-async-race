@@ -37,6 +37,7 @@ const initialState: IWinnersState = {
   currentPage: 1,
   limit: 7,
   status: 'pending',
+  error: false,
 };
 
 const winnersSlice = createSlice({

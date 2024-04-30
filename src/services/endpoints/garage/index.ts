@@ -1,3 +1,4 @@
+import { ERROR_MESSAGE } from '../../../constants';
 import { ICar } from '../../../redux/store/slices/garage/types';
 import api from '../../api';
 import { CreateCarDto, UpdateCarDto } from './types';
@@ -11,7 +12,7 @@ class GarageApi {
 
       return res as ICar[];
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to get cars');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
@@ -21,7 +22,7 @@ class GarageApi {
 
       return res as ICar;
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to create car');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
@@ -33,7 +34,7 @@ class GarageApi {
 
       return res as ICar;
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to update car');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
@@ -45,7 +46,7 @@ class GarageApi {
 
       return id;
     } catch (err) {
-      throw new Error(err instanceof Error ? err.message : 'Failed to delete car');
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 }

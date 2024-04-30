@@ -11,7 +11,7 @@ import pageStyles from '../page.module.scss';
 import { getGarage } from '../../redux/store/slices/garage/actions';
 
 const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
-  const { totalCount, status } = useSelector((state: RootState) => state.garage);
+  const { totalCount, status, error } = useSelector((state: RootState) => state.garage);
 
   const dispatch = useDispatch<AppDispatch>();
   const { setIsPageOpen } = garageActions;
@@ -29,6 +29,7 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
       title={`Garage: ${totalCount}`}
       visible={visible}
       status={status}
+      error={error}
       onReload={() => dispatch(getGarage())}
     >
       <GarageControls />

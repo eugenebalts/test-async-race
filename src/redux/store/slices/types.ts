@@ -6,4 +6,5 @@ export interface IPageState {
   limit: number;
   totalCount: number;
   status: Status;
+  error: boolean;
 }
