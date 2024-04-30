@@ -9,13 +9,16 @@ import StopButton from './stop-button/stop-button';
 
 const RaceControls = () => {
   const { busyTracks } = useSelector((state: RootState) => state.race.raceData);
-  const { limit, cars } = useSelector((state: RootState) => state.garage);
+  const { limit, cars, currentPage } = useSelector((state: RootState) => state.garage);
 
   const dispatch = useDispatch<AppDispatch>();
   const { startRace, stopRace } = raceActions;
 
   const handleStart = () => {
-    const membersCount = Object.keys(cars).slice(0, limit).length;
+    const membersCount = Object.keys(cars).slice(
+      (currentPage - 1) * limit,
+      currentPage * limit,
+    ).length;
 
     dispatch(startRace(membersCount));
   };
@@ -26,9 +29,7 @@ const RaceControls = () => {
 
   useEffect(() => {
     const beforeUnloadHandler = () => {
-      busyTracks.forEach((id) => {
-        dispatch(stopEngine(id));
-      });
+      busyTracks.forEach((id) => dispatch(stopEngine(id)));
     };
 
     window.addEventListener('beforeunload', beforeUnloadHandler);
