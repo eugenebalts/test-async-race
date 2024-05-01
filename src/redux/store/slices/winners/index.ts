@@ -27,7 +27,7 @@ export const initialState: IWinnersState = {
   },
   pages: 1,
   currentPage: 1,
-  limit: 7,
+  limit: 10,
   status: 'pending',
   error: false,
 };
