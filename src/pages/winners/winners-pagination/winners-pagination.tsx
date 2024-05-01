@@ -15,7 +15,7 @@ const WinnersPagination = () => {
   };
 
   return (
-    <CustomPagination color='secondary' count={pages} page={currentPage} onChange={handleChange} />
+    <CustomPagination color='primary' count={pages} page={currentPage} onChange={handleChange} />
   );
 };
 
