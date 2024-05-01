@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../redux/store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../redux/store/store';
 import { createCar } from '../../../redux/store/slices/garage/actions';
 import CreateCar from '../../../components/update-car/update-car';
 import GenerateCarsBtn from './generate-cars/generate-cars';
@@ -8,6 +8,8 @@ import { CreateCarDto } from '../../../services/endpoints/garage/types';
 import styles from './garage-controls.module.scss';
 
 const GarageControls = () => {
+  const { status } = useSelector((state: RootState) => state.garage);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const handleApply = (updatedCarData: CreateCarDto) => {
@@ -17,13 +19,13 @@ const GarageControls = () => {
   return (
     <ul className={styles.wrapper}>
       <li className={styles.item}>
-        <RaceControls />
+        <RaceControls disabled={status !== 'fulfilled'} />
       </li>
       <li className={styles.item}>
-        <CreateCar type='create' onApply={handleApply} />
+        <CreateCar type='create' onApply={handleApply} disabled={status !== 'fulfilled'} />
       </li>
       <li className={styles.item}>
-        <GenerateCarsBtn />
+        <GenerateCarsBtn disabled={status !== 'fulfilled'} />
       </li>
     </ul>
   );

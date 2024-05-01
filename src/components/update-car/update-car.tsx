@@ -11,6 +11,7 @@ const UpdateCar: FC<IUpdateCarProps> = ({
   type,
   onApply,
   initialData = DEFAULT_UPDATE_CAR_DATA,
+  disabled = false,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -34,6 +35,7 @@ const UpdateCar: FC<IUpdateCarProps> = ({
         color={type === 'create' ? 'primary' : 'success'}
         onClick={handleClickOpen}
         content={type === 'create' ? 'Create car' : <BuildIcon fontSize='small' />}
+        disabled={disabled}
       />
       <CustomDialog open={open} onClose={handleClose}>
         <UpdateForm onApply={handleApply} initialData={initialData} />

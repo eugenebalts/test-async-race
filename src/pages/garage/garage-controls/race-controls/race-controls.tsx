@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { ButtonGroup } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { stopEngine } from '../../../../redux/store/slices/race/actions';
@@ -6,8 +6,9 @@ import { raceActions } from '../../../../redux/store/slices/race';
 import { AppDispatch, RootState } from '../../../../redux/store/store';
 import StartButton from './start-button/start-button';
 import StopButton from './stop-button/stop-button';
+import { IButtonProps } from '../../../../components/button/types';
 
-const RaceControls = () => {
+const RaceControls: FC<Pick<IButtonProps, 'disabled'>> = ({ disabled = false }) => {
   const { busyTracks } = useSelector((state: RootState) => state.race.raceData);
   const { limit, cars, currentPage } = useSelector((state: RootState) => state.garage);
 
@@ -41,8 +42,8 @@ const RaceControls = () => {
 
   return (
     <ButtonGroup>
-      <StartButton onClick={handleStart} disabled={!!busyTracks.length} />
-      <StopButton onClick={handleStop} disabled={!busyTracks.length} />
+      <StartButton onClick={handleStart} disabled={!!busyTracks.length || disabled} />
+      <StopButton onClick={handleStop} disabled={!busyTracks.length || disabled} />
     </ButtonGroup>
   );
 };
