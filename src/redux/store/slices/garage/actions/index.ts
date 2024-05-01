@@ -13,6 +13,12 @@ export const getGarage = createAsyncThunk('garage/getGarage', async () => {
   return response;
 });
 
+export const getCar = createAsyncThunk('garage/getCar', async (id: number) => {
+  const response = await garageApi.getCarById(id);
+
+  return response;
+});
+
 export const createCar = createAsyncThunk('garage/createCar', async (data: CreateCarDto) => {
   const response = await garageApi.createCar(data);
 

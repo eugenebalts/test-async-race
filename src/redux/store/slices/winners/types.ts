@@ -6,14 +6,16 @@ export interface IWinner {
   time: number;
 }
 
-export type SortOption = 'none' | 'ascending' | 'descending';
+export type SortKeys = keyof IWinner;
+export type SortOrder = 'ASC' | 'DESC';
 
-export type WinnersSortOptions = {
-  [K in keyof Omit<IWinner, 'id'>]: SortOption;
-};
+export interface IWinnersSortOptions {
+  sort: SortKeys;
+  order: SortOrder;
+}
 
 export interface IWinnersState extends IPageState {
-  winners: Record<string, IWinner>;
-  sortedWinners: IWinner[];
-  sortedBy: WinnersSortOptions;
+  winners: IWinner[];
+  sortOptions: IWinnersSortOptions;
+  reloadTrigger: boolean;
 }

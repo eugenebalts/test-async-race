@@ -30,5 +30,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
+  min-height: 200px;
+  flex: 1;
 }

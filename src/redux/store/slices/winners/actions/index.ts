@@ -1,14 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import winnersApi from '../../../../../services/endpoints/winners/index';
 import { IWinner } from '../types';
-import { UpdateWinnerDto } from '../../../../../services/endpoints/winners/types';
+import { GetWinnersParams, UpdateWinnerDto } from '../../../../../services/endpoints/winners/types';
 import { ICreateOrUpdatePayload } from './types';
 
-export const getWinners = createAsyncThunk('winners/getWinners', async () => {
-  const response = await winnersApi.getWinners();
+export const getWinners = createAsyncThunk(
+  'winners/getWinners',
+  async (params: GetWinnersParams) => {
+    const response = await winnersApi.getWinners(params);
 
-  return response;
-});
+    return response;
+  },
+);
 
 // optimistic creation;
 export const createOrUpdateWinner = createAsyncThunk(
@@ -34,9 +37,9 @@ export const createOrUpdateWinner = createAsyncThunk(
     } catch (err) {
       const createWinnerDto: IWinner = { ...data, wins: 1 };
 
-      const createdWinner = await winnersApi.createWinner(createWinnerDto);
+      await winnersApi.createWinner(createWinnerDto);
 
-      return createdWinner;
+      return null;
     }
   },
 );
@@ -44,7 +47,7 @@ export const createOrUpdateWinner = createAsyncThunk(
 export const deleteWinner = createAsyncThunk('winners/deleteWinner', async (id: number) => {
   await winnersApi.deleteWinner(id);
 
-  return id;
+  return null;
 });
 
 export const emptyImport = true;

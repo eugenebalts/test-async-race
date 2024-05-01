@@ -1,4 +1,6 @@
 import { FC, useEffect } from 'react';
+import ReplayIcon from '@mui/icons-material/Replay';
+import { Box, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import { IPageProps } from '../types';
@@ -17,8 +19,12 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { setIsPageOpen } = garageActions;
 
-  useEffect(() => {
+  const loadPage = () => {
     dispatch(getGarage());
+  };
+
+  useEffect(() => {
+    loadPage();
   }, []);
 
   useEffect(() => {
@@ -29,14 +35,28 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
     <Page
       title={`Garage: ${totalCount}`}
       visible={visible}
-      status={status}
       error={visible && (error || raceErrors)}
       onReload={() => dispatch(getGarage())}
     >
       <GarageControls />
       <div className={pageStyles['main-content']}>
-        <Tracks />
-        <GaragePagination />
+        {status === 'fulfilled' || !status ? (
+          <>
+            <Tracks />
+            <GaragePagination />
+          </>
+        ) : (
+          <div className={pageStyles.loading}>
+            {status === 'pending' && (
+              <Box>
+                <CircularProgress />
+              </Box>
+            )}
+            {status === 'rejected' && (
+              <ReplayIcon onClick={loadPage} fontSize='large' style={{ cursor: 'pointer' }} />
+            )}
+          </div>
+        )}
       </div>
     </Page>
   );

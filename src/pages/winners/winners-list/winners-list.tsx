@@ -4,31 +4,20 @@ import clsx from 'clsx';
 import { AppDispatch, RootState } from '../../../redux/store/store';
 import WinnersItem from './winners-item/winners-item';
 import { winnersActions } from '../../../redux/store/slices/winners';
-import { getGarage } from '../../../redux/store/slices/garage/actions';
 import styles from './winners-list.module.scss';
 import itemStyles from './winners-item/winners-item.module.scss';
-import truncateString from '../../../utils/truncate-string';
 
 const MemorizedWinnersItem = memo(WinnersItem);
 
 const WinnersList = () => {
-  const { cars, totalCount } = useSelector((state: RootState) => state.garage);
-  const { winners, sortedBy, sortedWinners, currentPage, limit } = useSelector(
-    (state: RootState) => state.winners,
-  );
+  const { winners, totalCount } = useSelector((state: RootState) => state.winners);
+
   const dispatch = useDispatch<AppDispatch>();
-  const { updatePages, sortWinners } = winnersActions;
+  const { updatePages } = winnersActions;
 
   useEffect(() => {
-    if (!totalCount) {
-      dispatch(getGarage());
-    }
-  }, []);
-
-  useEffect(() => {
-    dispatch(sortWinners());
     dispatch(updatePages());
-  }, [winners, sortedBy]);
+  }, [totalCount]);
 
   return (
     <ul className={styles.wrapper}>
@@ -39,18 +28,9 @@ const WinnersList = () => {
         <p>Wins</p>
         <p>Time (sec)</p>
       </li>
-      {Object.values(sortedWinners)
-        .slice((currentPage - 1) * limit, currentPage * limit)
-        .map(({ id, time, wins }) => (
-          <MemorizedWinnersItem
-            key={id}
-            id={id}
-            color={cars[id]?.color ?? 'transparent'}
-            name={cars[id]?.name ? truncateString(cars[id].name) : 'unknown'}
-            wins={wins}
-            time={time}
-          />
-        ))}
+      {winners.map(({ id, time, wins }) => (
+        <MemorizedWinnersItem key={id} id={id} wins={wins} time={time} />
+      ))}
     </ul>
   );
 };

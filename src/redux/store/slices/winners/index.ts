@@ -1,14 +1,7 @@
 import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit';
 import { createOrUpdateWinner, deleteWinner, getWinners } from './actions';
 import { IWinnersState } from './types';
-import {
-  updatePages,
-  updateCurrentPage,
-  sortByTime,
-  sortByWins,
-  sortWinners,
-  resetSortOptions,
-} from './reducers';
+import { updatePages, updateCurrentPage, sortWinners } from './reducers';
 import {
   handleCreateOrUpdateWinnerFulfilled,
   handleDeleteWinnerFulfilled,
@@ -18,18 +11,18 @@ import {
 } from './extra-reducers';
 
 export const initialState: IWinnersState = {
-  winners: {},
+  winners: [],
   totalCount: 0,
-  sortedWinners: [],
-  sortedBy: {
-    time: 'none',
-    wins: 'none',
+  sortOptions: {
+    sort: 'id',
+    order: 'ASC',
   },
   pages: 1,
   currentPage: 1,
   limit: 10,
   status: 'pending',
   error: false,
+  reloadTrigger: false,
 };
 
 const winnersSlice = createSlice({
@@ -38,10 +31,7 @@ const winnersSlice = createSlice({
   reducers: {
     updatePages,
     updateCurrentPage,
-    sortByTime,
-    sortByWins,
     sortWinners,
-    resetSortOptions,
   },
   extraReducers: (builder: ActionReducerMapBuilder<IWinnersState>) => {
     builder.addCase(getWinners.fulfilled, handleGetWinnersFulfilled);

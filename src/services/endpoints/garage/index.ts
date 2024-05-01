@@ -8,31 +8,41 @@ class GarageApi {
 
   async getCars(): Promise<ICar[]> {
     try {
-      const response = await api.get(this.path);
+      const { data } = await api.get(this.path);
 
-      return response as ICar[];
+      return data as ICar[];
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
-  async createCar(data: CreateCarDto): Promise<ICar> {
+  async getCarById(id: number): Promise<ICar> {
     try {
-      const response = await api.post(this.path, data);
+      const { data } = await api.get(`${this.path}/${id}`);
 
-      return response as ICar;
+      return data as ICar;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
-  async updateCar(id: number, data: UpdateCarDto): Promise<ICar> {
+  async createCar(createCarDto: CreateCarDto): Promise<ICar> {
+    try {
+      const { data } = await api.post(this.path, createCarDto);
+
+      return data as ICar;
+    } catch (err) {
+      throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
+    }
+  }
+
+  async updateCar(id: number, updateCarDto: UpdateCarDto): Promise<ICar> {
     const path = `${this.path}/${id}`;
 
     try {
-      const response = await api.put(path, data);
+      const { data } = await api.put(path, updateCarDto);
 
-      return response as ICar;
+      return data as ICar;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }

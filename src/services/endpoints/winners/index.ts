@@ -1,16 +1,28 @@
 import { ERROR_MESSAGE } from '../../../constants';
 import { IWinner } from '../../../redux/store/slices/winners/types';
 import api from '../../api';
-import { UpdateWinnerDto } from './types';
+import { QueryParams } from '../../api/types';
+import { GetWinnersParams, IGetWinnersResponse, UpdateWinnerDto } from './types';
 
 class WinnersApi {
   private readonly path: string = 'winners';
 
-  async getWinners(): Promise<IWinner[]> {
-    try {
-      const response = await api.get(this.path);
+  async getWinners(params: Partial<GetWinnersParams> = {}): Promise<IGetWinnersResponse> {
+    const queryParams: QueryParams = {};
 
-      return response as IWinner[];
+    Object.entries(params).forEach(([key, value]) => {
+      queryParams[`_${key}`] = String(value);
+    });
+
+    try {
+      const { data, headers } = await api.get(this.path, queryParams);
+
+      const totalCount = headers.get('X-Total-Count');
+
+      return {
+        winners: data as IWinner[],
+        total: Number(totalCount) ?? 0,
+      };
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
@@ -20,31 +32,31 @@ class WinnersApi {
     const path = `${this.path}/${id}`;
 
     try {
-      const response = await api.get(path);
+      const { data } = await api.get(path);
 
-      return response as IWinner;
+      return data as IWinner;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
-  async createWinner(data: IWinner): Promise<IWinner> {
+  async createWinner(winnerData: IWinner): Promise<IWinner> {
     try {
-      const response = await api.post(this.path, data);
+      const { data } = await api.post(this.path, winnerData);
 
-      return response as IWinner;
+      return data as IWinner;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
   }
 
-  async updateWinner(id: number, data: UpdateWinnerDto): Promise<IWinner> {
+  async updateWinner(id: number, updateWinnerDto: UpdateWinnerDto): Promise<IWinner> {
     const path = `${this.path}/${id}`;
 
     try {
-      const response = await api.put(path, data);
+      const { data } = await api.put(path, updateWinnerDto);
 
-      return response as IWinner;
+      return data as IWinner;
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }
