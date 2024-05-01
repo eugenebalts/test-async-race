@@ -81,9 +81,9 @@ export const handleDriveModeFulfilled = (
   if (response?.success && state.carsParams[id] && raceId === state.raceData.raceId) {
     state.carsParams[id].status = 'finished';
 
-    const { isSingle, winner, hasResults } = state.raceData;
+    const { isSingle, winner, hasResults, membersForRace } = state.raceData;
 
-    const isCompetitiveRace = !isSingle;
+    const isCompetitiveRace = !isSingle && membersForRace > 1;
 
     if (!winner && !hasResults && isCompetitiveRace) {
       const time = state.carsParams[id]?.time;
