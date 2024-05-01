@@ -10,7 +10,7 @@ import { NavigationLinks } from './constants';
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { hash } = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,15 +26,15 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (!Object.values(NavigationLinks).includes(hash as NavigationLinks)) {
+    if (!Object.values(NavigationLinks).includes(pathname as NavigationLinks)) {
       navigate(NavigationLinks.GARAGE);
     }
-  }, [hash]);
+  }, [pathname]);
 
   return (
     <Layout>
-      <GaragePage visible={hash === NavigationLinks.GARAGE} />
-      <WinnersPage visible={hash === NavigationLinks.WINNERS} />
+      <GaragePage visible={pathname === NavigationLinks.GARAGE} />
+      <WinnersPage visible={pathname === NavigationLinks.WINNERS} />
     </Layout>
   );
 };
