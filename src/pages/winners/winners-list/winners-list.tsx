@@ -1,23 +1,15 @@
-import { useEffect, memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { memo } from 'react';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
-import { AppDispatch, RootState } from '../../../redux/store/store';
+import { RootState } from '../../../redux/store/store';
 import WinnersItem from './winners-item/winners-item';
-import { winnersActions } from '../../../redux/store/slices/winners';
 import styles from './winners-list.module.scss';
 import itemStyles from './winners-item/winners-item.module.scss';
 
 const MemorizedWinnersItem = memo(WinnersItem);
 
 const WinnersList = () => {
-  const { winners, totalCount } = useSelector((state: RootState) => state.winners);
-
-  const dispatch = useDispatch<AppDispatch>();
-  const { updatePages } = winnersActions;
-
-  useEffect(() => {
-    dispatch(updatePages());
-  }, [totalCount]);
+  const { winners } = useSelector((state: RootState) => state.winners);
 
   return (
     <ul className={styles.wrapper}>

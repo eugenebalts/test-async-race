@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit';
 import { createOrUpdateWinner, deleteWinner, getWinners } from './actions';
 import { IWinnersState } from './types';
-import { updatePages, updateCurrentPage, sortWinners } from './reducers';
+import { updateCurrentPage, sortWinners } from './reducers';
 import {
   handleCreateOrUpdateWinnerFulfilled,
   handleDeleteWinnerFulfilled,
@@ -29,7 +29,6 @@ const winnersSlice = createSlice({
   name: 'winners',
   initialState,
   reducers: {
-    updatePages,
     updateCurrentPage,
     sortWinners,
   },

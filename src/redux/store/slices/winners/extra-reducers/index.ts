@@ -7,6 +7,17 @@ export const handleGetWinnersFulfilled = (
   action: PayloadAction<IGetWinnersResponse>,
 ) => {
   const { winners, total } = action.payload;
+  const { limit, currentPage } = state;
+
+  const pages = Math.ceil(total / limit);
+
+  if (pages) {
+    state.pages = pages;
+    state.currentPage = Math.min(currentPage, pages);
+  } else {
+    state.pages = 1;
+    state.currentPage = 1;
+  }
 
   state.winners = winners;
   state.totalCount = total;
