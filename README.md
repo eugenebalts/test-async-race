@@ -115,7 +115,7 @@
 - **Framer Motion** <sup>_[docs](https://www.framer.com/motion/introduction/)_</sup> -  A simple yet powerful motion library for React.
 - **ESLint** <sup>_[docs](https://eslint.org/docs/latest/)_</sup> - A pluggable linting utility for JavaScript and JSX.
 - **Prettier** <sup>_[docs](https://prettier.io/docs/en/)_</sup> - An opinionated code formatter.
-- 
+
 ---
 
 ## Getting Started
