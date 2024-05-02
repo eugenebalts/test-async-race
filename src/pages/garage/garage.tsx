@@ -1,6 +1,4 @@
 import { FC, useEffect } from 'react';
-import ReplayIcon from '@mui/icons-material/Replay';
-import { Box, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import { IPageProps } from '../types';
@@ -11,6 +9,7 @@ import Page from '../page';
 import { garageActions } from '../../redux/store/slices/garage';
 import pageStyles from '../page.module.scss';
 import { getGarage } from '../../redux/store/slices/garage/actions';
+import StatusIndicator from '../../components/status-indicator/status-indicator';
 
 const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   const { currentPage, limit, totalCount, status, error } = useSelector(
@@ -57,16 +56,7 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
             <Tracks />
           </>
         ) : (
-          <div className={pageStyles.loading}>
-            {status === 'pending' && (
-              <Box>
-                <CircularProgress />
-              </Box>
-            )}
-            {status === 'rejected' && (
-              <ReplayIcon onClick={loadPage} fontSize='large' style={{ cursor: 'pointer' }} />
-            )}
-          </div>
+          <StatusIndicator onReload={loadPage} status={status} />
         )}
       </div>
     </Page>

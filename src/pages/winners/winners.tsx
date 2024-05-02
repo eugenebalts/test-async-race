@@ -1,6 +1,4 @@
 import { FC, useEffect } from 'react';
-import ReplayIcon from '@mui/icons-material/Replay';
-import { Box, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import { IPageProps } from '../types';
@@ -11,8 +9,8 @@ import DesktopWinnersSorter from './winners-sorter/desktop-winners-sorter/deskto
 import MobileWinnersSorter from './winners-sorter/mobile-winners-sorter/mobile-winners-sorter';
 import { TABLET_WIDTH } from '../../constants';
 import { getWinners } from '../../redux/store/slices/winners/actions';
+import StatusIndicator from '../../components/status-indicator/status-indicator';
 import styles from './winners.module.scss';
-import pageStyles from '../page.module.scss';
 
 const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   const { totalCount, sortOptions, currentPage, limit, status, error, reloadTrigger } = useSelector(
@@ -58,16 +56,7 @@ const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
             <WinnersList />
           </div>
         ) : (
-          <div className={pageStyles.loading}>
-            {status === 'pending' && (
-              <Box>
-                <CircularProgress />
-              </Box>
-            )}
-            {status === 'rejected' && (
-              <ReplayIcon onClick={loadPage} fontSize='large' style={{ cursor: 'pointer' }} />
-            )}
-          </div>
+          <StatusIndicator onReload={loadPage} status={status} />
         )}
       </div>
     </Page>
