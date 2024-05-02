@@ -102,3 +102,74 @@
 - [ ] **(Up to 35 points)** Discretionary points awarded by the reviewer based on overall code quality, readability
 
 ---
+
+
+## Getting Started
+
+To get a local copy of the project perform the following actions:
+
+1. Start the server according to README following  [Link](https://github.com/mikhama/async-race-api) 
+
+2. Clone the repo
+
+```
+git clone https://github.com/eugenebalts/test-async-race.git
+```
+
+3. Install npm packages
+
+```
+npm install
+```
+
+4. Run the project locally
+
+```
+npm run start
+```
+
+## Available scripts
+
+#### Development server
+
+- run the project locally
+
+```
+npm run start
+```
+
+#### Code building
+
+- build development version
+
+```
+npm run build
+```
+
+#### Prettier (code formatting)
+
+- сhecks formatting for all project files
+
+```
+npm run ci:format
+```
+
+- auto fixes formatting for all project files
+
+```
+npm run format
+```
+
+#### ESLint (code linting)
+
+- checks linting for all project files
+
+```
+npm run lint
+```
+
+- auto fixes linting error for all project files
+
+```
+npm run lint:fix
+```
