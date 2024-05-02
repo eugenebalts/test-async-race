@@ -1,5 +1,12 @@
 import { ActionReducerMapBuilder, createSlice } from '@reduxjs/toolkit';
-import { createCar, deleteCar, generateCars, getGarage, updateCar } from './actions';
+import {
+  createCar,
+  deleteCar,
+  generateCars,
+  getGarage,
+  loadNextAfterDeletion,
+  updateCar,
+} from './actions';
 import { IGarageState } from './types';
 import { updatePages, updateCurrentPage, setIsPageOpen } from './reducers/index';
 import {
@@ -18,6 +25,9 @@ import {
   handleUpdateCarFulfilled,
   handleUpdateCarPending,
   handleUpdateCarRejected,
+  handleLoadNextPageAfterDeletionFulfilled,
+  handleLoadNextPageAfterDeletionPending,
+  handleLoadNextPageAfterDeletionRejected,
 } from './extra-reducers';
 
 const initialState: IGarageState = {
@@ -55,6 +65,9 @@ const garageSlice = createSlice({
     builder.addCase(deleteCar.fulfilled, handleDeleteCarFulfilled);
     builder.addCase(deleteCar.pending, handleDeleteCarPending);
     builder.addCase(deleteCar.rejected, handleDeleteCarRejected);
+    builder.addCase(loadNextAfterDeletion.fulfilled, handleLoadNextPageAfterDeletionFulfilled);
+    builder.addCase(loadNextAfterDeletion.pending, handleLoadNextPageAfterDeletionPending);
+    builder.addCase(loadNextAfterDeletion.rejected, handleLoadNextPageAfterDeletionRejected);
   },
 });
 

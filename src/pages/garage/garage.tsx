@@ -13,19 +13,30 @@ import pageStyles from '../page.module.scss';
 import { getGarage } from '../../redux/store/slices/garage/actions';
 
 const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
-  const { totalCount, status, error } = useSelector((state: RootState) => state.garage);
+  const { currentPage, limit, totalCount, status, error } = useSelector(
+    (state: RootState) => state.garage,
+  );
   const raceErrors = useSelector((state: RootState) => state.race.error);
 
   const dispatch = useDispatch<AppDispatch>();
   const { setIsPageOpen } = garageActions;
+  const { updatePages } = garageActions;
 
-  const loadPage = () => {
-    dispatch(getGarage());
+  const loadPage = async () => {
+    const prevScrollY = window.scrollY; // Used due to loss of list height after update
+
+    await dispatch(getGarage({ page: currentPage, limit }));
+
+    window.scrollTo({ top: prevScrollY, behavior: 'smooth' });
   };
 
   useEffect(() => {
     loadPage();
-  }, []);
+  }, [currentPage]);
+
+  useEffect(() => {
+    dispatch(updatePages());
+  }, [totalCount]);
 
   useEffect(() => {
     dispatch(setIsPageOpen(visible));
@@ -36,14 +47,14 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
       title={`Garage: ${totalCount}`}
       visible={visible}
       error={visible && (error || raceErrors)}
-      onReload={() => dispatch(getGarage())}
+      onReload={loadPage}
     >
       <GarageControls />
       <div className={pageStyles['main-content']}>
         {status === 'fulfilled' || !status ? (
           <>
-            <Tracks />
             <GaragePagination />
+            <Tracks />
           </>
         ) : (
           <div className={pageStyles.loading}>

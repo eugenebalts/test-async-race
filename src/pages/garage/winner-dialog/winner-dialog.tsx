@@ -16,6 +16,8 @@ const WinnerDialog = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     if (winner) {
       if (isOpen) {
         setIsDialogOpen(true);
@@ -23,12 +25,14 @@ const WinnerDialog = () => {
 
       dispatch(createOrUpdateWinner(winner));
 
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         setIsDialogOpen(false);
       }, DIALOG_CLOSE_DELAY);
     } else {
       setIsDialogOpen(false);
     }
+
+    return () => clearTimeout(timeoutId);
   }, [winner]);
 
   const handleDialogClose = () => {

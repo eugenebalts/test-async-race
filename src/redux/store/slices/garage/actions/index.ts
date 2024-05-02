@@ -6,12 +6,22 @@ import { ICar } from '../types';
 import getRandomIndex from '../../../../../utils/get-random-index';
 import getRandomColor from '../../../../../utils/get-random-color';
 import { IUpdateCarPayload } from './types';
+import { IGetPageParams } from '../../../../../services/endpoints/types';
 
-export const getGarage = createAsyncThunk('garage/getGarage', async () => {
-  const response = await garageApi.getCars();
+export const getGarage = createAsyncThunk('garage/getGarage', async (params: IGetPageParams) => {
+  const response = await garageApi.getCars(params);
 
   return response;
 });
+
+export const loadNextAfterDeletion = createAsyncThunk(
+  'garage/getNextAfterDeletion',
+  async (params: IGetPageParams) => {
+    const response = await garageApi.getCars(params);
+
+    return response;
+  },
+);
 
 export const getCar = createAsyncThunk('garage/getCar', async (id: number) => {
   const response = await garageApi.getCarById(id);

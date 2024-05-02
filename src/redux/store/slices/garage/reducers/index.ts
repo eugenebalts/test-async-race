@@ -2,12 +2,12 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { IGarageState } from '../types';
 
 export const updatePages = (state: IGarageState) => {
-  const { cars, limit } = state;
-  const pages = Math.ceil(Object.keys(cars).length / limit);
+  const { totalCount, limit, currentPage } = state;
+  const pages = Math.ceil(totalCount / limit);
 
   if (pages) {
     state.pages = pages;
-    state.currentPage = Math.min(state.currentPage, pages);
+    state.currentPage = Math.min(currentPage, pages);
   } else {
     state.pages = 1;
     state.currentPage = 1;

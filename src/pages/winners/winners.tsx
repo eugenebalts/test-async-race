@@ -54,8 +54,8 @@ const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
         {width > TABLET_WIDTH ? <DesktopWinnersSorter /> : <MobileWinnersSorter />}
         {status === 'fulfilled' ? (
           <div className={styles.page}>
-            <WinnersList />
             <WinnersPagination />
+            <WinnersList />
           </div>
         ) : (
           <div className={pageStyles.loading}>

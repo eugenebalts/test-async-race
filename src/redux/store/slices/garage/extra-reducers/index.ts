@@ -1,14 +1,16 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { ICar, IGarageState } from '../types';
+import { IGetGarageResponse } from '../../../../../services/endpoints/garage/types';
 
-export const handleGetGarageFulfilled = (state: IGarageState, action: PayloadAction<ICar[]>) => {
-  const recievedCars = action.payload;
+export const handleGetGarageFulfilled = (
+  state: IGarageState,
+  action: PayloadAction<IGetGarageResponse>,
+) => {
+  const { cars, total } = action.payload;
 
-  recievedCars.forEach((car) => {
-    state.cars[car.id] = car;
-  });
+  state.cars = Object.assign({}, ...cars.map((car) => ({ [car.id]: car })));
 
-  state.totalCount = Object.keys(state.cars).length;
+  state.totalCount = total;
   state.status = 'fulfilled';
   state.error = false;
 };
@@ -25,9 +27,13 @@ export const handleGetGarageRejected = (state: IGarageState) => {
 
 export const hadnleCreateCarFulfilled = (state: IGarageState, action: PayloadAction<ICar>) => {
   const newCar = action.payload;
+  const { limit, cars } = state;
 
-  state.cars[newCar.id] = newCar;
-  state.totalCount = Object.keys(state.cars).length;
+  if (Object.keys(cars).length < limit) {
+    state.cars[newCar.id] = newCar;
+  }
+
+  state.totalCount += 1;
   state.error = false;
 };
 
@@ -41,12 +47,15 @@ export const hadnleCreateCarRejected = (state: IGarageState) => {
 
 export const hadnleGenerateCarsFulfilled = (state: IGarageState, action: PayloadAction<ICar[]>) => {
   const sortedPayload = action.payload.sort((a, b) => a.id - b.id);
+  const { limit, cars } = state;
 
-  sortedPayload.forEach((car) => {
+  const differenceToLimit = limit - Object.keys(cars).length;
+
+  sortedPayload.slice(0, differenceToLimit).forEach((car) => {
     state.cars[car.id] = car;
   });
 
-  state.totalCount = Object.keys(state.cars).length;
+  state.totalCount += sortedPayload.length;
   state.error = false;
 };
 
@@ -78,7 +87,7 @@ export const handleDeleteCarFulfilled = (state: IGarageState, action: PayloadAct
 
   delete state.cars[carId];
 
-  state.totalCount = Object.keys(state.cars).length;
+  state.totalCount -= 1;
   state.error = false;
 };
 
@@ -92,4 +101,30 @@ export const handleDeleteCarRejected = (state: IGarageState, action: PayloadActi
   if (state.cars[id]) {
     state.error = true;
   }
+};
+
+export const handleLoadNextPageAfterDeletionFulfilled = (
+  state: IGarageState,
+  action: PayloadAction<IGetGarageResponse>,
+) => {
+  const { cars } = action.payload;
+  const { limit } = state;
+
+  const carsOnPage = Object.keys(state.cars).length;
+
+  if (limit - carsOnPage === 1) {
+    const lastCarOnPage = cars[carsOnPage];
+
+    if (lastCarOnPage) {
+      state.cars[lastCarOnPage?.id] = lastCarOnPage;
+    }
+  }
+};
+
+export const handleLoadNextPageAfterDeletionPending = (state: IGarageState) => {
+  state.error = false;
+};
+
+export const handleLoadNextPageAfterDeletionRejected = (state: IGarageState) => {
+  state.error = true;
 };

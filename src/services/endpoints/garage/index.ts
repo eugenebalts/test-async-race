@@ -1,16 +1,25 @@
 import { ERROR_MESSAGE } from '../../../constants';
 import { ICar } from '../../../redux/store/slices/garage/types';
+import getUnderscopedParams from '../../../utils/get-underscoped-params';
 import api from '../../api';
-import { CreateCarDto, UpdateCarDto } from './types';
+import { IGetPageParams } from '../types';
+import { CreateCarDto, IGetGarageResponse, UpdateCarDto } from './types';
 
 class GarageApi {
   private readonly path: string = 'garage';
 
-  async getCars(): Promise<ICar[]> {
-    try {
-      const { data } = await api.get(this.path);
+  async getCars(params: Partial<IGetPageParams>): Promise<IGetGarageResponse> {
+    const queryParams = getUnderscopedParams(params);
 
-      return data as ICar[];
+    try {
+      const { data, headers } = await api.get(this.path, queryParams);
+
+      const totalCount = headers.get('X-Total-Count');
+
+      return {
+        cars: data as ICar[],
+        total: Number(totalCount) ?? 0,
+      };
     } catch (err) {
       throw new Error(err instanceof Error ? err.message : ERROR_MESSAGE);
     }

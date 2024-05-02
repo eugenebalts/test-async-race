@@ -4,3 +4,8 @@ export interface IUpdateCarPayload {
   id: number;
   data: UpdateCarDto;
 }
+
+export interface IDeleteCarPayload {
+  id: number;
+  shouldFetchNext: boolean;
+}

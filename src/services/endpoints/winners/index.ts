@@ -1,18 +1,14 @@
 import { ERROR_MESSAGE } from '../../../constants';
 import { IWinner } from '../../../redux/store/slices/winners/types';
+import getUnderscopedParams from '../../../utils/get-underscoped-params';
 import api from '../../api';
-import { QueryParams } from '../../api/types';
 import { GetWinnersParams, IGetWinnersResponse, UpdateWinnerDto } from './types';
 
 class WinnersApi {
   private readonly path: string = 'winners';
 
   async getWinners(params: Partial<GetWinnersParams> = {}): Promise<IGetWinnersResponse> {
-    const queryParams: QueryParams = {};
-
-    Object.entries(params).forEach(([key, value]) => {
-      queryParams[`_${key}`] = String(value);
-    });
+    const queryParams = getUnderscopedParams(params);
 
     try {
       const { data, headers } = await api.get(this.path, queryParams);

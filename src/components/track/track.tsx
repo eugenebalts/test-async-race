@@ -62,21 +62,12 @@ const Track: FC<ICar> = ({ id, name, color }) => {
     [carParams?.status],
   );
 
-  useEffect(
-    () => () => {
-      if (carParams?.status) {
-        dispatch(stopEngine(id));
-      }
-    },
-    [],
-  );
-
   useEffect(() => {
     setTransform(getTransform()); // 5 after carParams.status has become DRIVING we'll get transform
   }, [difference, carParams?.status]);
 
   useEffect(() => {
-    // 1* sets status 'started / stopped' after click start/stop race btn
+    // 1 sets status 'started / stopped' after click start/stop race btn
     initialDifferenceRef.current = difference;
 
     if (isSingle) return;
