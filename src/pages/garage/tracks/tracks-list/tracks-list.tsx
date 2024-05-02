@@ -13,7 +13,7 @@ const TracksList = () => {
   const { cars, currentPage, limit } = useSelector((state: RootState) => state.garage);
   const { busyTracks } = useSelector((state: RootState) => state.race.raceData);
 
-  const prevCarsLength = useRef<number>(0);
+  const prevCarsCountOnPage = useRef<number>(0);
 
   const dispatch = useDispatch<AppDispatch>();
   const { resetRaceState } = raceActions;
@@ -27,16 +27,16 @@ const TracksList = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    const currentCarLength = Object.keys(cars).length;
+    const curCarsCountOnPage = Object.keys(cars).length;
 
     const shouldLoadNext =
-      prevCarsLength.current === limit && currentCarLength < prevCarsLength.current;
+      prevCarsCountOnPage.current === limit && curCarsCountOnPage < prevCarsCountOnPage.current;
 
     if (shouldLoadNext) {
       dispatch(loadNextAfterDeletion({ page: currentPage, limit }));
     }
 
-    prevCarsLength.current = currentCarLength;
+    prevCarsCountOnPage.current = curCarsCountOnPage;
   }, [cars]);
 
   return (

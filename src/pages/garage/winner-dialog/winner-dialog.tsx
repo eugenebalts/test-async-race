@@ -44,10 +44,8 @@ const WinnerDialog = () => {
       <div className={styles.content}>
         {winner && (
           <>
-            <p
-              className={styles.row}
-            >{`Winner: ${truncateString(cars[winner.id]?.name ?? 'unknown')}`}</p>
-            <p className={styles.row}>{`Time: ${winner.time}s`}</p>
+            <p>{`Winner: ${truncateString(cars[winner.id]?.name ?? 'unknown')}`}</p>
+            <p>{`Time: ${winner.time}s`}</p>
           </>
         )}
       </div>

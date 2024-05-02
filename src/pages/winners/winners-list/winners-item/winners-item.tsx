@@ -15,10 +15,12 @@ const WinnersItem: FC<IWinner> = ({ id, wins, time }) => {
 
   useEffect(() => {
     (async () => {
-      const gotCarData = await dispatch(getCar(id));
+      const getCarResults = await dispatch(getCar(id));
 
-      if (gotCarData.payload) {
-        setCarData(gotCarData.payload as ICar);
+      const payload = getCarResults?.payload;
+
+      if (payload) {
+        setCarData(payload as ICar);
       }
     })();
   }, []);

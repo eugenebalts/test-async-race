@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AppDispatch, RootState } from '../../../../../redux/store/store';
-import { deleteCar } from '../../../../../redux/store/slices/garage/actions';
 import CustomButton from '../../../../button/button';
 import { IButtonWithIdProps } from '../../../../button/types';
+import { deleteCar } from '../../../../../redux/store/slices/garage/actions';
 import { deleteWinner } from '../../../../../redux/store/slices/winners/actions';
 import { stopEngine } from '../../../../../redux/store/slices/race/actions';
 

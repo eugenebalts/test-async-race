@@ -17,7 +17,15 @@
   text-shadow: 15px 3px 5px $color-black;
   line-height: 0.9em;
 
+  @include tablet {
+    font-size: 30px;
+  }
+
   span {
     font-size: 25px;
+
+    @include tablet {
+      font-size: 20px;
+    }
   }
 }

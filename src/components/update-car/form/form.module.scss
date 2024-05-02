@@ -12,11 +12,11 @@
 }
 
 .item {
-  width: 250px;
-  max-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 250px;
+  max-width: 100%;
 
   & *:not(svg) {
     margin: 0 !important;

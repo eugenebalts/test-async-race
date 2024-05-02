@@ -1,8 +1,6 @@
-@import '../../styles/base/variables';
-
 .wrapper {
   & * {
-    font-family: $font-family-press !important;
+    font-family: unset !important;
   }
 }
 

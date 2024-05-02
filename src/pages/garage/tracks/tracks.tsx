@@ -5,19 +5,19 @@ import { raceActions } from '../../../redux/store/slices/race';
 import { CAR_WIDTH } from '../../../constants';
 import FinishMark from '../../../components/mark/finish-mark';
 import StartMark from '../../../components/mark/start-mark';
-import styles from './tracks.module.scss';
 import WinnerDialog from '../winner-dialog/winner-dialog';
 import TracksList from './tracks-list/tracks-list';
+import styles from './tracks.module.scss';
 
 const Tracks = () => {
   const { width } = useSelector((state: RootState) => state.windowWidth);
   const { isOpen } = useSelector((state: RootState) => state.garage);
 
-  const dispatch = useDispatch<AppDispatch>();
-  const { updateDifference } = raceActions;
-
   const startMarkRef = useRef<HTMLDivElement>(null);
   const finishMarkRef = useRef<HTMLDivElement>(null);
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { updateDifference } = raceActions;
 
   useEffect(() => {
     if (startMarkRef.current && finishMarkRef.current && isOpen) {

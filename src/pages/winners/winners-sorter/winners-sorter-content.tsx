@@ -47,25 +47,25 @@ const WinnersSorter: FC<IWinnersSorterProps> = ({ onChange }) => {
       <FormControlLabel
         value={generateSortOptionValue(WINS_ASC)}
         control={<Radio />}
-        label='Wins: Low to high'
+        label='Wins: low to high'
         checked={sort === WINS_ASC.sort && order === WINS_ASC.order}
       />
       <FormControlLabel
         value={generateSortOptionValue(WINS_DESC)}
         control={<Radio />}
-        label='Wins: High to low'
+        label='Wins: high to low'
         checked={sort === WINS_DESC.sort && order === WINS_DESC.order}
       />
       <FormControlLabel
         value={generateSortOptionValue(TIME_ASC)}
         control={<Radio />}
-        label='Time: Low to high'
+        label='Time: low to high'
         checked={sort === TIME_ASC.sort && order === TIME_ASC.order}
       />
       <FormControlLabel
         value={generateSortOptionValue(TIME_DESC)}
         control={<Radio />}
-        label='Time: High to low'
+        label='Time: high to low'
         checked={sort === TIME_DESC.sort && order === TIME_DESC.order}
       />
     </RadioGroup>
