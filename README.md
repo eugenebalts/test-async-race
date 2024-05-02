@@ -106,23 +106,23 @@
 
 ## Getting Started
 
+Start the server according to [README](https://github.com/mikhama/async-race-api/blob/main/README.md) following [Link](https://github.com/mikhama/async-race-api).
+
 To get a local copy of the project perform the following actions:
 
-1. Start the server according to README following  [Link](https://github.com/mikhama/async-race-api) 
-
-2. Clone the repo
+1. Clone the repo
 
 ```
 git clone https://github.com/eugenebalts/test-async-race.git
 ```
 
-3. Install npm packages
+2. Install npm packages
 
 ```
 npm install
 ```
 
-4. Run the project locally
+3. Run the project locally
 
 ```
 npm run start
