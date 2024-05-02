@@ -18,6 +18,10 @@
   color: $color-white;
   font-style: italic;
   text-shadow: 10px 3px 5px $color-secondary;
+
+  @include tablet {
+    font-size: 18px;
+  }
 }
 
 .main-content {
