@@ -1,0 +1,37 @@
+@import './fonts';
+
+// COLORS
+$color-black: #000000;
+$color-black--semi-transparent: rgba(0, 0, 0, 0.5);
+$color-white: #ffffff;
+$color-grey: #909090;
+
+$color-primary: #1976d2;
+$color-secondary: #9c27b0;
+
+$color-background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+
+// FONTS
+$font-family-press: 'Press Start 2P', serif;
+$font-family-jersey: 'Jersey 20', sans-serif;
+
+// BREAKPOINTS
+
+$max-container-width: 1220px;
+
+$tablet-width: 768px;
+$mobile-width: 500px;
+
+// MEDIA
+
+@mixin tablet {
+  @media (max-width: $tablet-width) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: $mobile-width) {
+    @content;
+  }
+}

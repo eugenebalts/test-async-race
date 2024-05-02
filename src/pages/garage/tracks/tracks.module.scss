@@ -1,0 +1,12 @@
+@import '../../../styles/base/variables';
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100px;
+  border: 2px dashed $color-white;
+  border-right: none;
+  border-left: none;
+}

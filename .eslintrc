@@ -1,0 +1,56 @@
+{
+  "ignorePatterns": ["build/"],
+  "parser": "@typescript-eslint/parser",
+  "extends": ["airbnb", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "prettier"],
+  "plugins": ["@typescript-eslint", "react", "react-hooks"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "max-lines-per-function": ["warn", { "max": 40 }],
+    "max-len": ["warn", { "tabWidth": 2, "code": 100 }],
+    "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 2, 10, 100, 1000], "ignoreArrayIndexes": true, "enforceConst": true }],
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+    "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never" }],
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": ["arrow-function", "function-declaration"],
+        "unnamedComponents": "arrow-function",
+      },
+    ],
+    "react-hooks/exhaustive-deps": "off",
+    "react/require-default-props": "off",
+    "no-unused-vars": "off",
+    "no-param-reassign": "off",
+    "no-await-in-loop": "off",
+    "no-duplicate-imports": "warn",
+    "quotes": ["warn", "single"],
+    "jsx-quotes": ["warn", "prefer-single"],
+    "arrow-body-style": ["warn", "as-needed"],
+    "class-methods-use-this": ["off"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "warn"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".module.scss"]
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+      }
+    }
+  ]
+}

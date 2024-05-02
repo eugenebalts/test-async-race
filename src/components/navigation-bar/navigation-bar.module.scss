@@ -1,0 +1,9 @@
+.wrapper {
+  & * {
+    font-family: unset !important;
+  }
+}
+
+.content {
+  background-color: transparent !important;
+}

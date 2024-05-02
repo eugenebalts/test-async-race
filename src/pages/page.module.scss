@@ -1,0 +1,27 @@
+@import '../styles/base/variables';
+
+.wrapper,
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  &_hidden {
+    position: absolute;
+    height: 0;
+    top: -200%;
+    left: -200%;
+  }
+}
+
+.title {
+  color: $color-white;
+  font-style: italic;
+  text-shadow: 10px 3px 5px $color-secondary;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}

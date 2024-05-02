@@ -1,0 +1,25 @@
+@import '../../../styles/base/variables';
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  @include mobile {
+    display: flex;
+    flex-direction: column-reverse;
+    grid-template-columns: unset;
+    justify-items: unset;
+  }
+}
+
+.item {
+  height: 100%;
+
+  & > div {
+    height: 100%;
+  }
+}

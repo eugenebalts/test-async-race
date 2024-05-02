@@ -1,0 +1,17 @@
+.wrapper {
+  & * {
+    font-family: unset !important;
+    font-size: 12px !important;
+  }
+}
+
+.list,
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.item {
+  padding-left: 1rem;
+}

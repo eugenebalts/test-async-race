@@ -1,0 +1,31 @@
+@import '../../styles/base/variables';
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.logo {
+  text-align: right;
+  font-style: italic;
+  font-size: 35px;
+  color: $color-white;
+  text-shadow: 15px 3px 5px $color-black;
+  line-height: 0.9em;
+
+  @include tablet {
+    font-size: 30px;
+  }
+
+  span {
+    font-size: 25px;
+
+    @include tablet {
+      font-size: 20px;
+    }
+  }
+}
