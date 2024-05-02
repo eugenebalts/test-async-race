@@ -6,7 +6,7 @@ import CustomSnackbar from '../components/snackbar/snackbar';
 import { ERROR_MESSAGE } from '../constants';
 import styles from './page.module.scss';
 
-const Page: FC<IPageProps> = ({ title, visible, children, error = false }) => {
+const Page: FC<IPageProps> = ({ visible, children, error = false }) => {
   const pageClasses = clsx('page-classes', {
     [styles.wrapper]: true,
     [styles.wrapper_hidden]: !visible,
@@ -15,10 +15,7 @@ const Page: FC<IPageProps> = ({ title, visible, children, error = false }) => {
   return (
     <div className={pageClasses}>
       <NavigationBar />
-      <div className={styles.content}>
-        {title && <h2 className={styles.title}>{title}</h2>}
-        {children}
-      </div>
+      <div className={styles.content}>{children}</div>
       <CustomSnackbar cause={error} message={ERROR_MESSAGE} />
     </div>
   );

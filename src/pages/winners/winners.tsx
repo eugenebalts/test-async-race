@@ -11,6 +11,7 @@ import { TABLET_WIDTH } from '../../constants';
 import { getWinners } from '../../redux/store/slices/winners/actions';
 import StatusIndicator from '../../components/status-indicator/status-indicator';
 import styles from './winners.module.scss';
+import pageStyles from '../page.module.scss';
 
 const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   const { totalCount, sortOptions, currentPage, limit, status, error, reloadTrigger } = useSelector(
@@ -42,12 +43,8 @@ const WinnersPage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   }, [sortOptions, currentPage, visible, reloadTrigger]);
 
   return (
-    <Page
-      visible={visible}
-      onReload={loadPage}
-      error={visible && error}
-      title={`Winners: ${totalCount}`}
-    >
+    <Page visible={visible} onReload={loadPage} error={visible && error}>
+      <h2 className={pageStyles.title}>Winners: {totalCount}</h2>
       <div className={styles.content}>
         {width > TABLET_WIDTH ? <DesktopWinnersSorter /> : <MobileWinnersSorter />}
         {status === 'fulfilled' ? (

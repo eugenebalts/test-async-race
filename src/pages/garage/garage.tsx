@@ -42,12 +42,8 @@ const GaragePage: FC<Pick<IPageProps, 'visible'>> = ({ visible }) => {
   }, [visible]);
 
   return (
-    <Page
-      title={`Garage: ${totalCount}`}
-      visible={visible}
-      error={visible && (error || raceErrors)}
-      onReload={loadPage}
-    >
+    <Page visible={visible} error={visible && (error || raceErrors)} onReload={loadPage}>
+      <h2 className={pageStyles.title}>Garage: {totalCount}</h2>
       <GarageControls />
       <div className={pageStyles['main-content']}>
         {status === 'fulfilled' || !status ? (
