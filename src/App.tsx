@@ -31,10 +31,11 @@ const App = () => {
     }
   }, [pathname]);
 
+  // React-Dom Routes are not used to save animation state
   return (
     <Layout>
       <GaragePage visible={pathname === NavigationLinks.GARAGE} />
-      <WinnersPage visible={pathname === NavigationLinks.WINNERS} />
+      {pathname === NavigationLinks.WINNERS && <WinnersPage />}
     </Layout>
   );
 };
